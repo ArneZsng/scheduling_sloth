@@ -1,15 +1,13 @@
 package de.nak.scheduling_sloth.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Lecturer entity
  *
  * Created by arne on 10/28/14.
  */
+@Entity
 public class Lecturer {
     /** The identifier. */
     private Long id;
