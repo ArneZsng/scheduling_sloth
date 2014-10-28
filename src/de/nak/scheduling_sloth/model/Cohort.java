@@ -7,13 +7,15 @@ import java.sql.Time;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Course {
+public class Cohort {
     /** The identifier. */
     private Long id;
-    /** The name of the course. */
+    /** The name of the cohort. */
     private String name;
-    /** The needed change time of the course. */
-    private Time changeTime;
+    /** The name of the major. */
+    private String major;
+    /** Finall Year. */
+    private Time year;
 
 
     @Id
@@ -33,11 +35,19 @@ public class Course {
         this.name = name;
     }
 
-    @Column(name = "change_time", scale = 1, nullable = false)
-    public Time getChangeTime() {
-        return changeTime;
+    @Column(length = 100, nullable = false)
+    public String getMajor() {
+        return major;
     }
-    public void setChangeTime(Time changeTime) {
-        this.changeTime = changeTime;
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    @Column(name = "year", scale = 1, nullable = false)
+    public Time getYear() {
+        return year;
+    }
+    public void setYear(Time year) {
+        this.year = year;
     }
 }

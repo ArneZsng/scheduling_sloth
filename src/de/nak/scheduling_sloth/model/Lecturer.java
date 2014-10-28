@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 /**
  * Lecturer entity
@@ -14,7 +15,7 @@ public class Lecturer {
     /** The lecturer's name. */
     private String name;
     /** The lecutrer's break time. */
-    private Integer breakTime;
+    private Time breakTime;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,17 +31,15 @@ public class Lecturer {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
     @Column(name = "break_time", scale = 1, nullable = false)
-    public Integer getBreakTime() {
+    public Time getBreakTime() {
         return breakTime;
     }
-
-    public void setBreakTime(Integer breakTime) {
+    public void setBreakTime(Time breakTime) {
         this.breakTime = breakTime;
     }
 }

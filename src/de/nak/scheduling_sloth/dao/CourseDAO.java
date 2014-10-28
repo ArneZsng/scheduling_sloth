@@ -51,7 +51,7 @@ public class CourseDAO {
     /**
      * Loads all courses from the database.
      *
-     * @return a list or courses which is empty if no room was found.
+     * @return a list or courses which is empty if no course was found.
      */
     @SuppressWarnings("unchecked")
     public List<Course> loadAll() {

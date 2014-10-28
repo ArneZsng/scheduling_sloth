@@ -88,8 +88,8 @@ public class LecturerAction extends ActionSupport {
         return lecturerId;
     }
 
-    public void setLecturerId(Long lecturerId) {
-        this.lecturerId = lecturerId;
+    public void setLecturerId(Long lecturerID) {
+        this.lecturerId = lecturerID;
     }
 
     public void setLecturerService(LecturerService lecturerService) {

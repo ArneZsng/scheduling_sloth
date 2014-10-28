@@ -7,14 +7,16 @@ import java.sql.Time;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Room {
+public class Century {
     /** The identifier. */
     private Long id;
-    /** The name of the room. */
+    /** The name of the century. */
     private String name;
-    /** The number of avaible seats. */
-    private Integer avaiableSeats;
-    /** The needed change time of the room. */
+    /** The name of the cohort. */
+    private String cohort;
+    /** Number of students */
+    private Integer numberOfStudents;
+    /** The needed change time of the century. */
     private Time changeTime;
 
 
@@ -23,7 +25,7 @@ public class Room {
     public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,6 +37,14 @@ public class Room {
         this.name = name;
     }
 
+    @Column(length = 100, nullable = false)
+    public String getCohort() {
+        return cohort;
+    }
+    public void setCohort(String cohort) {
+        this.cohort = cohort;
+    }
+
     @Column(name = "change_time", scale = 1, nullable = false)
     public Time getChangeTime() {
         return changeTime;
@@ -43,11 +53,11 @@ public class Room {
         this.changeTime = changeTime;
     }
 
-    @Column(name = "avaible_seats", scale = 1, nullable = false)
-    public Integer getAvaiableSeats() {
-        return avaiableSeats;
+    @Column(name = "number_of_students", scale = 1, nullable = false)
+    public Integer getNumberOfStudents() {
+        return numberOfStudents;
     }
-    public void setAvaiableSeats(Integer avaiableSeats) {
-        this.avaiableSeats = avaiableSeats;
+    public void setNumberOfStudents(Integer numberOfStudents) {
+        this.numberOfStudents = numberOfStudents;
     }
 }
