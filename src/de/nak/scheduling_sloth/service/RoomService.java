@@ -12,7 +12,7 @@ public interface RoomService {
 	/**
 	 * Creates or updates a rooms.
 	 *
-	 * @param room The car.
+	 * @param room The room.
 	 */
 	void saveRoom(Room room);
 
