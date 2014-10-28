@@ -25,8 +25,8 @@
 
 		<!-- Loads a existing car and shows it in the car form. -->
 		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
-			<result type="tiles">carForm</result>
-			<result type="chain" name="input">ShowLecturersList</result>
+			<result type="tiles">lecturerForm</result>
+			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Deletes the selected lecturer and shows the lecturer list again. -->
@@ -36,7 +36,7 @@
 		</action>
 
 		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
-		<action name="CancelLecturer" class="de.nak.scheduling_sloth.action.CarAction" method="cancel">
+		<action name="CancelLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="cancel">
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 

@@ -12,12 +12,12 @@
 	</definition>
 
 	<!-- The list screen for all cars. -->
-	<definition name="carList" extends="mainLayout">
+	<definition name="lecturerList" extends="mainLayout">
 		<put-attribute name="content" value="/lecturerList.jsp"/>
 	</definition>
 
 	<!-- The form for a single car. -->
-	<definition name="carForm" extends="mainLayout">
+	<definition name="lecturerForm" extends="mainLayout">
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
 	</definition>
 

@@ -8,7 +8,7 @@
 	<s:textfield name="lecturer.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true"/>
 	<s:textfield name="lecturer.cohort" key="lbl.cohort" size="3" maxlength="10" requiredLabel="true"/>
     <s:textfield name="lecturer.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true"/>
-    <s:textfield name="lecturer.breakTimes" key="lbl.breakTimes" size="3" maxlength="10" requiredLabel="true"/>
+    <s:textfield name="lecturer.breakTimes" key="lbl.breakTimes" size="4" maxlength="4" requiredLabel="true"/>
 
 	<%-- The buttons --%>
 	<s:submit key="btn.save" action="SaveCentury"/>
