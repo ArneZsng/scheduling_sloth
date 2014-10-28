@@ -41,18 +41,18 @@
 
 	<!-- The pointcut definition -->
 	<aop:config>
-		<aop:pointcut id="serviceMethods" expression="execution(* de.nak.cars.service.*.*(..))"/>
+		<aop:pointcut id="serviceMethods" expression="execution(* de.nak.scheduling_sloth.service.*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
 	</aop:config>
 
-	<!-- Car DAO -->
-	<bean id="carDAO" class="de.nak.cars.dao.CarDAO">
+	<!-- Lecturer DAO -->
+	<bean id="lecturerDAO" class="de.nak.scheduling_sloth.dao.LecturerDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
-	<!-- Car Service -->
-	<bean id="carService" class="de.nak.cars.service.CarServiceImpl">
-		<property name="carDAO" ref="carDAO"/>
+	<!-- Lecturer Service -->
+	<bean id="lecturerService" class="de.nak.scheduling_sloth.service.LecturerServiceImpl">
+		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 
 </beans>
