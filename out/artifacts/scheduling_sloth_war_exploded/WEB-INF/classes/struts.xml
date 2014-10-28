@@ -7,37 +7,37 @@
 <struts>
 	<package name="default" extends="tiles-default">
 
-		<!-- Action that displays the list of cars. -->
-		<action name="ShowCarList" class="de.nak.cars.action.ShowCarListAction">
-			<result type="tiles">carList</result>
+		<!-- Action that displays the list of lecturers. -->
+		<action name="ShowLecturerList" class="de.nak.scheduling_sloth.action.ShowLecturerListAction">
+			<result type="tiles">lecturerList</result>
 		</action>
 
-		<!-- Shows the empty form for a new car. -->
-		<action name="AddCar">
-			<result type="tiles">carForm</result>
+		<!-- Shows the empty form for a new lecturer. -->
+		<action name="AddLecturer">
+			<result type="tiles">lecturerForm</result>
 		</action>
 
-		<!-- Saves the new or updated car into the database and shows the car list again. -->
-		<action name="SaveCar" class="de.nak.cars.action.CarAction" method="save">
-			<result type="redirect">ShowCarList.action</result>
-			<result type="tiles" name="input">carForm</result>
+		<!-- Saves the new or updated lecturer into the database and shows the lecturer list again. -->
+		<action name="SaveLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="save">
+			<result type="redirect">ShowLecturerList.action</result>
+			<result type="tiles" name="input">lecturerForm</result>
 		</action>
 
 		<!-- Loads a existing car and shows it in the car form. -->
-		<action name="EditCar" class="de.nak.cars.action.CarAction" method="load">
+		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
 			<result type="tiles">carForm</result>
-			<result type="chain" name="input">ShowCarList</result>
+			<result type="chain" name="input">ShowLecturersList</result>
 		</action>
 
-		<!-- Deletes the selected car and shows the car list again. -->
-		<action name="DeleteCar" class="de.nak.cars.action.CarAction" method="delete">
-			<result type="redirect">ShowCarList.action</result>
-			<result type="chain" name="input">ShowCarList</result>
+		<!-- Deletes the selected lecturer and shows the lecturer list again. -->
+		<action name="DeleteLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="delete">
+			<result type="redirect">ShowLecturerList.action</result>
+			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
-		<action name="CancelCar" class="de.nak.cars.action.CarAction" method="cancel">
-			<result type="redirect">ShowCarList.action</result>
+		<action name="CancelLecturer" class="de.nak.scheduling_sloth.action.CarAction" method="cancel">
+			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 
 	</package>

@@ -8,7 +8,7 @@
 	<package name="default" extends="tiles-default">
 
 		<!-- Action that displays the list of lecturers. -->
-		<action name="ShowLecturerList" class="de.nak.cars.action.ShowLecturerListAction">
+		<action name="ShowLecturerList" class="de.nak.scheduling_sloth.action.ShowLecturerListAction">
 			<result type="tiles">lecturerList</result>
 		</action>
 
@@ -18,25 +18,25 @@
 		</action>
 
 		<!-- Saves the new or updated lecturer into the database and shows the lecturer list again. -->
-		<action name="SaveLecturer" class="de.nak.lecturers.action.LecturerAction" method="save">
+		<action name="SaveLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="save">
 			<result type="redirect">ShowLecturerList.action</result>
 			<result type="tiles" name="input">lecturerForm</result>
 		</action>
 
 		<!-- Loads a existing car and shows it in the car form. -->
-		<action name="EditCar" class="de.nak.lecturers.action.LecturerAction" method="load">
-			<result type="tiles">carForm</result>
-			<result type="chain" name="input">ShowLecturersList</result>
+		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
+			<result type="tiles">lecturerForm</result>
+			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Deletes the selected lecturer and shows the lecturer list again. -->
-		<action name="DeleteLecturer" class="de.nak.lecturers.action.LecturerAction" method="delete">
+		<action name="DeleteLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="delete">
 			<result type="redirect">ShowLecturerList.action</result>
 			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
-		<action name="CancelLecturer" class="de.nak.lecturers.action.CarAction" method="cancel">
+		<action name="CancelLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="cancel">
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 
