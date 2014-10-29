@@ -1,7 +1,6 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -15,7 +14,7 @@ public class Cohort {
     /** The name of the major. */
     private String major;
     /** Finall Year. */
-    private Time year;
+    private Integer year;
 
 
     @Id
@@ -44,10 +43,10 @@ public class Cohort {
     }
 
     @Column(name = "year", scale = 1, nullable = false)
-    public Time getYear() {
+    public Integer getYear() {
         return year;
     }
-    public void setYear(Time year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 }

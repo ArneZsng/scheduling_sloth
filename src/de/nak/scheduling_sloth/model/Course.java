@@ -1,7 +1,6 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -13,7 +12,7 @@ public class Course {
     /** The name of the course. */
     private String name;
     /** The needed change time of the course. */
-    private Time changeTime;
+    private Integer changeTime;
 
 
     @Id
@@ -34,10 +33,10 @@ public class Course {
     }
 
     @Column(name = "change_time", scale = 1, nullable = false)
-    public Time getChangeTime() {
+    public Integer getChangeTime() {
         return changeTime;
     }
-    public void setChangeTime(Time changeTime) {
+    public void setChangeTime(Integer changeTime) {
         this.changeTime = changeTime;
     }
 }

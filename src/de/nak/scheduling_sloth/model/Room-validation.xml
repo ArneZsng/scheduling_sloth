@@ -14,8 +14,6 @@
             <message key="msg.validator.required"/>
         </field-validator>
         <field-validator type="int">
-            <param name="min">0</param>
-            <param name="max">1000</param>
             <message key="msg.validator.intRange"/>
         </field-validator>
     </field>
