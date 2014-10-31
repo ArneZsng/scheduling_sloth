@@ -34,7 +34,7 @@ public class Lecturer {
         this.name = name;
     }
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "break_time", length = 100, nullable = false)
     public Integer getBreakTime() {
         return breakTime;
     }

@@ -18,7 +18,6 @@ public class RoomDAO {
      *
      * @param room The room to persist. The given entity can be transient or detached.
      */
-
     public void save(Room room) {sessionFactory.getCurrentSession().saveOrUpdate(room);}
 
     /**
@@ -36,7 +35,6 @@ public class RoomDAO {
      *
      * @param room The room to be deleted.
      */
-
     public void delete(Room room) {sessionFactory.getCurrentSession().delete(room);}
 
 
@@ -45,7 +43,6 @@ public class RoomDAO {
      *
      * @param room The room to be deleted.
      */
-
     public void edit(Room room) {sessionFactory.getCurrentSession().update(room);}
 
     /**

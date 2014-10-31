@@ -3,6 +3,8 @@ package de.nak.scheduling_sloth.model;
 import javax.persistence.*;
 
 /**
+ * Room entity
+ *
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
@@ -11,8 +13,8 @@ public class Room {
     private Long id;
     /** The name of the room. */
     private String name;
-    /** The number of avaible seats. */
-    private Integer avaiableSeats;
+    /** The number of available seats. */
+    private Integer availableSeats;
     /** The needed change time of the room. */
     private Integer changeTime;
 
@@ -22,7 +24,7 @@ public class Room {
     public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,6 +36,14 @@ public class Room {
         this.name = name;
     }
 
+    @Column(name = "available_seats", scale = 1, nullable = false)
+    public Integer getAvailableSeats() {
+        return availableSeats;
+    }
+    public void setAvailableSeats(Integer availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     @Column(name = "change_time", scale = 1, nullable = false)
     public Integer getChangeTime() {
         return changeTime;
@@ -42,11 +52,4 @@ public class Room {
         this.changeTime = changeTime;
     }
 
-    @Column(name = "avaible_seats", scale = 1, nullable = false)
-    public Integer getAvaiableSeats() {
-        return avaiableSeats;
-    }
-    public void setAvaiableSeats(Integer avaiableSeats) {
-        this.avaiableSeats = avaiableSeats;
-    }
 }

@@ -9,11 +9,13 @@
 			<message key="msg.validator.required"/>
 		</field-validator>
 	</field>
-    <field name="avaiableSeats">
+    <field name="availableSeats">
         <field-validator type="required">
             <message key="msg.validator.required"/>
         </field-validator>
         <field-validator type="int">
+            <param name="min">0</param>
+            <param name="max">99999</param>
             <message key="msg.validator.intRange"/>
         </field-validator>
     </field>
@@ -23,7 +25,7 @@
 		</field-validator>
 		<field-validator type="int">
 			<param name="min">0</param>
-			<param name="max">1000</param>
+			<param name="max">1440</param>
 			<message key="msg.validator.intRange"/>
 		</field-validator>
 	</field>

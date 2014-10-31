@@ -18,6 +18,7 @@ public class ShowLecturerListAction implements Action{
 
     @Override
     public String execute() throws Exception {
+        System.out.println(lecturerService);
         lecturerList = lecturerService.loadAllLecturers();
         return SUCCESS;
     }

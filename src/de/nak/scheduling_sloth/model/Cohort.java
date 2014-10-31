@@ -13,7 +13,7 @@ public class Cohort {
     private String name;
     /** The name of the major. */
     private String major;
-    /** Finall Year. */
+    /** Final Year. */
     private Integer year;
 
 

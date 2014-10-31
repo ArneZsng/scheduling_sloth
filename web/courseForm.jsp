@@ -3,7 +3,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <s:form>
-	<%-- Form fields for the car's attributes --%>
+	<%-- Form fields for the course's attributes --%>
 	<s:hidden name="course.id"/>
 	<s:textfield name="course.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true"/>
 	<s:textfield name="course.changeTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"/>

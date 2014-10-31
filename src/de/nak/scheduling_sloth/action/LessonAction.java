@@ -9,6 +9,7 @@ import de.nak.scheduling_sloth.service.LessonService;
  * Created by patrickghahramanian on 28.10.14.
  */
 public class LessonAction extends ActionSupport {
+    private static final long serialVersionUID = -1552918275462992805L;
     /** The current room. */
     private Lesson lesson;
 

@@ -8,6 +8,7 @@ import de.nak.scheduling_sloth.service.RoomService;
  * Created by patrickghahramanian on 28.10.14.
  */
 public class RoomAction extends ActionSupport {
+    private static final long serialVersionUID = 6411696302084986323L;
     /** The current room. */
     private Room room;
 

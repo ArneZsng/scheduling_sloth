@@ -55,4 +55,34 @@
 		<property name="lecturerDAO" ref="lecturerDAO"/>
 	</bean>
 
+    <!-- Room DAO -->
+    <bean id="roomDAO" class="de.nak.scheduling_sloth.dao.RoomDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Room Service -->
+    <bean id="roomService" class="de.nak.scheduling_sloth.service.RoomServiceImpl">
+        <property name="roomDAO" ref="roomDAO"/>
+    </bean>
+
+    <!-- Cohort DAO -->
+    <bean id="cohortDAO" class="de.nak.scheduling_sloth.dao.CohortDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Cohort Service -->
+    <bean id="cohortService" class="de.nak.scheduling_sloth.service.CohortServiceImpl">
+        <property name="cohortDAO" ref="cohortDAO"/>
+    </bean>
+
+    <!-- Century DAO -->
+    <bean id="centuryDAO" class="de.nak.scheduling_sloth.dao.CenturyDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Century Service -->
+    <bean id="centuryService" class="de.nak.scheduling_sloth.service.CenturyServiceImpl">
+        <property name="centuryDAO" ref="centuryDAO"/>
+    </bean>
+
 </beans>

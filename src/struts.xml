@@ -40,5 +40,104 @@
 			<result type="redirect">ShowLecturerList.action</result>
 		</action>
 
+        <!-- Action that displays the list of rooms. -->
+        <action name="ShowRoomList" class="de.nak.scheduling_sloth.action.ShowRoomListAction">
+            <result type="tiles">roomList</result>
+        </action>
+
+        <!-- Shows the empty form for a new room. -->
+        <action name="AddRoom">
+            <result type="tiles">roomForm</result>
+        </action>
+
+        <!-- Saves the new or updated room into the database and shows the room list again. -->
+        <action name="SaveRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="save">
+            <result type="redirect">ShowRoomList.action</result>
+            <result type="tiles" name="input">roomForm</result>
+        </action>
+
+        <!-- Loads a existing car and shows it in the car form. -->
+        <action name="EditRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="load">
+            <result type="tiles">roomForm</result>
+            <result type="chain" name="input">ShowRoomList</result>
+        </action>
+
+        <!-- Deletes the selected room and shows the room list again. -->
+        <action name="DeleteRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="delete">
+            <result type="redirect">ShowRoomList.action</result>
+            <result type="chain" name="input">ShowRoomList</result>
+        </action>
+
+        <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+        <action name="CancelRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="cancel">
+            <result type="redirect">ShowRoomList.action</result>
+        </action>
+
+        <!-- Action that displays the list of cohorts. -->
+        <action name="ShowCohortList" class="de.nak.scheduling_sloth.action.ShowCohortListAction">
+            <result type="tiles">cohortList</result>
+        </action>
+
+        <!-- Shows the empty form for a new cohort. -->
+        <action name="AddCohort">
+            <result type="tiles">cohortForm</result>
+        </action>
+
+        <!-- Saves the new or updated cohort into the database and shows the cohort list again. -->
+        <action name="SaveCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="save">
+            <result type="redirect">ShowCohortList.action</result>
+            <result type="tiles" name="input">cohortForm</result>
+        </action>
+
+        <!-- Loads a existing car and shows it in the car form. -->
+        <action name="EditCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="load">
+            <result type="tiles">cohortForm</result>
+            <result type="chain" name="input">ShowCohortList</result>
+        </action>
+
+        <!-- Deletes the selected cohort and shows the cohort list again. -->
+        <action name="DeleteCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="delete">
+            <result type="redirect">ShowCohortList.action</result>
+            <result type="chain" name="input">ShowCohortList</result>
+        </action>
+
+        <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+        <action name="CancelCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="cancel">
+            <result type="redirect">ShowCohortList.action</result>
+        </action>
+
+        <!-- Action that displays the list of centuries. -->
+        <action name="ShowCenturyList" class="de.nak.scheduling_sloth.action.ShowCenturyListAction">
+            <result type="tiles">centuryList</result>
+        </action>
+
+        <!-- Shows the empty form for a new century. -->
+        <action name="AddCentury">
+            <result type="tiles">centuryForm</result>
+        </action>
+
+        <!-- Saves the new or updated century into the database and shows the century list again. -->
+        <action name="SaveCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="save">
+            <result type="redirect">ShowCenturyList.action</result>
+            <result type="tiles" name="input">centuryForm</result>
+        </action>
+
+        <!-- Loads a existing car and shows it in the car form. -->
+        <action name="EditCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="load">
+            <result type="tiles">centuryForm</result>
+            <result type="chain" name="input">ShowCenturyList</result>
+        </action>
+
+        <!-- Deletes the selected century and shows the century list again. -->
+        <action name="DeleteCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="delete">
+            <result type="redirect">ShowCenturyList.action</result>
+            <result type="chain" name="input">ShowCenturyList</result>
+        </action>
+
+        <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
+        <action name="CancelCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="cancel">
+            <result type="redirect">ShowCenturyList.action</result>
+        </action>
+
 	</package>
 </struts>

@@ -3,13 +3,13 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.ActionSupport;
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.service.CenturyService;
-import de.nak.scheduling_sloth.service.CourseService;
 
 
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
 public class CenturyAction extends ActionSupport {
+    private static final long serialVersionUID = 579538793082702877L;
     /** The current century. */
     private Century century;
 
@@ -89,7 +89,7 @@ public class CenturyAction extends ActionSupport {
         this.centuryId = centuryId;
     }
 
-    public void setCourseService(CourseService courseService) {
+    public void setCenturyService(CenturyService centuryService) {
         this.centuryService = centuryService;
     }
 }
