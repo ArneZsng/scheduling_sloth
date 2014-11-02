@@ -2,7 +2,9 @@ package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.model.Century;
+import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CenturyService;
+import de.nak.scheduling_sloth.service.CohortService;
 
 import java.util.List;
 
@@ -16,8 +18,16 @@ public class ShowCenturyListAction implements Action {
     /** The century service. */
     private CenturyService centuryService;
 
+    /** Select list of cohorts. */
+    private List<Cohort> cohortList;
+
+    /** The cohort service. */
+    private CohortService cohortService;
+
     @Override
-    public String execute() throws Exception {centuryList = centuryService.loadAllCenturies();
+    public String execute() throws Exception {
+        centuryList = centuryService.loadAllCenturies();
+        cohortList = cohortService.loadAllCohorts();
         return SUCCESS;
     }
 
@@ -27,5 +37,11 @@ public class ShowCenturyListAction implements Action {
 
     public void setCenturyService(CenturyService centuryService) {
         this.centuryService = centuryService;
+    }
+
+    public List<Cohort> getCohortList() { return cohortList; }
+
+    public void setCohortService(CohortService cohortService) {
+        this.cohortService = cohortService;
     }
 }

@@ -16,7 +16,7 @@
 			<tr>
 				<td><s:radio name="centuryId" list="#{id:''}" theme="simple"/></td>
 				<td><s:property value="name"/></td>
-                <td><s:property value="cohort"/></td>
+                <td><s:property value="cohort.name"/></td>
 				<td><s:property value="numberOfStudents"/></td>
                 <td><s:property value="breakTime"/></td>
 			</tr>

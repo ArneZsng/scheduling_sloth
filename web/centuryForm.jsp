@@ -8,25 +8,25 @@
     <div class="form-group">
         <label for="century.name" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-            <s:textfield name="century.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="century.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
     <label for="century.cohort" class="col-sm-2 control-label">Cohort</label>
     <div class="col-sm-10">
-        <s:textfield name="century.cohort" key="lbl.cohort" size="3" maxlength="10" requiredLabel="true"  cssClass="form-control"/>
+        <s:select name="century.cohort.id" key="lbl.cohort" list="cohortList" listKey="id" listValue="name" requiredLabel="true" cssClass="form-control"/>
     </div>
     </div>
         <div class="form-group">
         <label for="century.numberOfStudents" class="col-sm-2 control-label">Number Of Students</label>
         <div class="col-sm-10">
-            <s:textfield name="century.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="century.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <label for="century.breakTime" class="col-sm-2 control-label">Break Time</label>
         <div class="col-sm-10">
-            <s:textfield name="century.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="century.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
 

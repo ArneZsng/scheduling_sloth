@@ -11,8 +11,8 @@ public class Century {
     private Long id;
     /** The name of the century. */
     private String name;
-    /** The name of the cohort. */
-    private String cohort;
+    /** The Cohort. */
+    private Cohort cohort;
     /** Number of students */
     private Integer numberOfStudents;
     /** The needed break time of the century. */
@@ -35,11 +35,12 @@ public class Century {
         this.name = name;
     }
 
-    @Column(length = 100, nullable = false)
-    public String getCohort() {
-        return cohort;
+    @ManyToOne
+    @JoinColumn(name = "cohort_id", nullable = false)
+    public Cohort getCohort() {
+        return this.cohort;
     }
-    public void setCohort(String cohort) {
+    public void setCohort(Cohort cohort) {
         this.cohort = cohort;
     }
 

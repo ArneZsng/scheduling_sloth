@@ -112,7 +112,7 @@
         </action>
 
         <!-- Shows the empty form for a new century. -->
-        <action name="AddCentury">
+        <action name="AddCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="add">
             <result type="tiles">centuryForm</result>
         </action>
 
