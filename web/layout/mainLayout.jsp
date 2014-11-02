@@ -7,7 +7,9 @@
 	<head>
 		<title><tiles:insertAttribute name="title"/></title>
 		<s:head/>
-	</head>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/bootstrap.css">
+
+    </head>
 	<body>
 		<!-- Header -->
 		<tiles:insertAttribute name="header"/>

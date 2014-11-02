@@ -4,7 +4,7 @@
 <s:form>
 	<s:actionerror/>
 	<%-- The lecturer table --%>
-	<table style="border-collapse: collapse; border: #CCC;" border="1">
+	<table class="table">
 		<tr>
 			<th></th>
 			<th><s:text name="lbl.name"/></th>
@@ -23,7 +23,7 @@
 		</s:iterator>
 	</table>
 	<%-- The buttons --%>
-	<s:submit key="btn.add" action="AddCentury"/>
-	<s:submit key="btn.edit" action="EditCentury"/>
-	<s:submit key="btn.delete" action="DeleteCentury"/>
+	<s:submit key="btn.add" action="AddCentury" cssClass="btn btn-primary"/>
+	<s:submit key="btn.edit" action="EditCentury" cssClass="btn btn-primary"/>
+	<s:submit key="btn.delete" action="DeleteCentury" cssClass="btn btn-primary"/>
 </s:form>
