@@ -9,8 +9,8 @@
             <message key="msg.validator.required"/>
         </field-validator>
     </field>
-    <field name="cohort">
-        <field-validator type="requiredstring">
+    <field name="cohort.id">
+        <field-validator type="required">
             <message key="msg.validator.required"/>
         </field-validator>
     </field>

@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -15,6 +17,8 @@ public class Cohort {
     private String major;
     /** Final Year. */
     private Integer year;
+    /** Centuries in this Cohort */
+    private Set<Century> centuries = new HashSet<Century>();
 
 
     @Id
@@ -48,5 +52,13 @@ public class Cohort {
     }
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cohort")
+    public Set<Century> getCenturies() {
+        return this.centuries;
+    }
+    public void setCenturies(Set<Century> centuries) {
+        this.centuries = centuries;
     }
 }

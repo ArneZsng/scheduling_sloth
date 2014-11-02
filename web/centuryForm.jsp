@@ -6,7 +6,7 @@
 	<%-- Form fields for the century's attributes --%>
 	<s:hidden name="century.id"/>
 	<s:textfield name="century.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true"/>
-	<s:textfield name="century.cohort" key="lbl.cohort" size="3" maxlength="10" requiredLabel="true"/>
+    <s:select name="century.cohort.id" key="lbl.cohort" list="cohortList" listKey="id" listValue="name" requiredLabel="true"/>
     <s:textfield name="century.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true"/>
     <s:textfield name="century.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true"/>
 
