@@ -139,5 +139,10 @@
             <result type="redirect">ShowCenturyList.action</result>
         </action>
 
+        <!-- Shows the homepage. -->
+        <action name="Home">
+            <result type="tiles">home</result>
+        </action>
+
 	</package>
 </struts>

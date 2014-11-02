@@ -51,4 +51,9 @@
         <put-attribute name="content" value="/centuryForm.jsp"/>
     </definition>
 
+    <!-- The homepage. -->
+    <definition name="home" extends="mainLayout">
+        <put-attribute name="content" value="/home.jsp"/>
+    </definition>
+
 </tiles-definitions>
