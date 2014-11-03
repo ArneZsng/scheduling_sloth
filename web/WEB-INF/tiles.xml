@@ -53,7 +53,13 @@
 
     <!-- The homepage. -->
     <definition name="home" extends="mainLayout">
+        <put-attribute name="title" value="Willkommen" />
         <put-attribute name="content" value="/home.jsp"/>
+    </definition>
+
+    <!-- The Error Page. -->
+    <definition name="error" extends="mainLayout">
+        <put-attribute name="content" value="/error.jsp"/>
     </definition>
 
 </tiles-definitions>

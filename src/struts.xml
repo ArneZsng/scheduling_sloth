@@ -144,5 +144,9 @@
             <result type="tiles">home</result>
         </action>
 
+        <!-- Shows Error Page. -->
+        <action name="Error">
+            <result type="tiles">error</result>
+        </action>
 	</package>
 </struts>

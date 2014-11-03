@@ -2,6 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
+<h1><s:text name="txt.lecturer"/></h1>
+
 <s:form cssClass="form-horizontal" role="form">
 	<%-- Form fields for the lecturer's attributes --%>
     <s:hidden name="lecturer.id"/>
