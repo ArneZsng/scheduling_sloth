@@ -39,8 +39,8 @@
                 <s:param name="request_locale">de</s:param>
             </s:url>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="${urlen}"><s:text name="txt.english"/></a></li>
-                <li><a href="${urlde}"><s:text name="txt.german"/></a></li>
+                    <li class="${request.locale.language.equals('en')?'active':''}"><a href="${urlen}"><s:text name="txt.english"/></a></li>
+                    <li class="${request.locale.language.equals('de')?'active':''}"><a href="${urlde}"><s:text name="txt.german"/></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
