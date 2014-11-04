@@ -36,9 +36,14 @@ public class Lecturer {
 
     @Column(name = "break_time", length = 100, nullable = false)
     public Integer getBreakTime() {
+        System.out.println(breakTime);
         return breakTime;
     }
     public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
+        if(breakTime == null) {
+            this.breakTime = 15;
+        } else {
+            this.breakTime = breakTime;
+        }
     }
 }

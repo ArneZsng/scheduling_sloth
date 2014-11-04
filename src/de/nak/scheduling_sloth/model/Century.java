@@ -49,7 +49,11 @@ public class Century {
         return breakTime;
     }
     public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
+        if(breakTime == null) {
+            this.breakTime = 15;
+        } else {
+            this.breakTime = breakTime;
+        }
     }
 
     @Column(name = "number_of_students", scale = 1, nullable = false)
