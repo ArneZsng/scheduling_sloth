@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -17,6 +18,8 @@ public class Century extends SchedulingObject {
     private Integer numberOfStudents;
     /** The needed break time of the century. */
     private Integer breakTime;
+    /** The lessons of this century. */
+    private Set<Lesson> lessons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +41,7 @@ public class Century extends SchedulingObject {
     @ManyToOne
     @JoinColumn(name = "cohort_id", nullable = false)
     public Cohort getCohort() {
-        return this.cohort;
+        return cohort;
     }
     public void setCohort(Cohort cohort) {
         this.cohort = cohort;
@@ -62,5 +65,13 @@ public class Century extends SchedulingObject {
     }
     public void setNumberOfStudents(Integer numberOfStudents) {
         this.numberOfStudents = numberOfStudents;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }

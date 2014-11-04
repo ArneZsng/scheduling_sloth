@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -13,6 +14,8 @@ public class Course extends SchedulingObject {
     private String name;
     /** The needed break time of the course. */
     private Integer breakTime;
+    /** The lessons of this course */
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,5 +40,13 @@ public class Course extends SchedulingObject {
     }
     public void setBreakTime(Integer breakTime) {
         this.breakTime = breakTime;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lessons")
+    public Set<Course> getCourses() {
+        return courses;
+    }
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

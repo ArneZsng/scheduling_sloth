@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Lecturer entity
@@ -15,6 +16,8 @@ public class Lecturer extends SchedulingObject {
     private String name;
     /** The needed break time of the lecturer. */
     private Integer breakTime;
+    /** The lessons of this lecturer. */
+    private Set<Lesson> lessons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,4 +49,13 @@ public class Lecturer extends SchedulingObject {
             this.breakTime = breakTime;
         }
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
 }

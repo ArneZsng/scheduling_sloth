@@ -17,9 +17,10 @@ public class Cohort {
     private String major;
     /** Final Year. */
     private Integer year;
-    /** Centuries in this Cohort */
-    private Set<Century> centuries = new HashSet<Century>();
-
+    /** The centuries in this cohort */
+    private Set<Century> centuries;
+    /** The lessons of this cohort. */
+    private Set<Lesson> lessons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -60,5 +61,13 @@ public class Cohort {
     }
     public void setCenturies(Set<Century> centuries) {
         this.centuries = centuries;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    public Set<Lesson> getLessons() {
+        return lessons;
+    }
+    public void setLessons(Set<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
