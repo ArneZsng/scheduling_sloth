@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Century {
+public class Century extends SchedulingObject {
     /** The identifier. */
     private Long id;
     /** The name of the century. */

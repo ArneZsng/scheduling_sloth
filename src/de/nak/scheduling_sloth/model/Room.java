@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Room {
+public class Room extends SchedulingObject {
     /** The identifier. */
     private Long id;
     /** The name of the room. */
@@ -16,8 +16,7 @@ public class Room {
     /** The number of available seats. */
     private Integer availableSeats;
     /** The needed change time of the room. */
-    private Integer changeTime;
-
+    private Integer breakTime;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,12 +43,12 @@ public class Room {
         this.availableSeats = availableSeats;
     }
 
-    @Column(name = "change_time", scale = 1, nullable = false)
-    public Integer getChangeTime() {
-        return changeTime;
+    @Column(name = "break_time", scale = 1, nullable = false)
+    public Integer getBreakTime() {
+        return breakTime;
     }
-    public void setChangeTime(Integer changeTime) {
-        this.changeTime = changeTime;
+    public void setBreakTime(Integer breakTime) {
+        this.breakTime = breakTime;
     }
 
 }

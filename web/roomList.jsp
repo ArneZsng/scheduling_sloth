@@ -16,7 +16,7 @@
 				<td><s:radio name="roomId" list="#{id:''}" theme="simple"/></td>
 				<td><s:property value="name"/></td>
                 <td><s:property value="availableSeats"/></td>
-				<td><s:property value="changeTime"/></td>
+				<td><s:property value="breakTime"/></td>
 			</tr>
 		</s:iterator>
 	</table>

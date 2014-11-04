@@ -8,12 +8,12 @@ import javax.persistence.*;
  * Created by arne on 10/28/14.
  */
 @Entity
-public class Lecturer {
+public class Lecturer extends SchedulingObject {
     /** The identifier. */
     private Long id;
-    /** The lecturer's name. */
+    /** The name of the lecturer. */
     private String name;
-    /** The lecutrer's break time. */
+    /** The needed break time of the lecturer. */
     private Integer breakTime;
 
     @Id

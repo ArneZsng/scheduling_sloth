@@ -9,7 +9,7 @@
             <message key="msg.validator.required"/>
         </field-validator>
     </field>
-    <field name="changeTime">
+    <field name="breakTime">
         <field-validator type="required">
             <message key="msg.validator.required"/>
         </field-validator>

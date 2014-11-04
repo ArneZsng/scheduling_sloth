@@ -6,14 +6,13 @@ import javax.persistence.*;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Course {
+public class Course extends SchedulingObject {
     /** The identifier. */
     private Long id;
     /** The name of the course. */
     private String name;
-    /** The needed change time of the course. */
-    private Integer changeTime;
-
+    /** The needed break time of the course. */
+    private Integer breakTime;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,11 +31,11 @@ public class Course {
         this.name = name;
     }
 
-    @Column(name = "change_time", scale = 1, nullable = false)
-    public Integer getChangeTime() {
-        return changeTime;
+    @Column(name = "break_time", scale = 1, nullable = false)
+    public Integer getBreakTime() {
+        return breakTime;
     }
-    public void setChangeTime(Integer changeTime) {
-        this.changeTime = changeTime;
+    public void setBreakTime(Integer breakTime) {
+        this.breakTime = breakTime;
     }
 }

@@ -18,9 +18,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="room.changeTime" class="col-sm-2 control-label">Change Time</label>
+        <label for="room.breakTime" class="col-sm-2 control-label">Change Time</label>
         <div class="col-sm-10">
-            <s:textfield name="room.changeTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="room.breakTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
 
