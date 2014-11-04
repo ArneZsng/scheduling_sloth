@@ -3,7 +3,7 @@
 
 <s:form>
 	<s:actionerror/>
-	<%-- The lecturer table --%>
+	<%-- The century table --%>
 	<table class="table">
 		<tr>
 			<th></th>

@@ -16,7 +16,6 @@ public class Lesson {
     /** Enddate of the lesson. */
     private Timestamp endDate;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {

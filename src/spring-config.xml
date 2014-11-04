@@ -86,4 +86,24 @@
         <property name="centuryDAO" ref="centuryDAO"/>
     </bean>
 
+    <!-- Course DAO -->
+    <bean id="courseDAO" class="de.nak.scheduling_sloth.dao.CourseDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Course Service -->
+    <bean id="courseService" class="de.nak.scheduling_sloth.service.CourseServiceImpl">
+        <property name="courseDAO" ref="courseDAO"/>
+    </bean>
+
+    <!-- Lesson DAO -->
+    <bean id="lessonDAO" class="de.nak.scheduling_sloth.dao.LessonDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Lesson Service -->
+    <bean id="lessonService" class="de.nak.scheduling_sloth.service.LessonServiceImpl">
+        <property name="lessonDAO" ref="lessonDAO"/>
+    </bean>
+
 </beans>
