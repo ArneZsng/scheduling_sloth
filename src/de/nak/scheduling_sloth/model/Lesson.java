@@ -61,9 +61,9 @@ public class Lesson {
     }
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name="lesson_room",
-            joinColumns={@JoinColumn(name="lesson_id")},
-            inverseJoinColumns={@JoinColumn(name="room_id")})
+    @JoinTable(name="lesson_room", joinColumns={
+            @JoinColumn(name="lesson_id")}, inverseJoinColumns={
+            @JoinColumn(name="room_id")})
     public Set<Room> getRooms() {
         return rooms;
     }
@@ -90,7 +90,7 @@ public class Lesson {
     }
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = true)
+    @JoinColumn(name = "course_id", nullable = true) // Auf false setzen?
     public Course getCourse() {
         return course;
     }

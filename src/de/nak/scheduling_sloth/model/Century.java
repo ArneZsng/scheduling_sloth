@@ -67,7 +67,7 @@ public class Century extends SchedulingObject {
         this.numberOfStudents = numberOfStudents;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="century")
     public Set<Lesson> getLessons() {
         return lessons;
     }

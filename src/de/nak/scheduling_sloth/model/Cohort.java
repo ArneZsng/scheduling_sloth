@@ -63,7 +63,7 @@ public class Cohort {
         this.centuries = centuries;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="cohort")
     public Set<Lesson> getLessons() {
         return lessons;
     }

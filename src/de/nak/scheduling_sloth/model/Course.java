@@ -15,7 +15,7 @@ public class Course extends SchedulingObject {
     /** The needed break time of the course. */
     private Integer breakTime;
     /** The lessons of this course */
-    private Set<Course> courses;
+    private Set<Lesson> lessons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,11 +42,11 @@ public class Course extends SchedulingObject {
         this.breakTime = breakTime;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lessons")
-    public Set<Course> getCourses() {
-        return courses;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    public Set<Lesson> getLessons() {
+        return lessons;
     }
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    public void setLessons(Set<Lesson> courses) {
+        this.lessons = lessons;
     }
 }

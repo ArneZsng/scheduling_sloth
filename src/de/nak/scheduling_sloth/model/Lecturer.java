@@ -50,7 +50,7 @@ public class Lecturer extends SchedulingObject {
         }
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="lecturer")
     public Set<Lesson> getLessons() {
         return lessons;
     }

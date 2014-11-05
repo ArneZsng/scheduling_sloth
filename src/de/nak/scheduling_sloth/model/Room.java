@@ -54,7 +54,7 @@ public class Room extends SchedulingObject {
         this.breakTime = breakTime;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy="lessons")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="rooms")
     public Set<Lesson> getLessons() {
         return lessons;
     }
