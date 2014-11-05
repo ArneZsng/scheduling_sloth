@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Lesson {
+public class Lesson implements Comparable<Lesson>{
     /** The identifier. */
     private Long id;
     /** Statdate of the lesson. */
@@ -96,5 +96,9 @@ public class Lesson {
     }
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public int compareTo(Lesson lesson) {
+        return startDate.compareTo(lesson.getStartDate());
     }
 }
