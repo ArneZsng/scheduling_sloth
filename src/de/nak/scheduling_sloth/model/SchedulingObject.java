@@ -64,4 +64,41 @@ public abstract class SchedulingObject {
         Collections.sort(orderedLessons);
         return orderedLessons;
     }
+
+    /** Returns lessons in current calendar week and year for the scheduling object. Week begins on Monday. */
+    public List<Lesson> getLessonsOfCurrentWeek() {
+        Calendar calendar = Calendar.getInstance();
+        int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+        int currentYear = calendar.get(Calendar.YEAR);
+        return getLessonsInWeek(currentWeek, currentYear);
+    }
+
+    /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */
+    public List<Lesson> getLessonsInWeek(int week, int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.WEEK_OF_YEAR, week);
+        calendar.set(Calendar.YEAR, year);
+        calendar.add(Calendar.DATE, 1); //Let week begin on Monday
+        Timestamp startTimestamp = new Timestamp(calendar.getTimeInMillis());
+
+        calendar.set(Calendar.WEEK_OF_YEAR, week+1);
+        Timestamp endTimestamp = new Timestamp(calendar.getTimeInMillis());
+        System.out.println(startTimestamp);
+        System.out.println(endTimestamp);
+
+        return getLessonsBetween(startTimestamp, endTimestamp);
+    }
+
+    protected List<Lesson> getLessonsBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+        List<Lesson> orderedLessons = getOrderedLessons();
+        List<Lesson> lessonsBetweenDates = new ArrayList<Lesson> ();
+        for (Lesson lesson : orderedLessons) {
+            if (lesson.getEndDate().after(startTimestamp)
+                    && lesson.getStartDate().before(endTimestamp))
+                lessonsBetweenDates.add(lesson);
+        }
+        return lessonsBetweenDates;
+    }
 }
+

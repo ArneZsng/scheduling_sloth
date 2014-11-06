@@ -9,5 +9,5 @@ INSERT INTO Century (name, cohort_id, number_of_students, break_time) VALUES ('W
 INSERT INTO Century (name, cohort_id, number_of_students, break_time) VALUES ('W12b', 3, 28, 18);
 INSERT INTO Lecturer (name, break_time) VALUES ('Hinrich Schröder', 25);
 INSERT INTO Lecturer (name, break_time) VALUES ('Stephan Anft', 45);
-INSERT INTO Room (name, available_seats, change_time) VALUES ('A001', 25, 10);
-INSERT INTO Room (name, available_seats, change_time) VALUES ('C101', 35, 15);
+INSERT INTO Room (name, available_seats, break_time) VALUES ('A001', 25, 10);
+INSERT INTO Room (name, available_seats, break_time) VALUES ('C101', 35, 15);
