@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<h1><s:text name="txt.Rooms"/></h1>
+<h1><s:text name="txt.rooms"/></h1>
 
 <s:form>
 	<s:actionerror/>
