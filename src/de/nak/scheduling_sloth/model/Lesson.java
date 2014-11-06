@@ -70,7 +70,7 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     public boolean lecturerAvailable() {
-        return lecturer.timeSlotAvailable(startDate, endDate);
+        return course.getLecturer().timeSlotAvailable(startDate, endDate);
     }
 
     public boolean allRoomsAvailable() {
