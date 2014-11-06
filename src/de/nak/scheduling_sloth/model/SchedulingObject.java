@@ -30,12 +30,8 @@ public abstract class SchedulingObject {
         int breakTimeInMilliseconds = breakTime * 60000;
         startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMilliseconds);
         endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMilliseconds);
-        if (startTimestamp.after(previousLesson(startTimestamp).getEndDate())
-                && endTimestamp.before(nextLesson(endTimestamp).getStartDate())) {
-            return true;
-        } else {
-            return false;
-        }
+        return startTimestamp.after(previousLesson(startTimestamp).getEndDate())
+                && endTimestamp.before(nextLesson(startTimestamp).getStartDate());
     }
 
     /** Returns the lesson prior to the timestamp. If there is no prior lesson, it returns a lesson with the submitted timestamp as end date. */

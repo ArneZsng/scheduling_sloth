@@ -10,17 +10,17 @@ import de.nak.scheduling_sloth.service.LessonService;
  */
 public class LessonAction extends ActionSupport {
     private static final long serialVersionUID = -1552918275462992805L;
-    /** The current room. */
+    /** The current lesson. */
     private Lesson lesson;
 
-    /** The room's identifier selected by the user. */
+    /** The lesson's identifier selected by the user. */
     private Long lessonId;
 
-    /** The room service. */
+    /** The lesson service. */
     private LessonService lessonService;
 
     /**
-     * Saves the room to the database.
+     * Saves the lesson to the database.
      *
      * @return the result string.
      */
@@ -43,7 +43,7 @@ public class LessonAction extends ActionSupport {
     }
 
     /**
-     * Displays the selected room in the room form.
+     * Displays the selected lesson in the lesson form.
      *
      * @return the result string.
      */
@@ -56,7 +56,7 @@ public class LessonAction extends ActionSupport {
     /**
      * Cancels the editing.
      * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
+     * A direct link to the "ShowLessonList" action does work but results in multiple stack traces in the
      * application's log.
      *
      * @return the result string.
@@ -67,10 +67,27 @@ public class LessonAction extends ActionSupport {
 
     @Override
     public void validate() {
-        // If the room is not set, the room ID has to be set.
+        // If the lesson is not set, the lesson ID has to be set.
         if (lesson == null && lessonId == null) {
             addActionError(getText("msg.selectLesson"));
         }
+
+        // Check if lecturer is available
+        if (!lesson.lecturerAvailable()) {
+            addActionError(getText("msg.lecturerNotAvailable"));
+        }
+
+        // Check if rooms are available
+        if (!lesson.allRoomsAvailable()) {
+            addActionError(getText("msg.roomsNotAvailable"));
+        }
+
+        // Check if audience is available
+        if (!lesson.audienceAvailable()) {
+            addActionError(getText("msg.audienceNotAvailable"));
+        }
+
+
     }
 
     public Lesson getLesson() {
