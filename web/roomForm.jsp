@@ -2,25 +2,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
+<h1><s:text name="txt.room"/></h1>
+
 <s:form cssClass="form-horizontal" role="form">
 	<%-- Form fields for the room's attributes --%>
 	<s:hidden name="room.id"/>
     <div class="form-group">
-        <label for="room.name" class="col-sm-2 control-label">Name</label>
+        <s:label for="room.name" cssClass="col-sm-2 control-label" key="lbl.name" />
         <div class="col-sm-10">
-            <s:textfield name="room.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true"/>
+            <s:textfield name="room.name" size="40" maxlength="100" requiredLabel="true"  cssClass="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <s:label for="room.availableSeats" cssClass="col-sm-2 control-label" key="lbl.availableSeats" />
+        <div class="col-sm-10">
+            <s:textfield type="number" name="room.availableSeats" size="5" maxlength="5" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label for="room.availableSeats" class="col-sm-2 control-label">Available Seats</label>
+        <s:label for="room.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="room.availableSeats" key="lbl.availableSeats" size="5" maxlength="5" requiredLabel="true"  cssClass="form-control"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="room.breakTime" class="col-sm-2 control-label">Change Time</label>
-        <div class="col-sm-10">
-            <s:textfield type="number" name="room.breakTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield type="number" name="room.breakTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
 

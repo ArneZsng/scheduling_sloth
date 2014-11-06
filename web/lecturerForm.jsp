@@ -8,15 +8,15 @@
 	<%-- Form fields for the lecturer's attributes --%>
     <s:hidden name="lecturer.id"/>
     <div class="form-group">
-        <label for="lecturer.name" class="col-sm-2 control-label">Name</label>
+        <s:label for="lecturer.name" cssClass="col-sm-2 control-label" key="lbl.name" />
         <div class="col-sm-10">
-            <s:textfield name="lecturer.name" key="lbl.name" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield name="lecturer.name" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
-        <label for="lecturer.breakTime" class="col-sm-2 control-label">Break Time</label>
+        <s:label for="lecturer.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="lecturer.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="lecturer.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
 
