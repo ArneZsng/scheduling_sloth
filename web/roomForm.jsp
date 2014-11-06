@@ -14,13 +14,13 @@
     <div class="form-group">
         <label for="room.availableSeats" class="col-sm-2 control-label">Available Seats</label>
         <div class="col-sm-10">
-            <s:textfield name="room.availableSeats" key="lbl.availableSeats" size="5" maxlength="5" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield type="number" name="room.availableSeats" key="lbl.availableSeats" size="5" maxlength="5" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <label for="room.breakTime" class="col-sm-2 control-label">Change Time</label>
         <div class="col-sm-10">
-            <s:textfield name="room.breakTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield type="number" name="room.breakTime" key="lbl.changeTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
 
