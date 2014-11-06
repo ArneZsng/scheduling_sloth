@@ -8,13 +8,13 @@
     <div class="form-group">
         <label for="lesson.startDate" class="col-sm-2 control-label">Start Date</label>
         <div class="col-sm-10">
-            <s:textfield name="lesson.startDate" key="lbl.startDate" size="5" maxlength="10" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="date" name="lesson.startDate" key="lbl.startDate" size="5" maxlength="10" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <label for="lesson.endDate" class="col-sm-2 control-label">End Date</label>
         <div class="col-sm-10">
-            <s:textfield name="lesson.endDate" key="lbl.endDate" size="5" maxlength="10" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="date" name="lesson.endDate" key="lbl.endDate" size="5" maxlength="10" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
 

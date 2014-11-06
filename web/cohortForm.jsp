@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="cohort.year" class="col-sm-2 control-label">Year</label>
         <div class="col-sm-10">
-            <s:textfield name="cohort.year" key="lbl.year" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield type="number" name="cohort.year" key="lbl.year" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
         </div>
     </div>
 

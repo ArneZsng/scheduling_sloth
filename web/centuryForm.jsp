@@ -20,13 +20,13 @@
         <div class="form-group">
         <label for="century.numberOfStudents" class="col-sm-2 control-label">Number Of Students</label>
         <div class="col-sm-10">
-            <s:textfield name="century.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="century.numberOfStudents" key="lbl.numberOfStudents" size="3" maxlength="8" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <label for="century.breakTime" class="col-sm-2 control-label">Break Time</label>
         <div class="col-sm-10">
-            <s:textfield name="century.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="century.breakTime" key="lbl.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
 
