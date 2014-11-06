@@ -1,13 +1,14 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Course extends SchedulingObject {
+public class Course {
     /** The identifier. */
     private Long id;
     /** The name of the course. */
@@ -48,7 +49,6 @@ public class Course extends SchedulingObject {
         this.breakTime = breakTime;
     }
 
-
     @ManyToOne
     @JoinColumn(name = "cohort_id", nullable = true)
     public Cohort getCohort() {
@@ -82,5 +82,9 @@ public class Course extends SchedulingObject {
     }
     public void setLessons(Set<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public boolean lecturerAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+        return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
     }
 }
