@@ -19,8 +19,8 @@ public class Cohort {
     private Integer year;
     /** The centuries in this cohort */
     private Set<Century> centuries;
-    /** The lessons of this cohort. */
-    private Set<Lesson> lessons;
+    /** The courses of this cohort. */
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,10 +64,10 @@ public class Cohort {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="cohort")
-    public Set<Lesson> getLessons() {
-        return lessons;
+    public Set<Course> getCourses() {
+        return courses;
     }
-    public void setLessons(Set<Lesson> lessons) {
-        this.lessons = lessons;
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

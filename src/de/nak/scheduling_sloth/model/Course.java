@@ -14,6 +14,12 @@ public class Course extends SchedulingObject {
     private String name;
     /** The needed break time of the course. */
     private Integer breakTime;
+    /** Lecturer of the course. */
+    private Lecturer lecturer;
+    /** Cohort of the course. */
+    private Cohort cohort;
+    /** Century of the course. */
+    private Century century;
     /** The lessons of this course */
     private Set<Lesson> lessons;
 
@@ -42,11 +48,39 @@ public class Course extends SchedulingObject {
         this.breakTime = breakTime;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name = "cohort_id", nullable = true)
+    public Cohort getCohort() {
+        return cohort;
+    }
+    public void setCohort(Cohort cohort) {
+        this.cohort = cohort;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "century_id", nullable = true)
+    public Century getCentury() {
+        return century;
+    }
+    public void setCentury(Century century) {
+        this.century = century;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "lecturer_id", nullable = false)
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     public Set<Lesson> getLessons() {
         return lessons;
     }
-    public void setLessons(Set<Lesson> courses) {
+    public void setLessons(Set<Lesson> lessons) {
         this.lessons = lessons;
     }
 }

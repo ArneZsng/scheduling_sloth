@@ -15,14 +15,8 @@ public class Lesson implements Comparable<Lesson>{
     private Timestamp startDate;
     /** Enddate of the lesson. */
     private Timestamp endDate;
-    /** Lecturer of the lesson. */
-    private Lecturer lecturer;
     /** Rooms of the lesson. */
     private Set<Room> rooms;
-    /** Cohort of the lesson. */
-    private Cohort cohort;
-    /** Century of the lesson. */
-    private Century century;
     /** Course of the lesson. */
     private Course course;
 
@@ -51,15 +45,6 @@ public class Lesson implements Comparable<Lesson>{
         this.endDate = endDate;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "lecturer_id", nullable = false)
-    public Lecturer getLecturer() {
-        return lecturer;
-    }
-    public void setLecturer(Lecturer lecturer) {
-        this.lecturer = lecturer;
-    }
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="lesson_room", joinColumns={
             @JoinColumn(name="lesson_id")}, inverseJoinColumns={
@@ -69,24 +54,6 @@ public class Lesson implements Comparable<Lesson>{
     }
     public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "cohort_id", nullable = true)
-    public Cohort getCohort() {
-        return cohort;
-    }
-    public void setCohort(Cohort cohort) {
-        this.cohort = cohort;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "century_id", nullable = true)
-    public Century getCentury() {
-        return century;
-    }
-    public void setCentury(Century century) {
-        this.century = century;
     }
 
     @ManyToOne

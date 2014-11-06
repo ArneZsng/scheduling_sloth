@@ -18,8 +18,8 @@ public class Century extends SchedulingObject {
     private Integer numberOfStudents;
     /** The needed break time of the century. */
     private Integer breakTime;
-    /** The lessons of this century. */
-    private Set<Lesson> lessons;
+    /** The courses of this century. */
+    private Set<Course> courses;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,10 +68,10 @@ public class Century extends SchedulingObject {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="century")
-    public Set<Lesson> getLessons() {
-        return lessons;
+    public Set<Course> getCourses() {
+        return courses;
     }
-    public void setLessons(Set<Lesson> lessons) {
-        this.lessons = lessons;
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

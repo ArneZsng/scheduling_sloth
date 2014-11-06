@@ -28,11 +28,6 @@
             <message key="msg.validator.intRange"/>
         </field-validator>
     </field>
-    <field name="lecturer.id">
-        <field-validator type="required">
-            <message key="msg.validator.required"/>
-        </field-validator>
-    </field>
     <field name="course.id">
         <field-validator type="required">
             <message key="msg.validator.required"/>
