@@ -80,9 +80,6 @@ public class CenturyAction extends ActionSupport implements Preparable {
 
     /**
      * Start adding a Century
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */

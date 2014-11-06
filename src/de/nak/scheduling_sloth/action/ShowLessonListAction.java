@@ -1,8 +1,12 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Lesson;
+import de.nak.scheduling_sloth.model.Room;
+import de.nak.scheduling_sloth.service.CohortService;
 import de.nak.scheduling_sloth.service.LessonService;
+import de.nak.scheduling_sloth.service.RoomService;
 
 import java.util.List;
 
@@ -16,8 +20,16 @@ public class ShowLessonListAction implements Action {
     /** The lesson service. */
     private LessonService lessonService;
 
+    /** Select list of rooms. */
+    private List<Room> roomList;
+
+    /** The room service. */
+    private RoomService roomService;
+
     @Override
-    public String execute() throws Exception {lessonList = lessonService.loadAllLesson();
+    public String execute() throws Exception {
+        lessonList = lessonService.loadAllLesson();
+        roomList = roomService.loadAllRooms();
         return SUCCESS;
     }
 
@@ -27,5 +39,11 @@ public class ShowLessonListAction implements Action {
 
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;
+    }
+
+    public List<Room> getRoomList() { return roomList; }
+
+    public void setRoomService(RoomService roomService) {
+        this.roomService = roomService;
     }
 }

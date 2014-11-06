@@ -178,7 +178,7 @@
         </action>
 
         <!-- Shows the empty form for a new lesson. -->
-        <action name="AddLesson">
+        <action name="AddLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="add">
             <result type="tiles">lessonForm</result>
         </action>
 

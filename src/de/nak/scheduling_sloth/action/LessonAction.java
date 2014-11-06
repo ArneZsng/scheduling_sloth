@@ -1,14 +1,22 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Lesson;
+import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.LessonService;
+import de.nak.scheduling_sloth.service.RoomService;
+import org.apache.struts2.interceptor.validation.SkipValidation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class LessonAction extends ActionSupport {
+public class LessonAction extends ActionSupport implements Preparable {
     private static final long serialVersionUID = -1552918275462992805L;
     /** The current lesson. */
     private Lesson lesson;
@@ -18,6 +26,12 @@ public class LessonAction extends ActionSupport {
 
     /** The lesson service. */
     private LessonService lessonService;
+
+    /** Select list of rooms. */
+    private List<Room> roomList;
+
+    /** The room service. */
+    private RoomService roomService;
 
     /**
      * Saves the lesson to the database.
@@ -54,6 +68,16 @@ public class LessonAction extends ActionSupport {
      }
 
     /**
+     * Start adding a Lesson
+     *
+     * @return the result string.
+     */
+    @SkipValidation
+    public String add() {
+        return SUCCESS;
+    }
+
+    /**
      * Cancels the editing.
      * This method is implemented in order to avoid problems with parameter submit and validation.
      * A direct link to the "ShowLessonList" action does work but results in multiple stack traces in the
@@ -86,8 +110,17 @@ public class LessonAction extends ActionSupport {
         if (!lesson.audienceAvailable()) {
             addActionError(getText("msg.audienceNotAvailable"));
         }
+    }
 
+    /**
+     * Load all rooms for selection
+     */
+    public void prepare() {
+        roomList = roomService.loadAllRooms();
 
+        if(roomList == null) {
+            roomList = new ArrayList<Room>();
+        }
     }
 
     public Lesson getLesson() {
@@ -108,5 +141,11 @@ public class LessonAction extends ActionSupport {
 
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;
+    }
+
+    public List<Room> getRoomList() { return roomList; }
+
+    public void setRoomService(RoomService roomService) {
+        this.roomService = roomService;
     }
 }
