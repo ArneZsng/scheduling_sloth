@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -73,5 +74,19 @@ public class Century extends SchedulingObject {
     }
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @Override
+    public Set<Lesson> retrieveLessons() {
+        Set<Lesson> lessons = new HashSet<Lesson>();
+        for (Course course : courses) {
+            lessons.addAll(course.getLessons());
+        }
+        return lessons;
+    }
+
+    @Override
+    public Integer retrieveBreakTime() {
+        return getBreakTime();
     }
 }

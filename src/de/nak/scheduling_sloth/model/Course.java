@@ -92,4 +92,5 @@ public class Course {
     public Integer audienceSize() {
         return century.getNumberOfStudents();
     }
+
 }

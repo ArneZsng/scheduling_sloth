@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Cohort {
+public class Cohort extends SchedulingObject {
     /** The identifier. */
     private Long id;
     /** The name of the cohort. */
@@ -69,5 +69,23 @@ public class Cohort {
     }
     public void setCourses(Set<Course> courses) {
         this.courses = courses;
+    }
+
+    @Override
+    public Set<Lesson> retrieveLessons() {
+        Set<Lesson> lessons = new HashSet<Lesson>();
+        for (Course course : courses) {
+            lessons.addAll(course.getLessons());
+        }
+        return lessons;
+    }
+
+    @Override
+    public Integer retrieveBreakTime() {
+        Integer maxBreakTime = 0;
+        for (Century century : centuries) {
+            maxBreakTime = Math.max(maxBreakTime, century.getBreakTime());
+        }
+        return maxBreakTime;
     }
 }

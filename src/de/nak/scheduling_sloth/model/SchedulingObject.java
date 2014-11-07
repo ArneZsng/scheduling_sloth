@@ -7,27 +7,13 @@ import java.util.*;
  * Created by arne on 04/11/14.
  */
 public abstract class SchedulingObject {
-    /** The needed time between lessons. */
-    private Integer breakTime;
-    /** The lessons of the scheduling object. */
-    private Set<Lesson> lessons;
 
-    public Integer getBreakTime() {
-        return breakTime;
-    }
-    public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
-    }
+    abstract public Integer retrieveBreakTime();
 
-    public Set<Lesson> getLessons() {
-        return lessons;
-    }
-    public void setLessons(Set<Lesson> lessons) {
-        this.lessons = lessons;
-    }
+    abstract public Set<Lesson> retrieveLessons();
 
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
-        int breakTimeInMilliseconds = breakTime * 60000;
+        int breakTimeInMilliseconds = retrieveBreakTime() * 60000;
         startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMilliseconds);
         endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMilliseconds);
         return startTimestamp.after(previousLesson(startTimestamp).getEndDate())
@@ -36,7 +22,7 @@ public abstract class SchedulingObject {
 
     /** Returns the lesson prior to the timestamp. If there is no prior lesson, it returns a lesson with the submitted timestamp as end date. */
     protected Lesson previousLesson(Timestamp date) {
-        List<Lesson> orderedLessons = getOrderedLessons();
+        List<Lesson> orderedLessons = retrieveOrderedLessons();
         Lesson key = new Lesson();
         key.setStartDate(date);
         key.setEndDate(date);
@@ -49,7 +35,7 @@ public abstract class SchedulingObject {
 
     /** Returns the next lesson after the timestamp. If there is no next lesson, it returns a lesson with the submitted timestamp as start date. */
     protected Lesson nextLesson(Timestamp date) {
-        List<Lesson> orderedLessons = getOrderedLessons();
+        List<Lesson> orderedLessons = retrieveOrderedLessons();
         Lesson key = new Lesson();
         key.setStartDate(date);
         final int indexOfDate = Collections.binarySearch(orderedLessons, key);
@@ -59,22 +45,22 @@ public abstract class SchedulingObject {
             return orderedLessons.get(indexOfDate);
     }
 
-    protected List<Lesson> getOrderedLessons() {
-        List<Lesson> orderedLessons = new ArrayList<Lesson>(lessons);
+    protected List<Lesson> retrieveOrderedLessons() {
+        List<Lesson> orderedLessons = new ArrayList<Lesson>(retrieveLessons());
         Collections.sort(orderedLessons);
         return orderedLessons;
     }
 
     /** Returns lessons in current calendar week and year for the scheduling object. Week begins on Monday. */
-    public List<Lesson> getLessonsOfCurrentWeek() {
+    public List<Lesson> retrieveLessonsOfCurrentWeek() {
         Calendar calendar = Calendar.getInstance();
         int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
         int currentYear = calendar.get(Calendar.YEAR);
-        return getLessonsInWeek(currentWeek, currentYear);
+        return retrieveLessonsInWeek(currentWeek, currentYear);
     }
 
     /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */
-    public List<Lesson> getLessonsInWeek(int week, int year) {
+    public List<Lesson> retrieveLessonsInWeek(int week, int year) {
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(Calendar.WEEK_OF_YEAR, week);
@@ -87,11 +73,11 @@ public abstract class SchedulingObject {
         System.out.println(startTimestamp);
         System.out.println(endTimestamp);
 
-        return getLessonsBetween(startTimestamp, endTimestamp);
+        return retrieveLessonsBetween(startTimestamp, endTimestamp);
     }
 
-    protected List<Lesson> getLessonsBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
-        List<Lesson> orderedLessons = getOrderedLessons();
+    protected List<Lesson> retrieveLessonsBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+        List<Lesson> orderedLessons = retrieveOrderedLessons();
         List<Lesson> lessonsBetweenDates = new ArrayList<Lesson> ();
         for (Lesson lesson : orderedLessons) {
             if (lesson.getEndDate().after(startTimestamp)

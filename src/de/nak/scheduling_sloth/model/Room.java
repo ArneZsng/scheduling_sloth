@@ -62,4 +62,14 @@ public class Room extends SchedulingObject {
         this.lessons = lessons;
     }
 
+    @Override
+    public Set<Lesson> retrieveLessons() {
+        return getLessons();
+    }
+
+    @Override
+    public Integer retrieveBreakTime() {
+        return getBreakTime();
+    }
+
 }
