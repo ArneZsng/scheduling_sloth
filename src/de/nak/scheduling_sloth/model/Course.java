@@ -87,4 +87,9 @@ public class Course {
     public boolean lecturerAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
         return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
     }
+
+    //TODO
+    public Integer audienceSize() {
+        return century.getNumberOfStudents();
+    }
 }

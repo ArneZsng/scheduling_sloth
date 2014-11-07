@@ -110,6 +110,11 @@ public class LessonAction extends ActionSupport implements Preparable {
         if (!lesson.audienceAvailable()) {
             addActionError(getText("msg.audienceNotAvailable"));
         }
+
+        // Check if rooms are big enough for audience
+        if (!lesson.allRoomsBigEnough()) {
+            addActionError(getText("msg.roomNotBigEnough"));
+        }
     }
 
     /**
