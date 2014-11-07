@@ -14,6 +14,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <li><a href="<s:url action="ShowCourseList"/>"><s:text name="txt.courses"/></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><s:text name="txt.editCoreData"/><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -21,13 +22,6 @@
                         <li><a href="<s:url action="ShowRoomList"/>"><s:text name="txt.rooms"/></a></li>
                         <li><a href="<s:url action="ShowCohortList"/>"><s:text name="txt.cohorts"/></a></li>
                         <li><a href="<s:url action="ShowCenturyList"/>"><s:text name="txt.centuries"/></a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><s:text name="txt.editCourses"/><span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="<s:url action="ShowCourseList"/>"><s:text name="txt.courses"/></a></li>
-                        <li><a href="<s:url action="ShowLessonList"/>"><s:text name="txt.lessons"/></a></li>
                     </ul>
                 </li>
                 <li><a href="#"><s:text name="txt.generateTestdata"/></a></li>
