@@ -13,11 +13,13 @@ public abstract class SchedulingObject {
     abstract public Set<Lesson> retrieveLessons();
 
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
-        int breakTimeInMilliseconds = retrieveBreakTime() * 60000;
-        startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMilliseconds);
-        endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMilliseconds);
-        return startTimestamp.after(previousLesson(startTimestamp).getEndDate())
-                && endTimestamp.before(nextLesson(startTimestamp).getStartDate());
+        Lesson previousLesson = previousLesson(startTimestamp);
+        Lesson nextLesson = nextLesson(startTimestamp);
+        int breakTimeInMs = Math.max(retrieveBreakTime(), previousLesson.retrieveCourseBreakTime()) * 60000;
+        startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMs);
+        endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMs);
+        return startTimestamp.after(previousLesson.getEndDate())
+                && endTimestamp.before(nextLesson.getStartDate());
     }
 
     /** Returns the lesson prior to the timestamp. If there is no prior lesson, it returns a lesson with the submitted timestamp as end date. */

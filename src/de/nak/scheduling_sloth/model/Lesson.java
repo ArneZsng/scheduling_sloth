@@ -93,4 +93,8 @@ public class Lesson implements Comparable<Lesson> {
         }
         return true;
     }
+
+    public Integer retrieveCourseBreakTime() {
+        return course.getBreakTime();
+    }
 }
