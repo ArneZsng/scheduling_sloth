@@ -2,6 +2,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.centuries"/></h1>
+<s:actionerror/>
 <%-- The century table --%>
 <table class="table table-hover">
     <thead>

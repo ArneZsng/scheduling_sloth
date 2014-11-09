@@ -2,6 +2,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.rooms"/></h1>
+<s:actionerror/>
 <%-- The room table --%>
 <table class="table table-hover">
     <thead>

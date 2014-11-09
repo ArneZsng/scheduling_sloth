@@ -43,18 +43,7 @@ public class LessonAction extends ActionSupport implements Preparable {
         return SUCCESS;
     }
 
-    /**
-     * Deletes the selected course from the database.
-     *
-     * @return the result string.
-     */
-    public String delete() {
-        lesson = lessonService.loadLesson(lessonId);
-        if (lesson != null) {
-            lessonService.deleteLesson(lesson);
-        }
-        return SUCCESS;
-    }
+
 
     /**
      * Displays the selected lesson in the lesson form.

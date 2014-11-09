@@ -14,7 +14,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="<s:url action="ShowCourseList"/>"><s:text name="txt.courses"/></a></li>
+                <li><a href="<s:url action="ShowLessonList"/>"><s:text name="txt.editLessons"/></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><s:text name="txt.editCoreData"/><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -24,7 +24,6 @@
                         <li><a href="<s:url action="ShowCenturyList"/>"><s:text name="txt.centuries"/></a></li>
                     </ul>
                 </li>
-                <li><a href="#"><s:text name="txt.generateTestdata"/></a></li>
             </ul>
             <s:url var="urlen" includeParams="all" value="">
                 <s:param name="request_locale">en</s:param>

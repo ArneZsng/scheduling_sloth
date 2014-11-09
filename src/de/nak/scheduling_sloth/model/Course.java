@@ -2,6 +2,9 @@ package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +25,7 @@ public class Course {
     /** Century of the course. */
     private Century century;
     /** The lessons of this course */
-    private Set<Lesson> lessons;
+    private List<Lesson> lessons = new ArrayList<Lesson>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,11 +79,12 @@ public class Course {
         this.lecturer = lecturer;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
-    public Set<Lesson> getLessons() {
+    // TODO: Find better solution for .EAGER (due to error with lazy loading)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    public List<Lesson> getLessons() {
         return lessons;
     }
-    public void setLessons(Set<Lesson> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 

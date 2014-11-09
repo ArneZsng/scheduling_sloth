@@ -1,8 +1,12 @@
 package de.nak.scheduling_sloth.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -16,7 +20,7 @@ public class Lesson implements Comparable<Lesson> {
     /** Enddate of the lesson. */
     private Timestamp endDate;
     /** Rooms of the lesson. */
-    private Set<Room> rooms;
+    private List<Room> rooms = new ArrayList<Room>();
     /** Course of the lesson. */
     private Course course;
 
@@ -37,6 +41,7 @@ public class Lesson implements Comparable<Lesson> {
         this.startDate = startDate;
     }
 
+
     @Column(name = "end_date", scale = 1, nullable = false)
     public Timestamp getEndDate() {
         return endDate;
@@ -45,14 +50,16 @@ public class Lesson implements Comparable<Lesson> {
         this.endDate = endDate;
     }
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    // TODO: Find better solution for .EAGER (due to error with lazy loading)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name="lesson_room", joinColumns={
             @JoinColumn(name="lesson_id")}, inverseJoinColumns={
             @JoinColumn(name="room_id")})
-    public Set<Room> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
-    public void setRooms(Set<Room> rooms) {
+    public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 

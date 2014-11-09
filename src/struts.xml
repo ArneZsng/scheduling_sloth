@@ -139,19 +139,14 @@
             <result type="redirect">ShowCenturyList.action</result>
         </action>
 
-        <!-- Action that displays the list of centuries. -->
-        <action name="ShowCourseList" class="de.nak.scheduling_sloth.action.ShowCourseListAction">
-            <result type="tiles">courseList</result>
-        </action>
-
         <!-- Shows the empty form for a new course. -->
-        <action name="AddCourse">
+        <action name="AddCourse"  class="de.nak.scheduling_sloth.action.CourseAction" method="add">
             <result type="tiles">courseForm</result>
         </action>
 
         <!-- Saves the new or updated course into the database and shows the course list again. -->
         <action name="SaveCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="save">
-            <result type="redirect">ShowCourseList.action</result>
+            <result type="redirect">ShowLessonList.action</result>
             <result type="tiles" name="input">courseForm</result>
         </action>
 
@@ -170,6 +165,15 @@
         <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
         <action name="CancelCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="cancel">
             <result type="redirect">ShowCourseList.action</result>
+        </action>
+
+        <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
+        <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
+            <result type="tiles">courseLessonForm</result>
+        </action>
+        <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
+        <action name="SaveCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="saveLessons">
+            <result type="tiles">courseLessonForm</result>
         </action>
 
         <!-- Action that displays the list of lessons. -->
@@ -195,7 +199,7 @@
         </action>
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
-        <action name="DeleteLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="delete">
+        <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
             <result type="redirect">ShowLessonList.action</result>
             <result type="chain" name="input">ShowLessonList</result>
         </action>
@@ -214,5 +218,6 @@
         <action name="Error">
             <result type="tiles">error</result>
         </action>
+
 	</package>
 </struts>

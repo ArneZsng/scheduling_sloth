@@ -29,7 +29,7 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
-	public List<Course> loadAllCourse() {
+	public List<Course> loadAllCourses() {
 		return courseDAO.loadAll();
 	}
 

@@ -36,6 +36,6 @@ public interface CourseService {
 	 *
 	 * @return a list which is empty if no course was found.
 	 */
-	List<Course> loadAllCourse();
+	List<Course> loadAllCourses();
 
 }

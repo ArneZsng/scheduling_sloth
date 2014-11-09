@@ -2,9 +2,11 @@ package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.model.Cohort;
+import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.CohortService;
+import de.nak.scheduling_sloth.service.CourseService;
 import de.nak.scheduling_sloth.service.LessonService;
 import de.nak.scheduling_sloth.service.RoomService;
 
@@ -14,36 +16,23 @@ import java.util.List;
  * Created by patrickghahramanian on 28.10.14.
  */
 public class ShowLessonListAction implements Action {
-    /** The list of lessons. */
-    private List<Lesson> lessonList;
-
-    /** The lesson service. */
-    private LessonService lessonService;
-
     /** Select list of rooms. */
-    private List<Room> roomList;
+    private List<Course> courseList;
 
     /** The room service. */
-    private RoomService roomService;
+    private CourseService courseService;
 
     @Override
     public String execute() throws Exception {
-        lessonList = lessonService.loadAllLesson();
-        roomList = roomService.loadAllRooms();
+        courseList = courseService.loadAllCourses();
         return SUCCESS;
     }
 
-    public List<Lesson> getLessonList() {
-        return lessonList;
+    public List<Course> getCourseList() {
+        return courseList;
     }
 
-    public void setLessonService(LessonService lessonService) {
-        this.lessonService = lessonService;
-    }
-
-    public List<Room> getRoomList() { return roomList; }
-
-    public void setRoomService(RoomService roomService) {
-        this.roomService = roomService;
+    public void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
     }
 }
