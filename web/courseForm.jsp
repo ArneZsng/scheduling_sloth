@@ -48,7 +48,7 @@
 	<%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit key="btn.next" action="EditCourseLessons" cssClass="btn btn-primary"/>
+            <s:submit key="btn.toLessons" action="EditCourseLessons" cssClass="btn btn-primary"/>
             <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
         </div>
     </div>

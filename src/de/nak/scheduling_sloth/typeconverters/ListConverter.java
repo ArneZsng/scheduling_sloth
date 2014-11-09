@@ -6,6 +6,7 @@ import org.apache.struts2.util.StrutsTypeConverter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * Created by kevinscholz on 08/11/14.
@@ -25,14 +26,13 @@ public class ListConverter extends StrutsTypeConverter {
     @Override
     public String convertToString(Map context, Object object)  throws TypeConversionException  {
         try{
-            String result = "";
+            String result = "-";
             if(object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room){
+                StringJoiner rooms = new StringJoiner(", ");
                 for(Room room: ((List<Room>) object)) {
-                    result = result + room.getName();
+                    rooms.add(room.getName());
                 }
-                if ("".equals(result)) {
-                    result = "-";
-                }
+                result = rooms.toString();
             }
             return result;
         }catch(Exception e){

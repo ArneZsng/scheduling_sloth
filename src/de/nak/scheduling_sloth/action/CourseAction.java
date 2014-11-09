@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.sql.Time;
@@ -104,7 +105,7 @@ public class CourseAction extends ActionSupport implements Preparable{
 
             lessonService.deleteLesson(courseLesson);
 
-            // Also delete course if this was the last lesson
+            // Delete course if this was the last lesson
             if (courseOfLesson.getLessons().size() == 1) {
                 courseService.deleteCourse(courseOfLesson);
             }
@@ -119,10 +120,14 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
 
      public String load(){
+         course = courseService.loadCourse(courseId);
+         numberOfLessons = course.getLessons().size();
+         return SUCCESS;
+     }
+     public void prepareLoad() {
          lecturerList = lecturerService.loadAllLecturers();
          cohortList = cohortService.loadAllCohorts();
          centuryList = centuryService.loadAllCenturies();
-         return SUCCESS;
      }
 
     /**
@@ -143,12 +148,11 @@ public class CourseAction extends ActionSupport implements Preparable{
      * @return the result string.
      */
     @SkipValidation
-    public String add() {
+    public String add() { return SUCCESS; }
+    public void prepareAdd() {
         lecturerList = lecturerService.loadAllLecturers();
         cohortList = cohortService.loadAllCohorts();
         centuryList = centuryService.loadAllCenturies();
-
-        return SUCCESS;
     }
 
     /**
@@ -157,18 +161,14 @@ public class CourseAction extends ActionSupport implements Preparable{
      * @return the result string.
      */
     public String editLessons() {
-        // TODO: check if statement if correct
-        if (courseId != null && course == null) {
-            course = courseService.loadCourse(courseId);
-        }
-
-        if(course.getLessons() == null) {
-            course.setLessons(new ArrayList<Lesson>());
-        }
+        // TODO: check if every case is doable + improve performance -> save&load
+        courseService.saveCourse(course);
+        course = courseService.loadCourse(course.getId());
 
         if (numberOfLessons > 0) {
-            if (lessons.size() < numberOfLessons) {
-                for (int i = 0; i < numberOfLessons - lessons.size(); i++) {
+            // TODO: check performance of size
+            if (course.getLessons().size() < numberOfLessons) {
+                for (int i = 0; i < numberOfLessons - course.getLessons().size(); i++) {
                     Lesson lesson = new Lesson();
                     java.util.Date date= new java.util.Date();
 
@@ -179,10 +179,10 @@ public class CourseAction extends ActionSupport implements Preparable{
                 }
             }
         }
-
-        roomList = roomService.loadAllRooms();
-
         return SUCCESS;
+    }
+    public void prepareEditLessons() {
+        roomList = roomService.loadAllRooms();
     }
 
     @Override
@@ -219,6 +219,15 @@ public class CourseAction extends ActionSupport implements Preparable{
     }
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
+    }
+
+    // TODO: should we do this here?
+    public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
+        ArrayList<Long> roomIds = new ArrayList<Long>();
+        for(Room room:rooms) {
+            roomIds.add(room.getId());
+        }
+        return roomIds;
     }
 
     public Long getCourseLessonId() {

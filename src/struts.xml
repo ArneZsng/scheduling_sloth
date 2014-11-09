@@ -153,18 +153,11 @@
         <!-- Loads a existing car and shows it in the car form. -->
         <action name="EditCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="load">
             <result type="tiles">courseForm</result>
-            <result type="chain" name="input">ShowCourseList</result>
-        </action>
-
-        <!-- Deletes the selected course and shows the course list again. -->
-        <action name="DeleteCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="delete">
-            <result type="redirect">ShowCourseList.action</result>
-            <result type="chain" name="input">ShowCourseList</result>
         </action>
 
         <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
         <action name="CancelCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="cancel">
-            <result type="redirect">ShowCourseList.action</result>
+            <result type="redirect">ShowLessonList.action</result>
         </action>
 
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
@@ -176,37 +169,15 @@
             <result type="tiles">courseLessonForm</result>
         </action>
 
-        <!-- Action that displays the list of lessons. -->
-        <action name="ShowLessonList" class="de.nak.scheduling_sloth.action.ShowLessonListAction">
-            <result type="tiles">lessonList</result>
-        </action>
-
-        <!-- Shows the empty form for a new lesson. -->
-        <action name="AddLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="add">
-            <result type="tiles">lessonForm</result>
-        </action>
-
-        <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
-        <action name="SaveLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="save">
-            <result type="redirect">ShowLessonList.action</result>
-            <result type="tiles" name="input">lessonForm</result>
-        </action>
-
-        <!-- Loads a existing car and shows it in the car form. -->
-        <action name="EditLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="load">
-            <result type="tiles">lessonForm</result>
-            <result type="chain" name="input">ShowLessonList</result>
-        </action>
-
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
             <result type="redirect">ShowLessonList.action</result>
             <result type="chain" name="input">ShowLessonList</result>
         </action>
 
-        <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
-        <action name="CancelLesson" class="de.nak.scheduling_sloth.action.LessonAction" method="cancel">
-            <result type="redirect">ShowLessonList.action</result>
+        <!-- Action that displays the list of lessons. -->
+        <action name="ShowLessonList" class="de.nak.scheduling_sloth.action.ShowLessonListAction">
+            <result type="tiles">lessonList</result>
         </action>
 
         <!-- Shows the homepage. -->

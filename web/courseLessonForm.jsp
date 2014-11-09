@@ -1,4 +1,4 @@
-
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
@@ -14,7 +14,7 @@
     <s:hidden name="course.cohort.id"/>
     <s:hidden name="course.century.id"/>
 
-    <table class="table table-hover">
+    <table class="table">
         <thead>
         <tr>
             <th><s:text name="lbl.rooms"/></th>
@@ -26,7 +26,14 @@
         <tbody>
         <s:iterator value="course.getLessons()" status="rowstatus">
             <tr>
-                <td><s:select name="course.lessons[%{#rowstatus.index}].rooms.id" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/></td>
+                <s:set var="roomIds" value="{"/>
+                <s:iterator value="course.getLessons()" status="rowstatus">
+                    <s:set var="roomIds" value="'%{roomIds}'," />
+                </s:iterator>
+                <s:set var="roomIds" value="%{roomIds},0"/>
+
+                <s:hidden name="course.lessons[%{#rowstatus.index}].id"/>
+                <td><s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="%{getRoomIdsFromList(rooms)}" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/></td>
                 <td><s:textfield name="course.lessons[%{#rowstatus.index}].startDate" value="%{startDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/></td>
                 <td><s:textfield name="course.lessons[%{#rowstatus.index}].endDate" value="%{endDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/></td>
             </tr>
@@ -36,8 +43,8 @@
     <%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit value="btn.save" action="SaveCourse"  cssClass="btn btn-primary"/>
-            <s:submit value="btn.cancel" action="CancelCourse"  cssClass="btn btn-danger"/>
+            <s:submit key="btn.save" action="SaveCourse"  cssClass="btn btn-primary"/>
+            <s:submit key="btn.cancel" action="CancelCourse"  cssClass="btn btn-danger"/>
         </div>
     </div>
 </s:form>

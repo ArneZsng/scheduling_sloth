@@ -4,7 +4,7 @@
 <h1><s:text name="txt.lessons"/></h1>
 <s:actionerror/>
 <%-- The century table --%>
-<table class="table table-hover">
+<table class="table">
     <thead>
     <tr>
         <th></th>
