@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Course;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -55,7 +56,11 @@ public class CourseDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Course> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Course").list();
+        List<Course> courses =  sessionFactory.getCurrentSession().createQuery("from Course").list();
+        for (Course course : courses){
+            Hibernate.initialize(course.getAudience().retrieveAudienceSize());
+        }
+        return courses;
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
