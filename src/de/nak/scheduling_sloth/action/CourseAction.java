@@ -6,6 +6,7 @@ import de.nak.scheduling_sloth.model.Audience;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.service.AudienceService;
 import de.nak.scheduling_sloth.service.CourseService;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,16 @@ public class CourseAction extends ActionSupport implements Preparable {
          course = courseService.loadCourse(courseId);
          return SUCCESS;
      }
+
+    /**
+     * Displays a new course form.
+     *
+     * @return the result string.
+     */
+    @SkipValidation
+    public String add(){
+        return SUCCESS;
+    }
 
     /**
      * Cancels the editing.

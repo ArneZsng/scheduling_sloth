@@ -145,7 +145,7 @@
         </action>
 
         <!-- Shows the empty form for a new course. -->
-        <action name="AddCourse">
+        <action name="AddCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="add">
             <result type="tiles">courseForm</result>
         </action>
 
