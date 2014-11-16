@@ -10,12 +10,14 @@
 		<tr>
 			<th></th>
 			<th><s:text name="lbl.name"/></th>
+            <th><s:text name="lbl.audience"/></th>
             <th><s:text name="lbl.changeTime"/></th>
 		</tr>
 		<s:iterator value="courseList">
 			<tr>
 				<td><s:radio name="courseID" list="#{id:''}" theme="simple"/></td>
 				<td><s:property value="name"/></td>
+                <td><s:property value="audience.name"/></td>
                 <td><s:property value="breakTime"/></td>
 			</tr>
 		</s:iterator>

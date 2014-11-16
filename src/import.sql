@@ -20,3 +20,5 @@ INSERT INTO Lecturer (name, break_time) VALUES ('Hinrich Schröder', 25);
 INSERT INTO Lecturer (name, break_time) VALUES ('Stephan Anft', 45);
 INSERT INTO Room (name, available_seats, break_time) VALUES ('A001', 25, 10);
 INSERT INTO Room (name, available_seats, break_time) VALUES ('C101', 35, 15);
+INSERT INTO Course (name, audience_id, break_time, lecturer_id) VALUES ('IAA', 4, 25, 2);
+INSERT INTO Course (name, audience_id, break_time, lecturer_id) VALUES ('Englisch', 1, 15, 2);
