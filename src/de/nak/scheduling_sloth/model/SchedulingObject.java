@@ -13,13 +13,28 @@ public abstract class SchedulingObject {
     abstract public Set<Lesson> retrieveLessons();
 
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
-        Lesson previousLesson = previousLesson(startTimestamp);
-        Lesson nextLesson = nextLesson(startTimestamp);
-        int breakTimeInMs = Math.max(retrieveBreakTime(), previousLesson.retrieveCourseBreakTime()) * 60000;
-        startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMs);
-        endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMs);
-        return startTimestamp.after(previousLesson.getEndDate())
-                && endTimestamp.before(nextLesson.getStartDate());
+        Set<Lesson> lessons = retrieveLessons();
+        boolean result = true;
+
+        for (Lesson lesson : lessons) {
+            if (timeSlotOverlappingWithLesson(startTimestamp, endTimestamp, lesson)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    private Boolean timeSlotOverlappingWithLesson(Timestamp startTimestamp, Timestamp endTimestamp, Lesson lesson) {
+        int breakTimeInMs = Math.max(retrieveBreakTime(), lesson.retrieveCourseBreakTime()) * 60000;
+
+        /** Substract 1 milliseconds for transforming after() to notBefore() and before to notAfter() **/
+        breakTimeInMs = breakTimeInMs - 1;
+
+        Timestamp modStartTime = new Timestamp(startTimestamp.getTime() - breakTimeInMs),
+                  modEndTime   = new Timestamp(endTimestamp.getTime() + breakTimeInMs);
+
+        return !(modStartTime.after(lesson.getEndDate()) || modEndTime.before(lesson.getStartDate()));
     }
 
     /** Returns the lesson prior to the timestamp. If there is no prior lesson, it returns a lesson with the submitted timestamp as end date. */
