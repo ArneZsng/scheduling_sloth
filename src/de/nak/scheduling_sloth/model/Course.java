@@ -78,7 +78,7 @@ public class Course {
     }
 
     //TODO
-    public Integer audienceSize() {
+    public Integer retrieveAudienceSize() {
         return audience.retrieveAudienceSize();
     }
 

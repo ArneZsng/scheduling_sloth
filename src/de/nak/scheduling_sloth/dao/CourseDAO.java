@@ -58,7 +58,7 @@ public class CourseDAO {
     public List<Course> loadAll() {
         List<Course> courses =  sessionFactory.getCurrentSession().createQuery("from Course").list();
         for (Course course : courses){
-            Hibernate.initialize(course.getAudience().retrieveAudienceSize());
+            Hibernate.initialize(course.retrieveAudienceSize());
         }
         return courses;
     }

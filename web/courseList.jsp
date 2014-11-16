@@ -19,7 +19,7 @@
 				<td><s:radio name="courseID" list="#{id:''}" theme="simple"/></td>
 				<td><s:property value="name"/></td>
                 <td><s:property value="audience.name"/></td>
-                <td><s:property value="audience.retrieveAudienceSize()"/></td>
+                <td><s:property value="retrieveAudienceSize()"/></td>
                 <td><s:property value="breakTime"/></td>
 			</tr>
 		</s:iterator>

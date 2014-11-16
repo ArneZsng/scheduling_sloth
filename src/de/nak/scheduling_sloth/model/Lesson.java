@@ -88,7 +88,7 @@ public class Lesson implements Comparable<Lesson> {
 
     public boolean allRoomsBigEnough() {
         for (Room room : rooms) {
-            if (room.getAvailableSeats() < course.audienceSize())
+            if (room.getAvailableSeats() < course.retrieveAudienceSize())
                 return false;
         }
         return true;
