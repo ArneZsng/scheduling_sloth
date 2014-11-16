@@ -66,6 +66,16 @@
         <property name="roomDAO" ref="roomDAO"/>
     </bean>
 
+    <!-- Audience DAO -->
+    <bean id="audienceDAO" class="de.nak.scheduling_sloth.dao.AudienceDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Audience Service -->
+    <bean id="audienceService" class="de.nak.scheduling_sloth.service.AudienceServiceImpl">
+        <property name="audienceDAO" ref="audienceDAO"/>
+    </bean>
+
     <!-- Cohort DAO -->
     <bean id="cohortDAO" class="de.nak.scheduling_sloth.dao.CohortDAO">
         <property name="sessionFactory" ref="sessionFactory"/>

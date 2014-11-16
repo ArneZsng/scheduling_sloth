@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 /**
@@ -70,6 +71,15 @@ public class Room extends SchedulingObject {
     @Override
     public Integer retrieveBreakTime() {
         return getBreakTime();
+    }
+
+    @Override
+    public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
+        int breakTimeInMilliseconds = retrieveBreakTime() * 60000;
+        startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMilliseconds);
+        endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMilliseconds);
+        return startTimestamp.after(previousLesson(startTimestamp).getEndDate())
+                && endTimestamp.before(nextLesson(startTimestamp).getStartDate());
     }
 
 }

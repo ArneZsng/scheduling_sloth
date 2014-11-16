@@ -14,6 +14,12 @@
         </div>
     </div>
     <div class="form-group">
+        <s:label for="course.audience.id" cssClass="col-sm-2 control-label" key="lbl.audience" />
+        <div class="col-sm-10">
+            <s:select name="course.audience.id" list="audienceList" listKey="id" listValue="name" requiredLabel="true" cssClass="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
         <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
         <div class="col-sm-10">
             <s:textfield type="number" name="course.breakTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>

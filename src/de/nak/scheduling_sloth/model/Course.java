@@ -17,10 +17,8 @@ public class Course {
     private Integer breakTime;
     /** Lecturer of the course. */
     private Lecturer lecturer;
-    /** Cohort of the course. */
-    private Cohort cohort;
-    /** Century of the course. */
-    private Century century;
+    /** Audience of the course. */
+    private Audience audience;
     /** The lessons of this course */
     private Set<Lesson> lessons;
 
@@ -50,24 +48,6 @@ public class Course {
     }
 
     @ManyToOne
-    @JoinColumn(name = "cohort_id", nullable = true)
-    public Cohort getCohort() {
-        return cohort;
-    }
-    public void setCohort(Cohort cohort) {
-        this.cohort = cohort;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "century_id", nullable = true)
-    public Century getCentury() {
-        return century;
-    }
-    public void setCentury(Century century) {
-        this.century = century;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "lecturer_id", nullable = false)
     public Lecturer getLecturer() {
         return lecturer;
@@ -88,9 +68,18 @@ public class Course {
         return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
     }
 
+    @ManyToOne
+    @JoinColumn(name = "audience_id", nullable = true)
+    public Audience getAudience() {
+        return audience;
+    }
+    public void setAudience(Audience audience) {
+        this.audience = audience;
+    }
+
     //TODO
     public Integer audienceSize() {
-        return century.getNumberOfStudents();
+        return audience.retrieveAudienceSize();
     }
 
 }

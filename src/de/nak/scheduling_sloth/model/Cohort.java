@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,36 +9,13 @@ import java.util.Set;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Cohort extends SchedulingObject {
-    /** The identifier. */
-    private Long id;
-    /** The name of the cohort. */
-    private String name;
+public class Cohort extends Audience {
     /** The name of the major. */
     private String major;
     /** Final Year. */
     private Integer year;
     /** The centuries in this cohort */
     private Set<Century> centuries;
-    /** The courses of this cohort. */
-    private Set<Course> courses;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Column(length = 100, nullable = false)
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Column(length = 100, nullable = false)
     public String getMajor() {
@@ -63,14 +41,6 @@ public class Cohort extends SchedulingObject {
         this.centuries = centuries;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="cohort")
-    public Set<Course> getCourses() {
-        return courses;
-    }
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
     @Override
     public Set<Lesson> retrieveLessons() {
         Set<Lesson> lessons = new HashSet<Lesson>();
@@ -88,4 +58,35 @@ public class Cohort extends SchedulingObject {
         }
         return maxBreakTime;
     }
+
+    public Integer retrieveAudienceSize() {
+        Integer audienceSize = 0;
+        for (Century century : centuries) {
+            audienceSize = audienceSize + century.getNumberOfStudents();
+        }
+        return audienceSize;
+    }
+
+    @Override
+    public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
+        Boolean available;
+        int breakTimeInMilliseconds = retrieveBreakTime() * 60000;
+        startTimestamp.setTime(startTimestamp.getTime() - breakTimeInMilliseconds);
+        endTimestamp.setTime(endTimestamp.getTime() + breakTimeInMilliseconds);
+
+        available =  startTimestamp.after(previousLesson(startTimestamp).getEndDate())
+                && endTimestamp.before(nextLesson(startTimestamp).getStartDate());
+
+        if  (available) {
+            for (Century century : centuries) {
+                available = century.timeSlotAvailable(startTimestamp, endTimestamp);
+                if (!available) {
+                    break;
+                }
+            }
+        }
+
+        return available;
+    }
+
 }

@@ -8,36 +8,14 @@ import java.util.Set;
  * Created by patrickghahramanian on 28.10.14.
  */
 @Entity
-public class Century extends SchedulingObject {
-    /** The identifier. */
-    private Long id;
-    /** The name of the century. */
-    private String name;
+public class Century extends Audience {
+
     /** The Cohort. */
     private Cohort cohort;
     /** Number of students */
     private Integer numberOfStudents;
     /** The needed break time of the century. */
     private Integer breakTime;
-    /** The courses of this century. */
-    private Set<Course> courses;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Column(length = 100, nullable = false)
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @ManyToOne
     @JoinColumn(name = "cohort_id", nullable = false)
@@ -68,14 +46,6 @@ public class Century extends SchedulingObject {
         this.numberOfStudents = numberOfStudents;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="century")
-    public Set<Course> getCourses() {
-        return courses;
-    }
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
     @Override
     public Set<Lesson> retrieveLessons() {
         Set<Lesson> lessons = new HashSet<Lesson>();
@@ -89,4 +59,6 @@ public class Century extends SchedulingObject {
     public Integer retrieveBreakTime() {
         return getBreakTime();
     }
+
+    public Integer retrieveAudienceSize() { return getNumberOfStudents(); }
 }
