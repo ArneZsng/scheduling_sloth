@@ -3,7 +3,10 @@ package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import de.nak.scheduling_sloth.model.Lecturer;
+import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.LecturerService;
+
+import java.util.List;
 
 /**
  * Action for a single lecturer.
@@ -16,6 +19,15 @@ public class LecturerAction extends ActionSupport {
 
     /** The current lecturer. */
     private Lecturer lecturer;
+
+    /** The passed calender week. */
+    private Integer week = 0;
+
+    /** The passed year. */
+    private Integer year = 0;
+
+    /** The passed lesson list. */
+    private List<Lesson> lessonList;
 
     /** The lecturer's identifier selected by the user. */
     private Long lecturerId;
@@ -75,6 +87,11 @@ public class LecturerAction extends ActionSupport {
      */
     public String show() {
         lecturer = lecturerService.loadLecturerWithLessons(lecturerId);
+        if (week == 0 || year == 0) {
+            lessonList = lecturer.retrieveLessonsOfCurrentWeek();
+        } else {
+            lessonList = lecturer.retrieveLessonsInWeek(week, year);
+        }
         return SUCCESS;
     }
 
@@ -92,6 +109,30 @@ public class LecturerAction extends ActionSupport {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public List<Lesson> getLessonList() {
+        return lessonList;
+    }
+
+    public void setLessonList(List<Lesson> lessonsList) {
+        this.lessonList = lessonsList;
     }
 
     public Long getLecturerId() {

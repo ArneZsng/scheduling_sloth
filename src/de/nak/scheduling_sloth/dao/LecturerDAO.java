@@ -47,6 +47,8 @@ public class LecturerDAO {
         List<Course> courses = lecturer.getCourses();
         for (Course course : courses) {
             Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+            Hibernate.initialize(course.getCentury());
+            Hibernate.initialize(course.getCohort());
         }
         return lecturer;
     }

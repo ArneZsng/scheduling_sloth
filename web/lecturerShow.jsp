@@ -37,7 +37,6 @@
     <tr>
         <th></th>
         <th><s:text name="lbl.name"/></th>
-        <th><s:text name="lbl.lecturer"/></th>
         <th><s:text name="lbl.century"/></th>
         <th><s:text name="lbl.cohort"/></th>
         <th><s:text name="lbl.startDate"/></th>
@@ -47,39 +46,30 @@
     </tr>
     </thead>
     <tbody>
-    <s:iterator value="lecturer.courses">
+    <s:iterator value="lessonList">
         <s:url action="EditCourse" var="edit" >
-            <s:param name="courseId"><s:property value="id"/></s:param>
+            <s:param name="courseId"><s:property value="course.id"/></s:param>
         </s:url>
-        <s:set var="numberOfLessons" value="lessons.size()" />
-        <s:set var="firstEntry" value="true" />
-        <s:iterator value="lessons">
-            <tr>
-                <s:if test="firstEntry">
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><a type="button" class="btn btn-primary btn-sm" href="<s:property value="#edit" />">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="name"/></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="lecturer.name"/></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="century.name"/></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="cohort.name"/></td>
-                    <s:set var="firstEntry" value="false" />
-                </s:if>
-
-                <td><s:property value="startDate"/></td>
-                <td><s:property value="endDate"/></td>
-                <td><s:property value="rooms"/></td>
-                <td></td>
-                <s:url action="DeleteCourseLesson" var="delete" >
-                    <s:param name="courseLessonId"><s:property value="id"/></s:param>
-                </s:url>
-                <td class="rightCell">
-                    <a type="button" class="btn btn-danger btn-sm" href="<s:property value="#delete" />">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                </td>
-            </tr>
-        </s:iterator>
+        <tr>
+            <td><a type="button" class="btn btn-primary btn-sm" href="<s:property value="#edit" />">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a></td>
+            <td><s:property value="course.name"/></td>
+            <td><s:property value="course.century.name"/></td>
+            <td><s:property value="course.cohort.name"/></td>
+            <td><s:property value="startDate"/></td>
+            <td><s:property value="endDate"/></td>
+            <td><s:property value="rooms"/></td>
+            <td></td>
+            <s:url action="DeleteCourseLesson" var="delete" >
+                <s:param name="courseLessonId"><s:property value="course.id"/></s:param>
+            </s:url>
+            <td class="rightCell">
+                <a type="button" class="btn btn-danger btn-sm" href="<s:property value="#delete" />">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </td>
+        </tr>
     </s:iterator>
     </tbody>
 </table>

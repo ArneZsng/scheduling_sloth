@@ -16,6 +16,8 @@ INSERT INTO course (name, break_time, lecturer_id,cohort_id,century_id) VALUES (
 INSERT INTO course (name, break_time, lecturer_id,cohort_id,century_id) VALUES ('AKDW', 5, 1,1,null);
 INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-08 10:15:00','2014-11-08 15:00:00',1);
 INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-09 10:15:00','2014-11-09 12:30:00',1);
+INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-18 10:15:00','2014-11-18 15:00:00',1);
+INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-19 10:15:00','2014-11-19 12:30:00',1);
 INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-10 9:15:00','2014-11-10 16:20:00',2);
 INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-11 11:30:00','2014-11-11 13:20:00',2);
 INSERT INTO lesson (start_date,end_date,course_id) VALUES ('2014-11-12 12:50:00','2014-11-12 14:45:00',2);
