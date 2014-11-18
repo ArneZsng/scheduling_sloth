@@ -1,6 +1,9 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.model.Course;
+import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.model.Room;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -30,6 +33,22 @@ public class RoomDAO {
         return (Room) sessionFactory.getCurrentSession().get(Room.class, id);
     }
 
+    /**
+     * Loads a single room entity from the database with its lessons and courses.
+     *
+     * @param id The identifier.
+     * @return a room or null if no room was found with the given identifier.
+     */
+    public Room loadWithLessons(Long id) {
+        Room room = (Room) sessionFactory.getCurrentSession().get(Room.class, id);
+        List<Lesson> lessons = room.getLessons();
+        for (Lesson lesson : lessons) {
+            Hibernate.initialize(lesson.getCourse().getCentury());
+            Hibernate.initialize(lesson.getCourse().getCohort());
+        }
+        return room;
+    }
+    
     /**
      * Deletes the room from the database.
      *

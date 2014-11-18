@@ -24,6 +24,14 @@ public interface RoomService {
 	 */
 	Room loadRoom(Long id);
 
+    /**
+     * Loads a single room with lessons and courses.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null.
+     */
+    Room loadRoomWithLessons(Long id);
+
 	/**
 	 * Deletes the given room.
 	 *

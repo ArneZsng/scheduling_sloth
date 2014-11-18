@@ -22,6 +22,11 @@ public class RoomServiceImpl implements RoomService {
 		return roomDAO.load(id);
 	}
 
+    @Override
+    public Room loadRoomWithLessons(Long id) {
+        return roomDAO.loadWithLessons(id);
+    }
+
 	@Override
 	public void deleteRoom(Room room) {
 		roomDAO.delete(room);

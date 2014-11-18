@@ -36,6 +36,11 @@
         <put-attribute name="content" value="/roomForm.jsp"/>
     </definition>
 
+    <!-- The show screen for a single room. -->
+    <definition name="roomShow" extends="mainLayout">
+        <put-attribute name="content" value="/roomShow.jsp"/>
+    </definition>
+
     <!-- The list screen for all cohorts. -->
     <definition name="cohortList" extends="mainLayout">
         <put-attribute name="content" value="/cohortList.jsp"/>

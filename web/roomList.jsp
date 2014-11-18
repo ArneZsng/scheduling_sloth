@@ -15,6 +15,9 @@
     </thead>
     <tbody>
     <s:iterator value="roomList">
+        <s:url action="ShowRoom" var="show" >
+            <s:param name="roomId"><s:property value="id"/></s:param>
+        </s:url>
         <s:url action="EditRoom" var="edit" >
             <s:param name="roomId"><s:property value="id"/></s:param>
         </s:url>
@@ -22,7 +25,11 @@
             <s:param name="roomId"><s:property value="id"/></s:param>
         </s:url>
         <tr>
-            <td><s:property value="name"/></td>
+            <td>
+                <a href="<s:property value="#show" />">
+                    <s:property value="name"/>
+                </a>
+            </td>
             <td><s:property value="availableSeats"/></td>
             <td><s:property value="breakTime"/></td>
             <td class="rightCell">

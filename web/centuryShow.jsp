@@ -89,10 +89,6 @@
             <td><s:property value="startDate"/></td>
             <td><s:property value="endDate"/></td>
             <td><s:property value="rooms"/></td>
-            <td></td>
-            <s:url action="DeleteCourseLesson" var="delete" >
-                <s:param name="courseLessonId"><s:property value="course.id"/></s:param>
-            </s:url>
             <td class="rightCell">
                 <s:url action="EditCourse" var="edit" >
                     <s:param name="courseId"><s:property value="course.id"/></s:param>

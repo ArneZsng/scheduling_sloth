@@ -50,6 +50,11 @@
             <result type="tiles">roomList</result>
         </action>
 
+        <!-- Action that displays a single room. -->
+        <action name="ShowRoom" class="de.nak.scheduling_sloth.action.ShowRoomAction" method="execute">
+            <result type="tiles">roomShow</result>
+        </action>
+
         <!-- Shows the empty form for a new room. -->
         <action name="AddRoom">
             <result type="tiles">roomForm</result>

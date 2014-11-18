@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<a href="<s:url action="ShowCohortList"/>"><span aria-hidden="true">&larr;</span> <s:text name="txt.backTo"/> <s:text name="txt.centuries"/></a></li>
+<a href="<s:url action="ShowCohortList"/>"><span aria-hidden="true">&larr;</span> <s:text name="txt.backTo"/> <s:text name="txt.cohorts"/></a></li>
 
 <h1>
     <s:property value="cohort.name"/>
@@ -83,10 +83,6 @@
             <td><s:property value="startDate"/></td>
             <td><s:property value="endDate"/></td>
             <td><s:property value="rooms"/></td>
-            <td></td>
-            <s:url action="DeleteCourseLesson" var="delete" >
-                <s:param name="courseLessonId"><s:property value="course.id"/></s:param>
-            </s:url>
             <td class="rightCell">
                 <s:url action="EditCourse" var="edit" >
                     <s:param name="courseId"><s:property value="course.id"/></s:param>
