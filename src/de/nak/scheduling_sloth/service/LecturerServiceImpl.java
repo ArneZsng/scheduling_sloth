@@ -26,6 +26,11 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
+    public Lecturer loadLecturerWithLessons(Long id) {
+        return lecturerDAO.loadWithLessons(id);
+    }
+
+    @Override
     public void deleteLecturer(Lecturer lecturer) {
         lecturerDAO.delete(lecturer);
     }

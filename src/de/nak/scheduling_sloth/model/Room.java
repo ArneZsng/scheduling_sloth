@@ -1,7 +1,8 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Room entity
@@ -19,7 +20,7 @@ public class Room extends SchedulingObject {
     /** The needed change time of the room. */
     private Integer breakTime;
     /** The lessons in this room. */
-    private Set<Lesson> lessons;
+    private List<Lesson> lessons = new ArrayList<Lesson>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,15 +56,15 @@ public class Room extends SchedulingObject {
     }
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="rooms")
-    public Set<Lesson> getLessons() {
+    public List<Lesson> getLessons() {
         return lessons;
     }
-    public void setLessons(Set<Lesson> lessons) {
+    public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
 
     @Override
-    public Set<Lesson> retrieveLessons() {
+    public List<Lesson> retrieveLessons() {
         return getLessons();
     }
 

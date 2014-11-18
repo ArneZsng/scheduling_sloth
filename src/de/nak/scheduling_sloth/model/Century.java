@@ -1,7 +1,9 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +22,7 @@ public class Century extends SchedulingObject {
     /** The needed break time of the century. */
     private Integer breakTime;
     /** The courses of this century. */
-    private Set<Course> courses;
+    private List<Course> courses = new ArrayList<Course>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,16 +71,16 @@ public class Century extends SchedulingObject {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="century")
-    public Set<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
-    public void setCourses(Set<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
     @Override
-    public Set<Lesson> retrieveLessons() {
-        Set<Lesson> lessons = new HashSet<Lesson>();
+    public List<Lesson> retrieveLessons() {
+        List<Lesson> lessons = new ArrayList<Lesson>();
         for (Course course : courses) {
             lessons.addAll(course.getLessons());
         }

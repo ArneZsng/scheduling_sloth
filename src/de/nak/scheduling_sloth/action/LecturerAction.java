@@ -74,8 +74,7 @@ public class LecturerAction extends ActionSupport {
      * @return the result string.
      */
     public String show() {
-        lecturer = lecturerService.loadLecturer(lecturerId);
-
+        lecturer = lecturerService.loadLecturerWithLessons(lecturerId);
         return SUCCESS;
     }
 

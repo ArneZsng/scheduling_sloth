@@ -1,8 +1,8 @@
 package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lecturer entity
@@ -18,7 +18,7 @@ public class Lecturer extends SchedulingObject {
     /** The needed break time of the lecturer. */
     private Integer breakTime;
     /** The courses of this lecturer. */
-    private Set<Course> courses;
+    private List<Course> courses = new ArrayList<Course>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,17 +50,17 @@ public class Lecturer extends SchedulingObject {
         }
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="lecturer")
-    public Set<Course> getCourses() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="lecturer")
+    public List<Course> getCourses() {
         return courses;
     }
-    public void setCourses(Set<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
     @Override
-    public Set<Lesson> retrieveLessons() {
-        Set<Lesson> lessons = new HashSet<Lesson>();
+    public List<Lesson> retrieveLessons() {
+        List<Lesson> lessons = new ArrayList<Lesson>();;
         for (Course course : courses) {
             lessons.addAll(course.getLessons());
         }

@@ -66,9 +66,9 @@
         <put-attribute name="content" value="/courseLessonForm.jsp"/>
     </definition>
 
-    <!-- The list screen for all lessons. -->
-    <definition name="lessonList" extends="mainLayout">
-        <put-attribute name="content" value="/lessonList.jsp"/>
+    <!-- The list screen for all courses. -->
+    <definition name="courseList" extends="mainLayout">
+        <put-attribute name="content" value="/courseList.jsp"/>
     </definition>
 
     <!-- The form for a single lesson. -->

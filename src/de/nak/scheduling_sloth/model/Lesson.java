@@ -64,7 +64,7 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     @ManyToOne
-    @JoinColumn(name = "course_id", nullable = true) // Auf false setzen?
+    @JoinColumn(name = "course_id", nullable = false)
     public Course getCourse() {
         return course;
     }

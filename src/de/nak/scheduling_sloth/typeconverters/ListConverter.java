@@ -16,26 +16,29 @@ public class ListConverter extends StrutsTypeConverter {
 
     @Override
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {
-        try{
+        try {
             return null;
-        }catch(Exception e){
+        } catch(Exception e){
             throw new TypeConversionException(e);
         }
     }
 
     @Override
-    public String convertToString(Map context, Object object)  throws TypeConversionException  {
-        try{
+    public String convertToString(Map context, Object object) throws TypeConversionException  {
+        try {
             String result = "-";
-            if(object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room){
+            System.out.println("TEST");
+            System.out.println("2");
+            if (object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room) {
                 StringJoiner rooms = new StringJoiner(", ");
-                for(Room room: ((List<Room>) object)) {
+                for (Room room: ((List<Room>) object)) {
+                    System.out.println(room.getName());
                     rooms.add(room.getName());
                 }
                 result = rooms.toString();
             }
             return result;
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new TypeConversionException(e);
         }
     }

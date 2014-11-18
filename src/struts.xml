@@ -169,6 +169,7 @@
         <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
             <result type="tiles">courseLessonForm</result>
         </action>
+
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
         <action name="SaveCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="saveLessons">
             <result type="tiles">courseLessonForm</result>
@@ -180,9 +181,9 @@
             <result type="chain" name="input">ShowLessonList</result>
         </action>
 
-        <!-- Action that displays the list of lessons. -->
-        <action name="ShowLessonList" class="de.nak.scheduling_sloth.action.ShowLessonListAction">
-            <result type="tiles">lessonList</result>
+        <!-- Action that displays the list of courses. -->
+        <action name="ShowCourseList" class="de.nak.scheduling_sloth.action.ShowCourseListAction">
+            <result type="tiles">courseList</result>
         </action>
 
         <!-- Shows the homepage. -->

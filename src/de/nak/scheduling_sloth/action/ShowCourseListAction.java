@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class ShowLessonListAction implements Action {
-    /** Select list of rooms. */
+public class ShowCourseListAction implements Action {
+    /** Select list of courses. */
     private List<Course> courseList;
 
-    /** The room service. */
+    /** The course service. */
     private CourseService courseService;
 
     @Override

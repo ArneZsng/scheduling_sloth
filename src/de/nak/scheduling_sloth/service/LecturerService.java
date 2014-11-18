@@ -24,6 +24,14 @@ public interface LecturerService {
     Lecturer loadLecturer(Long id);
 
     /**
+     * Loads a single lecturer with lessons and courses.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null.
+     */
+    Lecturer loadLecturerWithLessons(Long id);
+
+    /**
      * Deletes the given lecturer.
      *
      * @param lecturer The lecturer.

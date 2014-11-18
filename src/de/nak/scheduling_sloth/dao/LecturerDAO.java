@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lecturer;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -31,6 +33,20 @@ public class LecturerDAO {
      */
     public Lecturer load(Long id) {
         return (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+    }
+
+
+    /**
+     * Loads a single lecturer entity from the database with its courses and lessons.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null if no lecturer was found with the given identifier.
+     */
+    public Lecturer loadWithLessons(Long id) {
+        Lecturer lecturer = (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+        Hibernate.initialize(lecturer.getCourses());
+        Hibernate.initialize(lecturer.retrieveLessons());
+        return lecturer;
     }
 
     /**

@@ -10,10 +10,10 @@ public abstract class SchedulingObject {
 
     abstract public Integer retrieveBreakTime();
 
-    abstract public Set<Lesson> retrieveLessons();
+    abstract public List<Lesson> retrieveLessons();
 
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
-        Set<Lesson> lessons = retrieveLessons();
+        List<Lesson> lessons = retrieveLessons();
         boolean result = true;
 
         for (Lesson lesson : lessons) {

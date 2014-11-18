@@ -14,7 +14,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="<s:url action="ShowLessonList"/>"><s:text name="txt.editLessons"/></a></li>
+                <li><a href="<s:url action="ShowCourseList"/>"><s:text name="txt.editCourses"/></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><s:text name="txt.editCoreData"/><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">

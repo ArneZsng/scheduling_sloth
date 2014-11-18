@@ -1,5 +1,8 @@
 package de.nak.scheduling_sloth.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -80,7 +83,8 @@ public class Course {
     }
 
     // TODO: Find better solution for .EAGER (due to error with lazy loading)
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @LazyCollection(LazyCollectionOption.TRUE)
     public List<Lesson> getLessons() {
         return lessons;
     }
