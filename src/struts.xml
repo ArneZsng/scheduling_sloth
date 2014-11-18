@@ -83,6 +83,11 @@
             <result type="tiles">cohortList</result>
         </action>
 
+        <!-- Action that displays a single cohort. -->
+        <action name="ShowCohort" class="de.nak.scheduling_sloth.action.ShowCohortAction" method="execute">
+            <result type="tiles">cohortShow</result>
+        </action>
+
         <!-- Shows the empty form for a new cohort. -->
         <action name="AddCohort">
             <result type="tiles">cohortForm</result>

@@ -46,6 +46,11 @@
         <put-attribute name="content" value="/cohortForm.jsp"/>
     </definition>
 
+    <!-- The show screen for a single cohort. -->
+    <definition name="cohortShow" extends="mainLayout">
+        <put-attribute name="content" value="/cohortShow.jsp"/>
+    </definition>
+
     <!-- The list screen for all centuries. -->
     <definition name="centuryList" extends="mainLayout">
         <put-attribute name="content" value="/centuryList.jsp"/>

@@ -24,7 +24,12 @@ public class CohortServiceImpl implements CohortService {
         return cohortDAO.load(id);
     }
 
-	@Override
+    @Override
+    public Cohort loadCohortWithLessons(Long id) {
+        return cohortDAO.loadWithLessons(id);
+    }
+
+    @Override
 	public void deleteCohort(Cohort cohort) {
 		cohortDAO.delete(cohort);
 	}
