@@ -9,6 +9,7 @@
 		<title><s:text name="txt.title"/></title>
 		<s:head/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/main.css">
     </head>
 	<body>
@@ -22,5 +23,8 @@
 
         <script src="${pageContext.request.contextPath}/resources/assets/javascripts/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/resources/assets/javascripts/bootstrap.min.js"></script>
-	</body>
+        <script src="${pageContext.request.contextPath}/resources/assets/javascripts/moment-with-locales.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/assets/javascripts/bootstrap-datetimepicker.min.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/assets/javascripts/scheduling_sloth.js"></script>
+    </body>
 </html>
