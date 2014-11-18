@@ -13,7 +13,7 @@
 		</action>
 
         <!-- Action that displays a single lecturer. -->
-        <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="show">
+        <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
             <result type="tiles">lecturerShow</result>
         </action>
 
