@@ -27,12 +27,9 @@ public class ListConverter extends StrutsTypeConverter {
     public String convertToString(Map context, Object object) throws TypeConversionException  {
         try {
             String result = "-";
-            System.out.println("TEST");
-            System.out.println();
             if (object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room) {
                 StringJoiner rooms = new StringJoiner(", ");
                 for (Room room: ((List<Room>) object)) {
-                    System.out.println(room.getName());
                     rooms.add(room.getName());
                 }
                 result = rooms.toString();

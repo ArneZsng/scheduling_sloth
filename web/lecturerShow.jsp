@@ -3,7 +3,25 @@
 
 <a href="<s:url action="ShowLecturerList"/>"><span aria-hidden="true">&larr;</span> <s:text name="txt.backTo"/> <s:text name="txt.lecturers"/></a></li>
 
-<h1><s:property value="lecturer.name"/></h1>
+<h1>
+    <s:property value="lecturer.name"/>
+    <div class="pull-right">
+        <%-- The edit button --%>
+        <s:url action="EditLecturer" var="edit" >
+            <s:param name="lecturerId"><s:property value="lecturer.id"/></s:param>
+        </s:url>
+        <a type="button" class="btn btn-primary btn-large" href="<s:property value="#edit" />">
+            <span class="glyphicon glyphicon-pencil"></span> <s:text name="btn.edit"/>
+        </a>
+        <%-- The delete button --%>
+        <s:url action="DeleteLecturer" var="delete" >
+            <s:param name="lecturerId"><s:property value="lecturer.id"/></s:param>
+        </s:url>
+        <a type="button" class="btn btn-danger btn-large" href="<s:property value="#delete" />">
+            <span class="glyphicon glyphicon-remove"></span> <s:text name="btn.delete"/>
+        </a>
+    </div>
+</h1>
 <dl class="dl-horizontal">
     <dt>
         <s:text name="lbl.breakTime"/>
@@ -13,13 +31,6 @@
     </dd>
 </dl>
 <s:actionerror/>
-<%-- The edit button --%>
-<s:url action="EditLecturer" var="edit" >
-    <s:param name="lecturerId"><s:property value="lecturer.id"/></s:param>
-</s:url>
-<a type="button" class="btn btn-primary btn-large" href="<s:property value="#edit" />">
-    <span class="glyphicon glyphicon-pencil"></span> <s:text name="btn.edit"/>
-</a>
 <%-- The lecturer table --%>
 <table class="table">
     <thead>
