@@ -44,8 +44,10 @@ public class LecturerDAO {
      */
     public Lecturer loadWithLessons(Long id) {
         Lecturer lecturer = (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
-        Hibernate.initialize(lecturer.getCourses());
-        Hibernate.initialize(lecturer.retrieveLessons());
+        List<Course> courses = lecturer.getCourses();
+        for (Course course : courses) {
+            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+        }
         return lecturer;
     }
 

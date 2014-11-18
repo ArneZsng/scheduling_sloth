@@ -28,7 +28,7 @@ public class ListConverter extends StrutsTypeConverter {
         try {
             String result = "-";
             System.out.println("TEST");
-            System.out.println("2");
+            System.out.println();
             if (object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room) {
                 StringJoiner rooms = new StringJoiner(", ");
                 for (Room room: ((List<Room>) object)) {
