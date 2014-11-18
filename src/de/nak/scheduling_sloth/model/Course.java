@@ -80,7 +80,7 @@ public class Course {
     }
 
     // TODO: Find better solution for .EAGER (due to error with lazy loading)
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     public List<Lesson> getLessons() {
         return lessons;
     }
@@ -95,6 +95,15 @@ public class Course {
     //TODO
     public Integer audienceSize() {
         return century.getNumberOfStudents();
+    }
+
+
+    public List<Room> retrieveLessonsWithInitRooms() {
+        List <Room> rooms = new ArrayList<Room>();
+        for(Lesson lesson : lessons) {
+            rooms.addAll(lesson.getRooms());
+        }
+        return rooms;
     }
 
 }

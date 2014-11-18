@@ -52,7 +52,7 @@ public class Lesson implements Comparable<Lesson> {
 
     // TODO: Find better solution for .EAGER (due to error with lazy loading)
     @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinTable(name="lesson_room", joinColumns={
             @JoinColumn(name="lesson_id")}, inverseJoinColumns={
             @JoinColumn(name="room_id")})

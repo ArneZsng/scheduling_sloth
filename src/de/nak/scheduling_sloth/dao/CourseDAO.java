@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Course;
+import de.nak.scheduling_sloth.model.Lesson;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -28,7 +30,9 @@ public class CourseDAO {
      * @return a course or null if no course was found with the given identifier.
      */
     public Course load(Long id) {
-        return (Course) sessionFactory.getCurrentSession().get(Course.class, id);
+        Course course = (Course) sessionFactory.getCurrentSession().get(Course.class, id);
+        Hibernate.initialize(course.getLessons());
+        return course;
     }
 
     /**
@@ -55,7 +59,17 @@ public class CourseDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Course> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Course").list();
+        List<Course> courses = sessionFactory.getCurrentSession().createQuery("from Course").list();
+        for (Course course : courses) {
+               //TODO: Figure out which initialization to use.
+            /**List<Lesson> lessons = course.getLessons();
+
+            for (Lesson lesson : lessons) {
+                Hibernate.initialize(lesson.getRooms());
+            }**/
+            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+        }
+        return courses;
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
