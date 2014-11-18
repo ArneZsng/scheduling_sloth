@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Century;
+import de.nak.scheduling_sloth.model.Course;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -31,6 +33,23 @@ public class CenturyDAO {
         return (Century) sessionFactory.getCurrentSession().get(Century.class, id);
     }
 
+    /**
+     * Loads a single lecturer entity from the database with its courses and lessons.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null if no lecturer was found with the given identifier.
+     */
+    public Century loadWithLessons(Long id) {
+        Century century = (Century) sessionFactory.getCurrentSession().get(Century.class, id);
+        List<Course> courses = century.getCourses();
+        for (Course course : courses) {
+            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+            Hibernate.initialize(course.getCentury());
+            Hibernate.initialize(course.getCohort());
+        }
+        return century;
+    }
+    
     /**
      * Deletes the century from the database.
      *

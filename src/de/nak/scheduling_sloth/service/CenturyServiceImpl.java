@@ -22,6 +22,11 @@ public class CenturyServiceImpl implements CenturyService {
         return centuryDAO.load(id);
     }
 
+    @Override
+    public Century loadCenturyWithLessons(Long id) {
+        return centuryDAO.loadWithLessons(id);
+    }
+
 	@Override
 	public void deleteCentury(Century century) {
 		centuryDAO.delete(century);

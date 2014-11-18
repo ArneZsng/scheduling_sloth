@@ -116,6 +116,11 @@
             <result type="tiles">centuryList</result>
         </action>
 
+        <!-- Action that displays a single century. -->
+        <action name="ShowCentury" class="de.nak.scheduling_sloth.action.ShowCenturyAction" method="execute">
+            <result type="tiles">centuryShow</result>
+        </action>
+
         <!-- Shows the empty form for a new century. -->
         <action name="AddCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="add">
             <result type="tiles">centuryForm</result>
