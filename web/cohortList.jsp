@@ -15,6 +15,9 @@
     </thead>
     <tbody>
     <s:iterator value="cohortList">
+        <s:url action="ShowCohort" var="show" >
+            <s:param name="cohortId"><s:property value="id"/></s:param>
+        </s:url>
         <s:url action="EditCohort" var="edit" >
             <s:param name="cohortId"><s:property value="id"/></s:param>
         </s:url>
@@ -22,7 +25,11 @@
             <s:param name="cohortId"><s:property value="id"/></s:param>
         </s:url>
         <tr>
-            <td><s:property value="name"/></td>
+            <td>
+                <a href="<s:property value="#show" />">
+                    <s:property value="name"/>
+                </a>
+            </td>
             <td><s:property value="major"/></td>
             <td><s:property value="year"/></td>
             <td class="rightCell">

@@ -24,6 +24,14 @@ public interface CohortService {
 	 */
      Cohort loadCohort(Long id);
 
+    /**
+     * Loads a single cohort with lessons and courses.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null.
+     */
+    Cohort loadCohortWithLessons(Long id);
+    
 	/**
 	 * Deletes the given cohort.
 	 *

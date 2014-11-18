@@ -21,7 +21,7 @@
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
 	</definition>
 
-    <!-- The show single for a single lecturer. -->
+    <!-- The show screen for a single lecturer. -->
     <definition name="lecturerShow" extends="mainLayout">
         <put-attribute name="content" value="/lecturerShow.jsp"/>
     </definition>
@@ -46,6 +46,11 @@
         <put-attribute name="content" value="/cohortForm.jsp"/>
     </definition>
 
+    <!-- The show screen for a single cohort. -->
+    <definition name="cohortShow" extends="mainLayout">
+        <put-attribute name="content" value="/cohortShow.jsp"/>
+    </definition>
+
     <!-- The list screen for all centuries. -->
     <definition name="centuryList" extends="mainLayout">
         <put-attribute name="content" value="/centuryList.jsp"/>
@@ -54,6 +59,11 @@
     <!-- The form for a single century. -->
     <definition name="centuryForm" extends="mainLayout">
         <put-attribute name="content" value="/centuryForm.jsp"/>
+    </definition>
+
+    <!-- The show screen for a single century. -->
+    <definition name="centuryShow" extends="mainLayout">
+        <put-attribute name="content" value="/centuryShow.jsp"/>
     </definition>
 
     <!-- The form for a single course. -->

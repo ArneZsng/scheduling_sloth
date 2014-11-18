@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Cohort;
+import de.nak.scheduling_sloth.model.Course;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -32,13 +34,29 @@ public class CohortDAO {
     }
 
     /**
+     * Loads a single lecturer entity from the database with its courses and lessons.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null if no lecturer was found with the given identifier.
+     */
+    public Cohort loadWithLessons(Long id) {
+        Cohort cohort = (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
+        List<Course> courses = cohort.getCourses();
+        for (Course course : courses) {
+            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+            Hibernate.initialize(course.getCohort());
+            Hibernate.initialize(course.getCohort());
+        }
+        return cohort;
+    }
+
+    /**
      * Deletes the cohort from the database.
      *
      * @param cohort The cohort to be deleted.
      */
 
     public void delete(Cohort cohort) {sessionFactory.getCurrentSession().delete(cohort);}
-
 
     /**
      * Edits the cohorts from the database.

@@ -16,6 +16,9 @@
     </thead>
     <tbody>
     <s:iterator value="centuryList">
+        <s:url action="ShowCentury" var="show" >
+            <s:param name="centuryId"><s:property value="id"/></s:param>
+        </s:url>
         <s:url action="EditCentury" var="edit" >
             <s:param name="centuryId"><s:property value="id"/></s:param>
         </s:url>
@@ -23,7 +26,11 @@
             <s:param name="centuryId"><s:property value="id"/></s:param>
         </s:url>
         <tr>
-            <td><s:property value="name"/></td>
+            <td>
+                <a href="<s:property value="#show" />">
+                    <s:property value="name"/>
+                </a>
+            </td>
             <td><s:property value="cohort.name"/></td>
             <td><s:property value="numberOfStudents"/></td>
             <td><s:property value="breakTime"/></td>

@@ -24,6 +24,14 @@ public interface CenturyService {
 	 */
      Century loadCentury(Long id);
 
+    /**
+     * Loads a single century with lessons and courses.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null.
+     */
+    Century loadCenturyWithLessons(Long id);
+
 	/**
 	 * Deletes the given century.
 	 *

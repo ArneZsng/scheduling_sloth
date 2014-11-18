@@ -1,21 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<a href="<s:url action="ShowLecturerList"/>"><span aria-hidden="true">&larr;</span> <s:text name="txt.backTo"/> <s:text name="txt.lecturers"/></a></li>
+<a href="<s:url action="ShowCenturyList"/>"><span aria-hidden="true">&larr;</span> <s:text name="txt.backTo"/> <s:text name="txt.centuries"/></a></li>
 
 <h1>
-    <s:property value="lecturer.name"/>
+    <s:property value="century.name"/>
     <div class="pull-right">
         <%-- The edit button --%>
-        <s:url action="EditLecturer" var="edit" >
-            <s:param name="lecturerId"><s:property value="lecturer.id"/></s:param>
+        <s:url action="EditCentury" var="edit" >
+            <s:param name="centuryId"><s:property value="century.id"/></s:param>
         </s:url>
         <a type="button" class="btn btn-primary btn-large" href="<s:property value="#edit" />">
             <span class="glyphicon glyphicon-pencil"></span> <s:text name="btn.edit"/>
         </a>
         <%-- The delete button --%>
-        <s:url action="DeleteLecturer" var="delete" >
-            <s:param name="lecturerId"><s:property value="lecturer.id"/></s:param>
+        <s:url action="DeleteCentury" var="delete" >
+            <s:param name="centuryId"><s:property value="century.id"/></s:param>
         </s:url>
         <a type="button" class="btn btn-danger btn-large" href="<s:property value="#delete" />">
             <span class="glyphicon glyphicon-remove"></span> <s:text name="btn.delete"/>
@@ -27,15 +27,27 @@
         <s:text name="lbl.breakTime"/>
     </dt>
     <dd>
-        <s:property value="lecturer.breakTime"/> <s:text name="txt.minutes"/>
+        <s:property value="century.breakTime"/> <s:text name="txt.minutes"/>
+    </dd>
+    <dt>
+        <s:text name="lbl.cohort"/>
+    </dt>
+    <dd>
+        <s:property value="century.cohort.name"/>
+    </dd>
+    <dt>
+        <s:text name="lbl.numberOfStudents"/>
+    </dt>
+    <dd>
+        <s:property value="century.numberOfStudents"/>
     </dd>
 </dl>
 <s:actionerror/>
 
 <%-- The schedule form --%>
 <s:form cssClass="form-horizontal" role="form" method="GET">
-    <%-- Form fields for the lecturer's attributes --%>
-    <s:hidden name="lecturerId"/>
+    <%-- Form fields for the century's attributes --%>
+    <s:hidden name="centuryId"/>
     <div class="form-group">
         <s:label for="week" cssClass="col-sm-2 control-label" key="lbl.week" />
         <div class="col-sm-2">
@@ -52,7 +64,7 @@
     <%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit key="btn.showSchedule" action="ShowLecturer" cssClass="btn btn-primary"/>
+            <s:submit key="btn.showSchedule" action="ShowCentury" cssClass="btn btn-primary"/>
         </div>
     </div>
 </s:form>
@@ -62,8 +74,7 @@
     <thead>
     <tr>
         <th><s:text name="lbl.event"/></th>
-        <th><s:text name="lbl.century"/></th>
-        <th><s:text name="lbl.cohort"/></th>
+        <th><s:text name="lbl.lecturer"/></th>
         <th><s:text name="lbl.startDate"/></th>
         <th><s:text name="lbl.endDate"/></th>
         <th><s:text name="lbl.rooms"/></th>
@@ -74,8 +85,7 @@
     <s:iterator value="lessonList">
         <tr>
             <td><s:property value="course.name"/></td>
-            <td><s:property value="course.century.name"/></td>
-            <td><s:property value="course.cohort.name"/></td>
+            <td><s:property value="course.lecturer.name"/></td>
             <td><s:property value="startDate"/></td>
             <td><s:property value="endDate"/></td>
             <td><s:property value="rooms"/></td>

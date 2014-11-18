@@ -13,7 +13,7 @@
 		</action>
 
         <!-- Action that displays a single lecturer. -->
-        <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="show">
+        <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
             <result type="tiles">lecturerShow</result>
         </action>
 
@@ -83,6 +83,11 @@
             <result type="tiles">cohortList</result>
         </action>
 
+        <!-- Action that displays a single cohort. -->
+        <action name="ShowCohort" class="de.nak.scheduling_sloth.action.ShowCohortAction" method="execute">
+            <result type="tiles">cohortShow</result>
+        </action>
+
         <!-- Shows the empty form for a new cohort. -->
         <action name="AddCohort">
             <result type="tiles">cohortForm</result>
@@ -114,6 +119,11 @@
         <!-- Action that displays the list of centuries. -->
         <action name="ShowCenturyList" class="de.nak.scheduling_sloth.action.ShowCenturyListAction">
             <result type="tiles">centuryList</result>
+        </action>
+
+        <!-- Action that displays a single century. -->
+        <action name="ShowCentury" class="de.nak.scheduling_sloth.action.ShowCenturyAction" method="execute">
+            <result type="tiles">centuryShow</result>
         </action>
 
         <!-- Shows the empty form for a new century. -->
