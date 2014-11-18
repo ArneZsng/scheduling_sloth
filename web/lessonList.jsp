@@ -3,7 +3,12 @@
 
 <h1><s:text name="txt.lessons"/></h1>
 <s:actionerror/>
-<%-- The century table --%>
+<%-- The add button --%>
+<s:url action="AddCourse" var="add" />
+<a type="button" class="btn btn-primary btn-large" href="<s:property value="#add" />">
+    <span class="glyphicon glyphicon-plus"></span> <s:text name="btn.add"/>
+</a>
+<%-- The lesson table --%>
 <table class="table">
     <thead>
     <tr>
@@ -55,7 +60,3 @@
     </s:iterator>
     </tbody>
 </table>
-<s:url action="AddCourse" var="add" />
-<a type="button" class="btn btn-primary btn-large" href="<s:property value="#add" />">
-    <span class="glyphicon glyphicon-plus"></span> <s:text name="btn.add"/>
-</a>

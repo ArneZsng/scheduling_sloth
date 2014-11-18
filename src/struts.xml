@@ -12,6 +12,11 @@
 			<result type="tiles">lecturerList</result>
 		</action>
 
+        <!-- Action that displays a single lecturer. -->
+        <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="show">
+            <result type="tiles">lecturerShow</result>
+        </action>
+
 		<!-- Shows the empty form for a new lecturer. -->
 		<action name="AddLecturer">
 			<result type="tiles">lecturerForm</result>

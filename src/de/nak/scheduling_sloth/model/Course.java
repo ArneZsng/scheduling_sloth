@@ -80,7 +80,7 @@ public class Course {
     }
 
     // TODO: Find better solution for .EAGER (due to error with lazy loading)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
     public List<Lesson> getLessons() {
         return lessons;
     }

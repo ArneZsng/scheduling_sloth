@@ -21,6 +21,11 @@
 		<put-attribute name="content" value="/lecturerForm.jsp"/>
 	</definition>
 
+    <!-- The show single for a single lecturer. -->
+    <definition name="lecturerShow" extends="mainLayout">
+        <put-attribute name="content" value="/lecturerShow.jsp"/>
+    </definition>
+
     <!-- The list screen for all rooms. -->
     <definition name="roomList" extends="mainLayout">
         <put-attribute name="content" value="/roomList.jsp"/>

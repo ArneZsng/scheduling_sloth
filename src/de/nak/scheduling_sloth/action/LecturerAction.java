@@ -68,6 +68,17 @@ public class LecturerAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * Displays the selected lecturer in the lecturer show.
+     *
+     * @return the result string.
+     */
+    public String show() {
+        lecturer = lecturerService.loadLecturer(lecturerId);
+
+        return SUCCESS;
+    }
+
     @Override
     public void validate() {
         // If the lecturer is not set, the lecturer ID has to be set.

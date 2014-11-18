@@ -2,6 +2,7 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.lecturers"/></h1>
+
 <s:actionerror/>
 <%-- The lecturer table --%>
 <table class="table table-hover">
@@ -14,6 +15,9 @@
     </thead>
     <tbody>
         <s:iterator value="lecturerList">
+            <s:url action="ShowLecturer" var="show" >
+                <s:param name="lecturerId"><s:property value="id"/></s:param>
+            </s:url>
             <s:url action="EditLecturer" var="edit" >
                 <s:param name="lecturerId"><s:property value="id"/></s:param>
             </s:url>
@@ -21,7 +25,11 @@
                 <s:param name="lecturerId"><s:property value="id"/></s:param>
             </s:url>
             <tr>
-                <td><s:property value="name"/></td>
+                <td>
+                    <a href="<s:property value="#show" />">
+                        <s:property value="name"/>
+                    </a>
+                </td>
                 <td><s:property value="breakTime"/></td>
                 <td class="rightCell">
                     <a type="button" class="btn btn-primary btn-xs" href="<s:property value="#edit" />">
