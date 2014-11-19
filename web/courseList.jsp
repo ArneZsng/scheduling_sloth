@@ -46,7 +46,6 @@
                 <td><s:property value="startDate"/></td>
                 <td><s:property value="endDate"/></td>
                 <td><s:property value="rooms"/></td>
-                <td></td>
                 <s:url action="DeleteCourseLesson" var="delete" >
                     <s:param name="courseLessonId"><s:property value="id"/></s:param>
                 </s:url>
