@@ -46,7 +46,6 @@
 
 <%-- The schedule form --%>
 <s:form cssClass="form-horizontal" role="form" method="GET">
-    <%-- Form fields for the century's attributes --%>
     <s:hidden name="centuryId"/>
     <div class="form-group">
         <s:label for="week" cssClass="col-sm-2 control-label" key="lbl.week" />

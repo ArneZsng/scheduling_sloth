@@ -31,6 +31,11 @@
         <put-attribute name="content" value="/roomList.jsp"/>
     </definition>
 
+    <!-- The list of all available rooms at a certain time. -->
+    <definition name="roomListAvailable" extends="mainLayout">
+        <put-attribute name="content" value="/roomListAvailable.jsp"/>
+    </definition>
+
     <!-- The form for a single room. -->
     <definition name="roomForm" extends="mainLayout">
         <put-attribute name="content" value="/roomForm.jsp"/>
