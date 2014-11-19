@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Lesson;
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -27,8 +28,12 @@ public class LessonDAO {
      * @param id The identifier.
      * @return a lesson or null if no lesson was found with the given identifier.
      */
+
+    //TODO: Find permanent way for lazy loading
     public Lesson load(Long id) {
-        return (Lesson) sessionFactory.getCurrentSession().get(Lesson.class, id);
+        Lesson lesson = (Lesson) sessionFactory.getCurrentSession().get(Lesson.class, id);
+        Hibernate.initialize(lesson.getCourse().getLessons());
+        return lesson;
     }
 
     /**
