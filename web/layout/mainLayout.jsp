@@ -13,7 +13,23 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/main.css">
     </head>
 	<body>
-		<!-- Header -->
+        <s:if test="hasActionErrors()">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <s:iterator value="actionErrors">
+                    <p class="errorMessage"><s:property escapeHtml="false" /></p>
+                </s:iterator>
+            </div>
+        </s:if>
+        <s:if test="hasActionMessages()">
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <s:iterator value="actionMessages">
+                    <p class="actionMessage"><s:property /></p>
+                </s:iterator>
+            </div>
+        </s:if>
+        <!-- Header -->
         <tiles:insertAttribute name="header"/>
 
 		<!-- Content -->

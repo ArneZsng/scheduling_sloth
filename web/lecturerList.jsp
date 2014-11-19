@@ -2,8 +2,6 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.lecturers"/></h1>
-
-<s:actionerror/>
 <%-- The lecturer table --%>
 <table class="table table-hover">
     <thead>

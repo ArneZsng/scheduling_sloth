@@ -43,11 +43,21 @@ public class LecturerAction extends ActionSupport {
      * @return the result string.
      */
     public String delete() {
+        String response;
         lecturer = lecturerService.loadLecturer(lecturerId);
-        if (lecturer != null) {
+
+        if (lecturer == null) {
+            response = SUCCESS;
+        } else if (lecturer.getCourses().isEmpty()) {
             lecturerService.deleteLecturer(lecturer);
+            response = SUCCESS;
+        } else {
+            addActionError(getText("error.lecturer.delete"));
+            response = ERROR;
         }
-        return SUCCESS;
+
+        return response;
+
     }
 
     /**

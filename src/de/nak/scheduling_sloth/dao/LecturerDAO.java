@@ -32,7 +32,11 @@ public class LecturerDAO {
      * @return a lecturer or null if no lecturer was found with the given identifier.
      */
     public Lecturer load(Long id) {
-        return (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+        Lecturer lecturer =  (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+        if (lecturer != null) {
+            Hibernate.initialize(lecturer.getCourses());
+        }
+        return lecturer;
     }
 
 
