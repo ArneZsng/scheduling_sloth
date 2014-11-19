@@ -75,7 +75,8 @@
 
         <!-- Deletes the selected room and shows the room list again. -->
         <action name="DeleteRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="delete">
-            <result type="redirect">ShowRoomList.action</result>
+            <result name="error" type="chain">ShowRoomList</result>
+            <result name="success" type="redirect">ShowRoomList.action</result>
             <result type="chain" name="input">ShowRoomList</result>
         </action>
 
@@ -113,7 +114,8 @@
 
         <!-- Deletes the selected cohort and shows the cohort list again. -->
         <action name="DeleteCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="delete">
-            <result type="redirect">ShowCohortList.action</result>
+            <result name="error" type="chain">ShowCohortList</result>
+            <result name="success" type="redirect">ShowCohortList.action</result>
             <result type="chain" name="input">ShowCohortList</result>
         </action>
 
@@ -151,7 +153,8 @@
 
         <!-- Deletes the selected century and shows the century list again. -->
         <action name="DeleteCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="delete">
-            <result type="redirect">ShowCenturyList.action</result>
+            <result name="error" type="chain">ShowCenturyList</result>
+            <result name="success" type="redirect">ShowCenturyList.action</result>
             <result type="chain" name="input">ShowCenturyList</result>
         </action>
 

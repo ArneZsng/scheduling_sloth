@@ -30,7 +30,11 @@ public class CenturyDAO {
      * @return a century or null if no century was found with the given identifier.
      */
     public Century load(Long id) {
-        return (Century) sessionFactory.getCurrentSession().get(Century.class, id);
+        Century century =  (Century) sessionFactory.getCurrentSession().get(Century.class, id);
+        if (century != null) {
+            Hibernate.initialize(century.getCourses());
+        }
+        return century;
     }
 
     /**

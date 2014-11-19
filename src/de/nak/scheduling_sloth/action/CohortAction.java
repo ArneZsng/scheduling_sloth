@@ -35,11 +35,29 @@ public class CohortAction extends ActionSupport {
      * @return the result string.
      */
     public String delete() {
+        String response;
         cohort = cohortService.loadCohort(cohortId);
-        if (cohortId != null) {
-            cohortService.deleteCohort(cohort);
+
+        if (cohort == null) {
+            response = SUCCESS;
+        } else {
+            Boolean coursesAssociated = !cohort.getCourses().isEmpty();
+            Boolean centuriesAssociated = !cohort.getCenturies().isEmpty();
+            System.out.println(cohort.getCenturies());
+            if (!coursesAssociated && !centuriesAssociated) {
+                cohortService.deleteCohort(cohort);
+                response = SUCCESS;
+            } else {
+                if (coursesAssociated){
+                    addActionError(getText("error.strong") + cohort.getName() + getText("error.cohort.delete.courses"));
+                }
+                if (centuriesAssociated){
+                    addActionError(getText("error.strong") + cohort.getName() + getText("error.cohort.delete.centuries"));
+                }
+                response = ERROR;
+            }
         }
-        return SUCCESS;
+        return response;
     }
 
     /**

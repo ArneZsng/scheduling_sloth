@@ -30,7 +30,11 @@ public class RoomDAO {
      * @return a room or null if no room was found with the given identifier.
      */
     public Room load(Long id) {
-        return (Room) sessionFactory.getCurrentSession().get(Room.class, id);
+        Room room =  (Room) sessionFactory.getCurrentSession().get(Room.class, id);
+        if (room != null) {
+            Hibernate.initialize(room.getLessons());
+        }
+        return room;
     }
 
     /**

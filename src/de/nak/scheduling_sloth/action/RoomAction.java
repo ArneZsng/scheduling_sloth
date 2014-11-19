@@ -34,11 +34,19 @@ public class RoomAction extends ActionSupport {
      * @return the result string.
      */
     public String delete() {
+        String response;
         room = roomService.loadRoom(roomId);
-        if (room != null) {
+
+        if (room == null) {
+            response = SUCCESS;
+        } else if (room.getLessons().isEmpty()) {
             roomService.deleteRoom(room);
+            response = SUCCESS;
+        } else {
+            addActionError(getText("error.strong") + room.getName() + getText("error.room.delete"));
+            response = ERROR;
         }
-        return SUCCESS;
+        return response;
     }
 
     /**

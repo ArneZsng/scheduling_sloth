@@ -30,7 +30,12 @@ public class CohortDAO {
      * @return a cohort or null if no cohort was found with the given identifier.
      */
     public Cohort load(Long id) {
-        return (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
+        Cohort cohort =  (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
+        if (cohort != null) {
+            Hibernate.initialize(cohort.getCourses());
+            Hibernate.initialize(cohort.getCenturies());
+        }
+        return cohort;
     }
 
     /**

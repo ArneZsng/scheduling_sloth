@@ -52,7 +52,7 @@ public class LecturerAction extends ActionSupport {
             lecturerService.deleteLecturer(lecturer);
             response = SUCCESS;
         } else {
-            addActionError(getText("error.lecturer.delete"));
+            addActionError(getText("error.strong") + lecturer.getName() + getText("error.lecturer.delete"));
             response = ERROR;
         }
 

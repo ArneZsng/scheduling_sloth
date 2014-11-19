@@ -49,11 +49,19 @@ public class CenturyAction extends ActionSupport implements Preparable {
      * @return the result string.
      */
     public String delete() {
+        String response;
         century = centuryService.loadCentury(centuryId);
-        if (century != null) {
+
+        if (century == null) {
+            response = SUCCESS;
+        } else if (century.getCourses().isEmpty()) {
             centuryService.deleteCentury(century);
+            response = SUCCESS;
+        } else {
+            addActionError(getText("error.strong") + century.getName() + getText("error.century.delete"));
+            response = ERROR;
         }
-        return SUCCESS;
+        return response;
     }
 
     /**

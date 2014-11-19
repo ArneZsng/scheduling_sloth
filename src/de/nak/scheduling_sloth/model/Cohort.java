@@ -57,7 +57,7 @@ public class Cohort extends SchedulingObject {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cohort")
     public List<Century> getCenturies() {
-        return this.centuries;
+        return centuries;
     }
     public void setCenturies(List<Century> centuries) {
         this.centuries = centuries;
