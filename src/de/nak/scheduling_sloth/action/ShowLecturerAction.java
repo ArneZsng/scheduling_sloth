@@ -13,28 +13,28 @@ import java.util.List;
  * Created by arne on 10/28/14.
  */
 public class ShowLecturerAction implements Action {
-
     /** The current lecturer. */
     private Lecturer lecturer;
-
     /** The lecturer's identifier selected by the user. */
     private Long lecturerId;
-
-    /** The passed calender week. */
+    /** The passed calendar week. */
     private Integer week = 0;
-
     /** The passed year. */
     private Integer year = 0;
-
+    /** The previous calendar week. */
+    private Integer weekOfPreviousWeek = 0;
+    /** The year of previous calendar week. */
+    private Integer yearOfPreviousWeek = 0;
+    /** The previous calendar week. */
+    private Integer weekOfNextWeek = 0;
+    /** The year of previous calendar week. */
+    private Integer yearOfNextWeek = 0;
     /** The list to populate week select. */
     private List<String> weeks = new ArrayList<String>();
-
     /** The list to populate year select. */
     private List<String> years = new ArrayList<String>();
-
     /** The passed lesson list. */
     private List<Lesson> lessonList;
-
     /** The lecturer service. */
     private LecturerService lecturerService;
 
@@ -46,11 +46,17 @@ public class ShowLecturerAction implements Action {
     @Override
     public String execute() throws Exception {
         lecturer = lecturerService.loadLecturerWithLessons(lecturerId);
+
         if (week == 0 || year == 0) {
-            lessonList = lecturer.retrieveLessonsOfCurrentWeek();
-        } else {
-            lessonList = lecturer.retrieveLessonsInWeek(week, year);
+            Calendar calendar = Calendar.getInstance();
+            week = calendar.get(Calendar.WEEK_OF_YEAR);
+            year = calendar.get(Calendar.YEAR);
         }
+
+        lessonList = lecturer.retrieveLessonsInWeek(week, year);
+
+        initPreviousWeek();
+        initNextWeek();
 
         // Populate calendar weeks for select box
         for (int i = 1; i < 54; i++) {
@@ -67,24 +73,28 @@ public class ShowLecturerAction implements Action {
         return SUCCESS;
     }
 
+    private void initPreviousWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setWeekDate(year, week, 7);
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        weekOfPreviousWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+        yearOfPreviousWeek = calendar.get(Calendar.YEAR);
+    }
+
+    private void initNextWeek() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setWeekDate(year, week, 7);
+        calendar.add(Calendar.DAY_OF_YEAR, 7);
+        weekOfNextWeek = calendar.get(Calendar.WEEK_OF_YEAR);
+        yearOfNextWeek = calendar.get(Calendar.YEAR);
+    }
+
     public String getDefaultWeek() {
-        if (week == 0) {
-            Calendar calendar = Calendar.getInstance();
-            int currentWeek = calendar.get(Calendar.WEEK_OF_YEAR);
-            return String.format("%02d", currentWeek);
-        } else {
-            return week.toString();
-        }
+        return String.format("%02d", week);
     }
 
     public String getDefaultYear() {
-        if (year == 0) {
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = calendar.get(Calendar.YEAR);
-            return Integer.toString(currentYear);
-        } else {
-            return year.toString();
-        }
+        return year.toString();
     }
 
     public void setLecturerService(LecturerService lecturerService) {
@@ -121,6 +131,38 @@ public class ShowLecturerAction implements Action {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public Integer getWeekOfPreviousWeek() {
+        return weekOfPreviousWeek;
+    }
+
+    public void setWeekOfPreviousWeek(Integer weekOfPreviousWeek) {
+        this.weekOfPreviousWeek = weekOfPreviousWeek;
+    }
+
+    public Integer getYearOfPreviousWeek() {
+        return yearOfPreviousWeek;
+    }
+
+    public void setYearOfPreviousWeek(Integer yearOfPreviousWeek) {
+        this.yearOfPreviousWeek = yearOfPreviousWeek;
+    }
+
+    public Integer getWeekOfNextWeek() {
+        return weekOfNextWeek;
+    }
+
+    public void setWeekOfNextWeek(Integer weekOfNextWeek) {
+        this.weekOfNextWeek = weekOfNextWeek;
+    }
+
+    public Integer getYearOfNextWeek() {
+        return yearOfNextWeek;
+    }
+
+    public void setYearOfNextWeek(Integer yearOfNextWeek) {
+        this.yearOfNextWeek = yearOfNextWeek;
     }
 
     public List<String> getWeeks() {
