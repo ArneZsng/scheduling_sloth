@@ -32,7 +32,9 @@ public class LessonDAO {
     //TODO: Find permanent way for lazy loading
     public Lesson load(Long id) {
         Lesson lesson = (Lesson) sessionFactory.getCurrentSession().get(Lesson.class, id);
-        Hibernate.initialize(lesson.getCourse().getLessons());
+        if (lesson != null) {
+            Hibernate.initialize(lesson.getCourse().getLessons());
+        }
         return lesson;
     }
 

@@ -46,11 +46,13 @@ public class CohortDAO {
      */
     public Cohort loadWithLessons(Long id) {
         Cohort cohort = (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
-        List<Course> courses = cohort.getCourses();
-        for (Course course : courses) {
-            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
-            Hibernate.initialize(course.getCohort());
-            Hibernate.initialize(course.getCohort());
+        if (cohort != null) {
+            List<Course> courses = cohort.getCourses();
+            for (Course course : courses) {
+                Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+                Hibernate.initialize(course.getCohort());
+                Hibernate.initialize(course.getCohort());
+            }
         }
         return cohort;
     }

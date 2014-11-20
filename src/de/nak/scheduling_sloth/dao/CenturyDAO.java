@@ -45,11 +45,13 @@ public class CenturyDAO {
      */
     public Century loadWithLessons(Long id) {
         Century century = (Century) sessionFactory.getCurrentSession().get(Century.class, id);
-        List<Course> courses = century.getCourses();
-        for (Course course : courses) {
-            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
-            Hibernate.initialize(course.getCentury());
-            Hibernate.initialize(course.getCohort());
+        if (century != null) {
+            List<Course> courses = century.getCourses();
+            for (Course course : courses) {
+                Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+                Hibernate.initialize(course.getCentury());
+                Hibernate.initialize(course.getCohort());
+            }
         }
         return century;
     }

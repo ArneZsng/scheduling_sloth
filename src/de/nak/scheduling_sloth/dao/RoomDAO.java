@@ -45,10 +45,12 @@ public class RoomDAO {
      */
     public Room loadWithLessons(Long id) {
         Room room = (Room) sessionFactory.getCurrentSession().get(Room.class, id);
-        List<Lesson> lessons = room.getLessons();
-        for (Lesson lesson : lessons) {
-            Hibernate.initialize(lesson.getCourse().getCentury());
-            Hibernate.initialize(lesson.getCourse().getCohort());
+        if (room != null) {
+            List<Lesson> lessons = room.getLessons();
+            for (Lesson lesson : lessons) {
+                Hibernate.initialize(lesson.getCourse().getCentury());
+                Hibernate.initialize(lesson.getCourse().getCohort());
+            }
         }
         return room;
     }
