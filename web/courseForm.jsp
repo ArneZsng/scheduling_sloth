@@ -26,12 +26,6 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="rooms" cssClass="col-sm-2 control-label" key="lbl.rooms" />
-        <div class="col-sm-10">
-            <s:select name="rooms" list="roomList" listKey="id" listValue="name" requiredLabel="true" cssClass ="form-control" multiple="true" />
-        </div>
-    </div>
-    <div class="form-group">
         <s:label for="course.cohort.id" cssClass="col-sm-2 control-label" key="lbl.cohort" />
         <div class="col-sm-10">
             <s:select name="course.cohort.id"
@@ -80,6 +74,15 @@
         </div>
     </div>
     <div class="form-group">
+        <s:label for="rooms" cssClass="col-sm-2 control-label" key="lbl.rooms" />
+        <div class="col-sm-6">
+            <s:select name="rooms" list="roomList" listKey="id" listValue="name" requiredLabel="true" cssClass ="form-control" multiple="true" />
+        </div>
+        <div class="col-sm-4">
+            <s:submit key="btn.showAvailableRooms" action="ShowRoomListAvailable" cssClass="btn btn-info"/>
+        </div>
+    </div>
+    <div class="form-group">
         <s:label for="numberOfRepetitions" cssClass="col-sm-2 control-label" key="lbl.numberOfRepetitions" />
         <div class="col-sm-10">
             <s:textfield type="number" name="numberOfRepetitions" size="2" maxlength="2" requiredLabel="true" cssClass="form-control"/>
@@ -91,7 +94,6 @@
         <div class="col-sm-offset-2 col-sm-10">
             <s:submit key="btn.toLessons" action="EditCourseLessons" cssClass="btn btn-primary"/>
             <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
-            <s:submit key="btn.showAvailableRooms" action="ShowRoomListAvailable" cssClass="btn btn-info"/>
         </div>
     </div>
 
