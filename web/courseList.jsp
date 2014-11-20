@@ -15,8 +15,7 @@
         <th></th>
         <th><s:text name="lbl.name"/></th>
         <th><s:text name="lbl.lecturer"/></th>
-        <th><s:text name="lbl.century"/></th>
-        <th><s:text name="lbl.cohort"/></th>
+        <th><s:text name="lbl.cohortAndCentury"/></th>
         <th><s:text name="lbl.startDate"/></th>
         <th><s:text name="lbl.endDate"/></th>
         <th><s:text name="lbl.rooms"/></th>
@@ -38,8 +37,12 @@
                     </a></td>
                     <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="name"/></td>
                     <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="lecturer.name"/></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="century.name"/></td>
-                    <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="cohort.name"/></td>
+                    <s:if test="century != null">
+                        <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="century.name"/></td>
+                    </s:if>
+                    <s:else>
+                        <td rowspan="<s:property value="#numberOfLessons"/>"><s:property value="cohort.name"/></td>
+                    </s:else>
                     <s:set var="firstEntry" value="false" />
                 </s:if>
 
