@@ -67,7 +67,7 @@
     <thead>
     <tr>
         <th><s:text name="lbl.event"/></th>
-        <th><s:text name="lbl.lecturer"/></th>
+        <th><s:text name="lbl.cohort"/></th>
         <th><s:text name="lbl.startDate"/></th>
         <th><s:text name="lbl.endDate"/></th>
         <th><s:text name="lbl.rooms"/></th>
@@ -78,7 +78,7 @@
     <s:iterator value="lessonList">
         <tr>
             <td><s:property value="course.name"/></td>
-            <td><s:property value="course.lecturer.name"/></td>
+            <td><s:property value="course.cohort.name"/></td>
             <td><s:property value="startDate"/></td>
             <td><s:property value="endDate"/></td>
             <td><s:property value="rooms"/></td>
@@ -100,3 +100,29 @@
     </s:iterator>
     </tbody>
 </table>
+
+<%-- The bottom navigation --%>
+<s:url action="ShowCohort" var="previousWeek" escapeAmp="false">
+    <s:param name="cohortId"><s:property value="cohortId"/></s:param>
+    <s:param name="week"><s:property value="weekOfPreviousWeek"/></s:param>
+    <s:param name="year"><s:property value="yearOfPreviousWeek"/></s:param>
+</s:url>
+<s:url action="ShowCohort" var="nextWeek" escapeAmp="false">
+    <s:param name="cohortId"><s:property value="cohortId"/></s:param>
+    <s:param name="week"><s:property value="weekOfNextWeek"/></s:param>
+    <s:param name="year"><s:property value="yearOfNextWeek"/></s:param>
+</s:url>
+<nav>
+    <ul class="pager">
+        <li class="previous">
+            <a href="<s:property value="#previousWeek" />">
+                <span aria-hidden="true">&larr;</span> <s:text name="txt.previousWeek"/>
+            </a>
+        </li>
+        <li class="next">
+            <a href="<s:property value="#nextWeek" />">
+                <s:text name="txt.nextWeek"/> <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
