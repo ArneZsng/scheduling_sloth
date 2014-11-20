@@ -26,8 +26,8 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="course.cohort.id" cssClass="col-sm-2 control-label" key="lbl.cohort" />
-        <div class="col-sm-10">
+        <s:label for="course.cohort.id" cssClass="col-sm-2 control-label" key="lbl.cohortOrCentury" />
+        <div class="col-sm-5">
             <s:select name="course.cohort.id"
                       list="cohortList"
                       listKey="id"
@@ -35,12 +35,9 @@
                       requiredLabel="true"
                       cssClass="form-control"
                       headerKey="-1"
-                      headerValue="-- Select Cohort or Century --"/>
+                      headerValue="-- Cohort --"/>
         </div>
-    </div>
-    <div class="form-group">
-        <s:label for="course.century.id" cssClass="col-sm-2 control-label" key="lbl.century" />
-        <div class="col-sm-10">
+        <div class="col-sm-5">
             <s:select name="course.century.id"
                       list="centuryList"
                       listKey="id"
@@ -48,7 +45,7 @@
                       requiredLabel="true"
                       cssClass="form-control"
                       headerKey="-1"
-                      headerValue="-- Select Cohort or Century --"/>
+                      headerValue="-- Century --"/>
         </div>
     </div>
     <div class="form-group">
