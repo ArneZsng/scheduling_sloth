@@ -6,6 +6,11 @@
 
 <struts>
 	<package name="default" extends="tiles-default">
+        <!--
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error" />
+        </global-exception-mappings>
+        -->
 
 		<!-- Action that displays the list of lecturers. -->
 		<action name="ShowLecturerList" class="de.nak.scheduling_sloth.action.ShowLecturerListAction">
