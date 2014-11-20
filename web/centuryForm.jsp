@@ -22,7 +22,7 @@
         <div class="form-group">
             <s:label for="century.numberOfStudents" cssClass="col-sm-2 control-label" key="lbl.numberOfStudents" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="century.numberOfStudents" size="3" maxlength="8" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="century.numberOfStudents" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
