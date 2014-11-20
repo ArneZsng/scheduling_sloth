@@ -91,11 +91,6 @@
         <put-attribute name="content" value="/courseList.jsp"/>
     </definition>
 
-    <!-- The form for a single lesson. -->
-    <definition name="lessonForm" extends="mainLayout">
-        <put-attribute name="content" value="/lessonForm.jsp"/>
-    </definition>
-
     <!-- The homepage. -->
     <definition name="home" extends="mainLayout">
         <put-attribute name="title" value="Willkommen" />

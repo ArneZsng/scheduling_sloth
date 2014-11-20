@@ -21,17 +21,19 @@ public class CourseAction extends ActionSupport implements Preparable{
     private Course course;
     /** The current lessons. */
     private List<Lesson> lessons = new ArrayList<Lesson>();
-
-    /** The current number of lessons. */
-    private int numberOfLessons;
-
+    /** Start date of the first lesson. */
+    private Timestamp startDate;
+    /** End date of the first lesson. */
+    private Timestamp endDate;
+    /** The list of the selected rooms. */
+    private List<Room> rooms = new ArrayList<Room>();
+    /** The current number of repetitions. */
+    private Integer numberOfRepetitions;
     /** The course's identifier selected by the user. */
     private Long courseId;
     private Long courseLessonId;
-
     /** The course service. */
     private CourseService courseService;
-
     /** Select list of cohorts. */
     private List<Cohort> cohortList = new ArrayList<Cohort>();
     /** The cohort service. */
@@ -44,7 +46,7 @@ public class CourseAction extends ActionSupport implements Preparable{
     private List<Lecturer> lecturerList = new ArrayList<Lecturer>();
     /** The lecturer service. */
     private LecturerService lecturerService;
-    /** Select list of lecturer. */
+    /** Select list of room. */
     private List<Room> roomList = new ArrayList<Room>();
     /** The lecturer service. */
     private RoomService roomService;
@@ -59,11 +61,9 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
     @SkipValidation
     public String save() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-
+        prepareAdd();
         courseService.saveCourse(course);
+
         for (Lesson lesson : course.getLessons()) {
             lesson.setCourse(course);
 
@@ -121,7 +121,7 @@ public class CourseAction extends ActionSupport implements Preparable{
 
      public String load(){
          course = courseService.loadCourse(courseId);
-         numberOfLessons = course.getLessons().size();
+         numberOfRepetitions = course.getLessons().size();
          return SUCCESS;
      }
      public void prepareLoad() {
@@ -143,16 +143,18 @@ public class CourseAction extends ActionSupport implements Preparable{
     }
 
     /**
-     * Start adding a Century
+     * Start adding a course
      *
      * @return the result string.
      */
     @SkipValidation
     public String add() { return SUCCESS; }
+
     public void prepareAdd() {
         lecturerList = lecturerService.loadAllLecturers();
         cohortList = cohortService.loadAllCohorts();
         centuryList = centuryService.loadAllCenturies();
+        roomList = roomService.loadAllRooms();
     }
 
     /**
@@ -162,13 +164,17 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
     public String editLessons() {
         // TODO: check if every case is doable + improve performance -> save&load
+        checkCohort();
+        checkCentury();
+        ensureAudience();
+
         courseService.saveCourse(course);
         course = courseService.loadCourse(course.getId());
 
-        if (numberOfLessons > 0) {
+        if (numberOfRepetitions > 0) {
             // TODO: check performance of size
-            if (course.getLessons().size() < numberOfLessons) {
-                for (int i = 0; i < numberOfLessons - course.getLessons().size(); i++) {
+            if (course.getLessons().size() < numberOfRepetitions) {
+                for (int i = 0; i < numberOfRepetitions - course.getLessons().size(); i++) {
                     Lesson lesson = new Lesson();
                     java.util.Date date= new java.util.Date();
 
@@ -181,9 +187,38 @@ public class CourseAction extends ActionSupport implements Preparable{
         }
         return SUCCESS;
     }
+
+    /**
+     * Sets cohort to null if no cohort was selected.
+     */
+    private void checkCohort() {
+        if (course.getCohort().getId() == -1) {
+            course.setCohort(null);
+        }
+    }
+
+    /**
+     * Sets century to null if no century was selected.
+     */
+    private void checkCentury() {
+        if (course.getCentury().getId() == -1) {
+            course.setCentury(null);
+        }
+    }
+
+    /**
+     * Ensures that century has precedence over cohort if both are selected.
+     */
+    private void ensureAudience() {
+        if (course.getCohort() != null && course.getCentury() != null) {
+            course.setCohort(null);
+        }
+    }
+
     public void prepareEditLessons() {
         roomList = roomService.loadAllRooms();
     }
+
 
     @Override
     public void validate() {
@@ -207,11 +242,35 @@ public class CourseAction extends ActionSupport implements Preparable{
     public List<Lesson> getLessons() { return lessons; }
     public void setLessons(List<Lesson> lessons) {this.lessons = lessons; }
 
-    public int getNumberOfLessons() {
-        return numberOfLessons;
+    public Timestamp getStartDate() {
+        return startDate;
     }
-    public void setNumberOfLessons(int numberOfLessons) {
-        this.numberOfLessons = numberOfLessons;
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Integer getNumberOfRepetitions() {
+        return numberOfRepetitions;
+    }
+    public void setNumberOfRepetitions(int numberOfLessons) {
+        this.numberOfRepetitions = numberOfLessons;
     }
 
     public Long getCourseId() {
@@ -236,7 +295,6 @@ public class CourseAction extends ActionSupport implements Preparable{
     public void setCourseLessonId(Long courseLessonId) {
         this.courseLessonId = courseLessonId;
     }
-
 
     public void setCohortService(CohortService cohortService) {
         this.cohortService = cohortService;

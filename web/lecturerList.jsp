@@ -2,6 +2,11 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.lecturers"/></h1>
+<%-- The add button --%>
+<s:url action="AddLecturer" var="add" />
+<a type="button" class="btn btn-primary btn-large" href="<s:property value="#add" />">
+    <span class="glyphicon glyphicon-plus"></span> <s:text name="btn.add"/>
+</a>
 <%-- The lecturer table --%>
 <table class="table table-hover">
     <thead>
@@ -41,8 +46,3 @@
         </s:iterator>
     </tbody>
 </table>
-<%-- The add button --%>
-<s:url action="AddLecturer" var="add" />
-<a type="button" class="btn btn-primary btn-large" href="<s:property value="#add" />">
-    <span class="glyphicon glyphicon-plus"></span> <s:text name="btn.add"/>
-</a>

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
-<h1><s:text name="txt.lessons"/></h1>
+<h1><s:text name="txt.events"/></h1>
 <s:actionerror/>
 <%-- The add button --%>
 <s:url action="AddCourse" var="add" />

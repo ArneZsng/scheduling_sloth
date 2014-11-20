@@ -14,9 +14,9 @@ import java.util.List;
 public class ShowRoomListAvailableAction implements Action {
     /** The list of rooms. */
     private List<Room> roomList = new ArrayList<Room>();
-    /** Statdate of the lesson. */
+    /** Start date of the lesson. */
     private Timestamp startDate;
-    /** Enddate of the lesson. */
+    /** End date of the lesson. */
     private Timestamp endDate;
     /** The number of required seats. */
     private Integer requiredSeats = 0;
