@@ -96,11 +96,22 @@ public class Course {
         return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
     }
 
-    //TODO
-    public Integer audienceSize() {
-        return century.getNumberOfStudents();
+    public boolean audienceAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+        if (cohort != null) {
+            return cohort.timeSlotAvailable(startTimestamp, endTimestamp);
+        } else {
+            return century.timeSlotAvailable(startTimestamp, endTimestamp);
+        }
     }
 
+    public Integer audienceSize() {
+        if (cohort != null) {
+            return cohort.retrieveNumberOfStudents();
+        } else {
+            return century.getNumberOfStudents();
+        }
+
+    }
 
     public List<Room> retrieveLessonsWithInitRooms() {
         List <Room> rooms = new ArrayList<Room>();

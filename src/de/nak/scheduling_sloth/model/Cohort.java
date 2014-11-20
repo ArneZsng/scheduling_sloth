@@ -88,4 +88,12 @@ public class Cohort extends SchedulingObject {
         }
         return maxBreakTime;
     }
+
+    public Integer retrieveNumberOfStudents() {
+        Integer numberOfStudents = 0;
+        for (Century century : centuries) {
+            numberOfStudents += century.getNumberOfStudents();
+        }
+        return numberOfStudents;
+    }
 }

@@ -88,9 +88,8 @@ public class Lesson implements Comparable<Lesson> {
         return true;
     }
 
-    //TODO
     public boolean audienceAvailable() {
-        return true;
+        return course.audienceAvailableBetween(startDate, endDate);
     }
 
     public boolean allRoomsBigEnough() {
