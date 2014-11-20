@@ -79,15 +79,19 @@ public class RoomDAO {
     }
 
     /**
-     * Loads all available rooms from the database.
+     * Loads all rooms from the database including lessons.
      *
      * @return a list or room which is empty if no room was found.
      */
     @SuppressWarnings("unchecked")
-    public List<Room> loadAllAvailable() {
-        return sessionFactory.getCurrentSession().createQuery("from Room").list();
-    }
+    public List<Room> loadAllWithLessons() {
 
+        List<Room> roomList = (List<Room>) sessionFactory.getCurrentSession().createQuery("from Room").list();
+        for (Room room : roomList) {
+            Hibernate.initialize(room.getLessons());
+        }
+        return roomList;
+    }
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

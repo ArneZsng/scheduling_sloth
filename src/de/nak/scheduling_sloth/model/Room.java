@@ -73,4 +73,8 @@ public class Room extends SchedulingObject {
         return getBreakTime();
     }
 
+    public Boolean bigEnough(Integer audienceSize) {
+        return audienceSize <= availableSeats;
+    }
+
 }

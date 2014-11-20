@@ -38,8 +38,8 @@ public class RoomServiceImpl implements RoomService {
 	}
 
     @Override
-    public List<Room> loadAllAvailableRooms() {
-        return roomDAO.loadAllAvailable();
+    public List<Room> loadAllRoomsWithLessons() {
+        return roomDAO.loadAllWithLessons();
     }
 
 	public void setRoomDAO(RoomDAO roomDAO) {

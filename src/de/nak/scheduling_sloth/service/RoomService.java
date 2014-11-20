@@ -47,10 +47,10 @@ public interface RoomService {
 	List<Room> loadAllRooms();
 
     /**
-     * Loads a list of all available rooms.
+     * Loads a list of all rooms including lessons.
      *
      * @return a list which is empty if no room was found.
      */
-    List<Room> loadAllAvailableRooms();
+    List<Room> loadAllRoomsWithLessons();
 
 }

@@ -5,6 +5,7 @@ import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,22 +13,40 @@ import java.util.List;
  */
 public class ShowRoomListAvailableAction implements Action {
     /** The list of rooms. */
-    private List<Room> roomList;
+    private List<Room> roomList = new ArrayList<Room>();
     /** Statdate of the lesson. */
     private Timestamp startDate;
     /** Enddate of the lesson. */
     private Timestamp endDate;
     /** The number of required seats. */
-    private Integer requiredSeats;
+    private Integer requiredSeats = 0;
     /** The room service. */
     private RoomService roomService;
 
     @Override
     public String execute() throws Exception {
-        roomList = roomService.loadAllRooms();
+        initializeParams();
+        List<Room> allRooms = roomService.loadAllRoomsWithLessons();
+        for (Room room : allRooms) {
+            if (room.timeSlotAvailable(startDate, endDate) && room.bigEnough(requiredSeats)) {
+                roomList.add(room);
+            }
+        }
         return SUCCESS;
     }
 
+    private void initializeParams() {
+        if (startDate == null) {
+            java.util.Date date = new java.util.Date();
+            setStartDate(new Timestamp(date.getTime()));
+        }
+
+        if (endDate == null) {
+            java.util.Date date = new java.util.Date();
+            // Add 30 minutes
+            setEndDate(new Timestamp(date.getTime() + (30 * 60000)));
+        }
+    }
 
     public Timestamp getStartDate() {
         return startDate;
