@@ -13,12 +13,18 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/stylesheets/main.css">
     </head>
 	<body>
-        <s:if test="hasActionErrors()">
+        <s:if test="hasActionErrors() || hasFieldErrors()">
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <s:iterator value="actionErrors">
                     <p class="errorMessage"><s:property escapeHtml="false" /></p>
                 </s:iterator>
+                <s:iterator value="fieldErrors">
+                    <s:iterator value="value">
+                        <p class="errorMessage"><s:property escapeHtml="false" /></p>
+                    </s:iterator>
+                </s:iterator>
+
             </div>
         </s:if>
         <s:if test="hasActionMessages()">

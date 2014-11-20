@@ -16,7 +16,8 @@
         <field-validator type="int">
             <param name="min">0</param>
             <param name="max">99999</param>
-            <message key="msg.validator.intRange"/>
+            <message key="msg.validator.intRange">
+            </message>
         </field-validator>
     </field>
 	<field name="breakTime">
