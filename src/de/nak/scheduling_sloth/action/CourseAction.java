@@ -122,7 +122,7 @@ public class CourseAction extends ActionSupport implements Preparable{
 
      public String load(){
          course = courseService.loadCourse(courseId);
-         numberOfRepetitions = course.getLessons().size();
+         numberOfRepetitions = course.getLessons().size() - 1;
          startDate = course.retrieveStartDate();
          endDate = course.retrieveEndDate();
          return SUCCESS;
@@ -160,6 +160,7 @@ public class CourseAction extends ActionSupport implements Preparable{
         cohortList = cohortService.loadAllCohorts();
         centuryList = centuryService.loadAllCenturies();
         roomList = roomService.loadAllRooms();
+        numberOfRepetitions = 0;
 
         Calendar calendar = Calendar.getInstance();
         setStartDate(new Timestamp(calendar.getTimeInMillis()));
@@ -181,26 +182,27 @@ public class CourseAction extends ActionSupport implements Preparable{
         courseService.saveCourse(course);
         course = courseService.loadCourse(course.getId());
 
+        if(course == null) {
+            return ERROR;
+        }
+
         for (String roomStr : rooms) {
             selectedRooms.add(Long.parseLong(roomStr, 10));
         }
+        for (int i = 0; i <= (numberOfRepetitions - course.getLessons().size()); i++) {
+            Lesson lesson = new Lesson();
 
-        if (numberOfRepetitions > 0) {
-            for (int i = 0; i <= numberOfRepetitions; i++) {
-                Lesson lesson = new Lesson();
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTimeInMillis(startDate.getTime());
+            startCalendar.add(Calendar.DATE, 7 * (i+course.getLessons().size()));
+            lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
 
-                Calendar startCalendar = Calendar.getInstance();
-                startCalendar.setTimeInMillis(startDate.getTime());
-                startCalendar.add(Calendar.DATE, 7 * i);
-                lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTimeInMillis(endDate.getTime());
+            endCalendar.add(Calendar.DATE, 7 * (i+course.getLessons().size()));
+            lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
 
-                Calendar endCalendar = Calendar.getInstance();
-                endCalendar.setTimeInMillis(endDate.getTime());
-                endCalendar.add(Calendar.DATE, 7 * i);
-                lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
-
-                course.getLessons().add(lesson);
-            }
+            course.getLessons().add(lesson);
         }
         return SUCCESS;
     }
