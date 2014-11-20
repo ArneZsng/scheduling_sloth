@@ -7,7 +7,7 @@
 <tiles-definitions>
 	<!-- The main layout. -->
 	<definition name="mainLayout" template="/layout/mainLayout.jsp">
-		<put-attribute name="title" value="Scheduling_Sloth"/>
+		<put-attribute name="title" value="Scheduling Sloth"/>
 		<put-attribute name="header" value="/header.jsp"/>
 	</definition>
 
@@ -93,7 +93,6 @@
 
     <!-- The homepage. -->
     <definition name="home" extends="mainLayout">
-        <put-attribute name="title" value="Willkommen" />
         <put-attribute name="content" value="/home.jsp"/>
     </definition>
 

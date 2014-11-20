@@ -26,7 +26,7 @@ public class CourseAction extends ActionSupport implements Preparable{
     /** End date of the first lesson. */
     private Timestamp endDate;
     /** The list of the selected rooms. */
-    private List<Room> rooms = new ArrayList<Room>();
+    private String[] rooms;
     /** The current number of repetitions. */
     private Integer numberOfRepetitions;
     /** The course's identifier selected by the user. */
@@ -61,7 +61,6 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
     @SkipValidation
     public String save() {
-        prepareAdd();
         courseService.saveCourse(course);
 
         for (Lesson lesson : course.getLessons()) {
@@ -124,10 +123,12 @@ public class CourseAction extends ActionSupport implements Preparable{
          numberOfRepetitions = course.getLessons().size();
          return SUCCESS;
      }
+
      public void prepareLoad() {
          lecturerList = lecturerService.loadAllLecturers();
          cohortList = cohortService.loadAllCohorts();
          centuryList = centuryService.loadAllCenturies();
+         roomList = roomService.loadAllRooms();
      }
 
     /**
@@ -188,6 +189,10 @@ public class CourseAction extends ActionSupport implements Preparable{
         return SUCCESS;
     }
 
+    public void prepareEditLessons() {
+        roomList = roomService.loadAllRooms();
+    }
+
     /**
      * Sets cohort to null if no cohort was selected.
      */
@@ -214,11 +219,6 @@ public class CourseAction extends ActionSupport implements Preparable{
             course.setCohort(null);
         }
     }
-
-    public void prepareEditLessons() {
-        roomList = roomService.loadAllRooms();
-    }
-
 
     @Override
     public void validate() {
@@ -258,11 +258,11 @@ public class CourseAction extends ActionSupport implements Preparable{
         this.endDate = endDate;
     }
 
-    public List<Room> getRooms() {
+    public String[] getRooms() {
         return rooms;
     }
 
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(String[] rooms) {
         this.rooms = rooms;
     }
 
