@@ -173,17 +173,20 @@ public class CourseAction extends ActionSupport implements Preparable{
         course = courseService.loadCourse(course.getId());
 
         if (numberOfRepetitions > 0) {
-            // TODO: check performance of size
-            if (course.getLessons().size() < numberOfRepetitions) {
-                for (int i = 0; i < numberOfRepetitions - course.getLessons().size(); i++) {
-                    Lesson lesson = new Lesson();
-                    java.util.Date date= new java.util.Date();
+            for (int i = 0; i <= numberOfRepetitions; i++) {
+                Lesson lesson = new Lesson();
 
-                    lesson.setStartDate(new Timestamp(date.getTime()));
-                    lesson.setEndDate(new Timestamp(date.getTime()));
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.setTimeInMillis(startDate.getTime());
+                startCalendar.add(Calendar.DATE, 7 * i);
+                lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
 
-                    course.getLessons().add(lesson);
-                }
+                Calendar endCalendar = Calendar.getInstance();
+                endCalendar.setTimeInMillis(endDate.getTime());
+                endCalendar.add(Calendar.DATE, 7 * 1);
+                lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
+
+                course.getLessons().add(lesson);
             }
         }
         return SUCCESS;

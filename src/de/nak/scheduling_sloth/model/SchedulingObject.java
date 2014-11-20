@@ -79,16 +79,11 @@ public abstract class SchedulingObject {
     /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */
     public List<Lesson> retrieveLessonsInWeek(int week, int year) {
         Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.WEEK_OF_YEAR, week);
-        calendar.set(Calendar.YEAR, year);
-        calendar.add(Calendar.DATE, 1); //Let week begin on Monday
+        calendar.setWeekDate(year, week, 1); //Let week begin on Monday
         Timestamp startTimestamp = new Timestamp(calendar.getTimeInMillis());
 
         calendar.set(Calendar.WEEK_OF_YEAR, week+1);
         Timestamp endTimestamp = new Timestamp(calendar.getTimeInMillis());
-        System.out.println(startTimestamp);
-        System.out.println(endTimestamp);
 
         return retrieveLessonsBetween(startTimestamp, endTimestamp);
     }
