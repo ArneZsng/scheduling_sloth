@@ -123,6 +123,8 @@ public class CourseAction extends ActionSupport implements Preparable{
      public String load(){
          course = courseService.loadCourse(courseId);
          numberOfRepetitions = course.getLessons().size();
+         startDate = course.retrieveStartDate();
+         endDate = course.retrieveEndDate();
          return SUCCESS;
      }
 
