@@ -158,6 +158,11 @@ public class CourseAction extends ActionSupport implements Preparable{
         cohortList = cohortService.loadAllCohorts();
         centuryList = centuryService.loadAllCenturies();
         roomList = roomService.loadAllRooms();
+
+        Calendar calendar = Calendar.getInstance();
+        setStartDate(new Timestamp(calendar.getTimeInMillis()));
+        calendar.add(Calendar.MINUTE, 30);
+        setEndDate(new Timestamp(calendar.getTimeInMillis()));
     }
 
     /**
@@ -189,7 +194,7 @@ public class CourseAction extends ActionSupport implements Preparable{
 
                 Calendar endCalendar = Calendar.getInstance();
                 endCalendar.setTimeInMillis(endDate.getTime());
-                endCalendar.add(Calendar.DATE, 7 * 1);
+                endCalendar.add(Calendar.DATE, 7 * i);
                 lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
 
                 course.getLessons().add(lesson);
