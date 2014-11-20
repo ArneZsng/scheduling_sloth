@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class TimestampConverter extends StrutsTypeConverter {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     @Override
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {

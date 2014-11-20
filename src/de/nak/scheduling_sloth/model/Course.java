@@ -121,4 +121,31 @@ public class Course {
         return rooms;
     }
 
+    public Timestamp retrieveStartDate() {
+        Timestamp result = null;
+        if(lessons != null && lessons.size() > 0) {
+            for (Lesson lesson:lessons) {
+                if(result == null) {
+                    result = lesson.getStartDate();
+                } else if(result.after(lesson.getStartDate())) {
+                    result = lesson.getStartDate();
+                }
+            }
+        }
+        return result;
+    }
+
+    public Timestamp retrieveEndDate() {
+        Timestamp result = null;
+        if(lessons != null && lessons.size() > 0) {
+            for (Lesson lesson:lessons) {
+                if(result == null) {
+                    result = lesson.getEndDate();
+                } else if(result.after(lesson.getStartDate())) {
+                    result = lesson.getEndDate();
+                }
+            }
+        }
+        return result;
+    }
 }

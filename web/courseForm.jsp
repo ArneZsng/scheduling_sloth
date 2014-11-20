@@ -76,7 +76,11 @@
             <s:select name="rooms" list="roomList" listKey="id" listValue="name" requiredLabel="true" cssClass ="form-control" multiple="true" />
         </div>
         <div class="col-sm-4">
-            <s:submit key="btn.showAvailableRooms" action="ShowRoomListAvailable" cssClass="btn btn-info"/>
+            <s:submit key="btn.showAvailableRooms"
+                      action="ShowRoomListAvailable"
+                      cssClass="btn btn-info"
+                      target="_blank"
+                      onclick="this.form.target='_blank';return true;" />
         </div>
     </div>
     <div class="form-group">
