@@ -25,8 +25,10 @@ public class CourseAction extends ActionSupport implements Preparable{
     private Timestamp startDate;
     /** End date of the first lesson. */
     private Timestamp endDate;
-    /** The list of the selected rooms. */
+    /** The list of the passed rooms. */
     private String[] rooms;
+    /** The list of the selected rooms. */
+    private List<Long> selectedRooms = new ArrayList<Long>();
     /** The current number of repetitions. */
     private Integer numberOfRepetitions;
     /** The course's identifier selected by the user. */
@@ -172,6 +174,10 @@ public class CourseAction extends ActionSupport implements Preparable{
         courseService.saveCourse(course);
         course = courseService.loadCourse(course.getId());
 
+        for (String roomStr : rooms) {
+            selectedRooms.add(Long.parseLong(roomStr, 10));
+        }
+
         if (numberOfRepetitions > 0) {
             for (int i = 0; i <= numberOfRepetitions; i++) {
                 Lesson lesson = new Lesson();
@@ -269,6 +275,15 @@ public class CourseAction extends ActionSupport implements Preparable{
         this.rooms = rooms;
     }
 
+
+    public List<Long> getSelectedRooms() {
+        return selectedRooms;
+    }
+
+    public void setSelectedRooms(List<Long> selectedRooms) {
+        this.selectedRooms = selectedRooms;
+    }
+
     public Integer getNumberOfRepetitions() {
         return numberOfRepetitions;
     }
@@ -281,15 +296,6 @@ public class CourseAction extends ActionSupport implements Preparable{
     }
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
-    }
-
-    // TODO: should we do this here?
-    public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
-        ArrayList<Long> roomIds = new ArrayList<Long>();
-        for(Room room:rooms) {
-            roomIds.add(room.getId());
-        }
-        return roomIds;
     }
 
     public Long getCourseLessonId() {

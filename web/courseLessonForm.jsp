@@ -26,14 +26,10 @@
         <tbody>
         <s:iterator value="course.getLessons()" status="rowstatus">
             <tr>
-                <s:set var="roomIds" value="{"/>
-                <s:iterator value="course.getLessons()" status="rowstatus">
-                    <s:set var="roomIds" value="'%{roomIds}'," />
-                </s:iterator>
-                <s:set var="roomIds" value="%{roomIds},0"/>
-
                 <s:hidden name="course.lessons[%{#rowstatus.index}].id"/>
-                <td><s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="%{getRoomIdsFromList(rooms)}" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/></td>
+                <td>
+                    <s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="selectedRooms" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/>
+                </td>
                 <td>
                     <div class='input-group date datetimepicker'>
                         <s:textfield name="course.lessons[%{#rowstatus.index}].startDate" value="%{startDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
