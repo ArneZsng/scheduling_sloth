@@ -37,6 +37,11 @@ public class RoomServiceImpl implements RoomService {
 		return roomDAO.loadAll();
 	}
 
+    @Override
+    public List<Room> loadAllAvailableRooms() {
+        return roomDAO.loadAllAvailable();
+    }
+
 	public void setRoomDAO(RoomDAO roomDAO) {
 		this.roomDAO = roomDAO;
 	}

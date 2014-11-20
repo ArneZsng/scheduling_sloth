@@ -51,6 +51,11 @@
             <result type="tiles">roomList</result>
         </action>
 
+        <!-- Action that displays the list of rooms. -->
+        <action name="ShowRoomListAvailable" class="de.nak.scheduling_sloth.action.ShowRoomListAvailableAction">
+            <result type="tiles">roomListAvailable</result>
+        </action>
+
         <!-- Action that displays a single room. -->
         <action name="ShowRoom" class="de.nak.scheduling_sloth.action.ShowRoomAction" method="execute">
             <result type="tiles">roomShow</result>

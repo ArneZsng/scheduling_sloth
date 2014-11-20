@@ -78,6 +78,17 @@ public class RoomDAO {
         return sessionFactory.getCurrentSession().createQuery("from Room").list();
     }
 
+    /**
+     * Loads all available rooms from the database.
+     *
+     * @return a list or room which is empty if no room was found.
+     */
+    @SuppressWarnings("unchecked")
+    public List<Room> loadAllAvailable() {
+        return sessionFactory.getCurrentSession().createQuery("from Room").list();
+    }
+
+
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

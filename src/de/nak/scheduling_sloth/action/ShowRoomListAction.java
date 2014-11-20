@@ -18,7 +18,6 @@ public class ShowRoomListAction implements Action {
 
     @Override
     public String execute() throws Exception {
-        System.out.println(roomService);
         roomList = roomService.loadAllRooms();
         return SUCCESS;
     }

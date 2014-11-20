@@ -37,15 +37,18 @@
                 <td>
                     <div class='input-group date datetimepicker'>
                         <s:textfield name="course.lessons[%{#rowstatus.index}].startDate" value="%{startDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </td>
                 <td>
                     <div class='input-group date datetimepicker'>
                             <s:textfield name="course.lessons[%{#rowstatus.index}].endDate" value="%{endDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                 </td>
             </tr>
         </s:iterator>

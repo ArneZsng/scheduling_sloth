@@ -40,7 +40,6 @@
 
 <%-- The schedule form --%>
 <s:form cssClass="form-horizontal" role="form" method="GET">
-    <%-- Form fields for the cohort's attributes --%>
     <s:hidden name="cohortId"/>
     <div class="form-group">
         <s:label for="week" cssClass="col-sm-2 control-label" key="lbl.week" />
