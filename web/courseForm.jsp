@@ -98,10 +98,10 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <s:if test="collisionFlag">
-                <s:submit key="btn.ignoreAndsubmit" action="EditCourseLessons" cssClass="btn btn-primary"/>
+                <s:submit key="btn.ignoreAndsubmit" action="SaveCourse" cssClass="btn btn-primary"/>
             </s:if>
             <s:else>
-                <s:submit key="btn.submit" action="EditCourseLessons" cssClass="btn btn-primary"/>
+                <s:submit key="btn.submit" action="SaveCourse" cssClass="btn btn-primary"/>
             </s:else>
 
             <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>

@@ -181,6 +181,7 @@
         <!-- Saves the new or updated course into the database and shows the course list again. -->
         <action name="SaveCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="save">
             <result type="redirect">Home</result>
+            <result type="tiles" name="error">courseLessonForm</result>
             <result type="tiles" name="input">courseLessonForm</result>
         </action>
 
