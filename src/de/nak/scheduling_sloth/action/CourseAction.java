@@ -185,7 +185,6 @@ public class CourseAction extends ActionSupport implements Preparable{
         if (course.getId() != null) {
             courseService.saveCourse(course);
             course = courseService.loadWithLessonsAndRooms(course.getId());
-            //course.retrieveLessonsWithInitRooms();
         }
 
         for (String roomStr : rooms) {

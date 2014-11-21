@@ -79,13 +79,10 @@ public class CourseDAO {
     public List<Course> loadAll() {
         List<Course> courses = sessionFactory.getCurrentSession().createQuery("from Course").list();
         for (Course course : courses) {
-               //TODO: Figure out which initialization to use.
-            /**List<Lesson> lessons = course.getLessons();
-
-            for (Lesson lesson : lessons) {
+            //TODO: Do we really need rooms here?
+            for (Lesson lesson: course.getLessons()) {
                 Hibernate.initialize(lesson.getRooms());
-            }**/
-            Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+            }
         }
         return courses;
     }

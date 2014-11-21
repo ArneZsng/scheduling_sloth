@@ -113,14 +113,6 @@ public class Course {
 
     }
 
-    public List<Room> retrieveLessonsWithInitRooms() {
-        List <Room> rooms = new ArrayList<Room>();
-        for(Lesson lesson : lessons) {
-            rooms.addAll(lesson.getRooms());
-        }
-        return rooms;
-    }
-
     public Timestamp retrieveStartDate() {
         Timestamp result = null;
         if(lessons != null && lessons.size() > 0) {
