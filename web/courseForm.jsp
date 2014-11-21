@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
         <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
-        <div class="col-sm-5">
+        <div class="col-sm-3">
             <s:textfield type="number" name="course.breakTime" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
         </div>
         <div class="col-sm-5">
@@ -88,7 +88,7 @@
     </div>
     <div class="form-group">
         <s:label for="numberOfRepetitions" cssClass="col-sm-2 control-label" key="lbl.numberOfRepetitions" />
-        <div class="col-sm-10">
+        <div class="col-sm-3">
             <s:textfield type="number" name="numberOfRepetitions" size="2" maxlength="2" requiredLabel="true" cssClass="form-control"/>
         </div>
     </div>
