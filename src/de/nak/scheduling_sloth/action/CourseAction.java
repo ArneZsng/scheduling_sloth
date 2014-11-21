@@ -193,7 +193,7 @@ public class CourseAction extends ActionSupport implements Preparable{
         // TODO: Remove lessons if too many? last ones?
 
         // Add lessons if higher number of repetitions
-        for (int i = 0; i <= (numberOfRepetitions - course.getLessons().size()); i++) {
+        for (int i = 0; i < (numberOfRepetitions - course.getLessons().size()); i++) {
             Lesson lesson = new Lesson();
 
             Calendar startCalendar = Calendar.getInstance();
@@ -211,7 +211,13 @@ public class CourseAction extends ActionSupport implements Preparable{
 
         if (numberOfRepetitions == 0) {
             courseService.saveCourse(course);
-            course.getLessons().get(0).setCourse(course);
+
+            // Create the (only) lesson with parameters
+            Lesson lesson = new Lesson();
+            lesson.setStartDate(startDate);
+            lesson.setEndDate(endDate);
+
+            course.getLessons().add(lesson);
             lessonService.saveLesson(course.getLessons().get(0));
 
             return REDIRECT;
