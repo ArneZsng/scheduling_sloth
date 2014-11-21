@@ -24,11 +24,11 @@
         </tr>
         </thead>
         <tbody>
-        <s:iterator value="course.getLessons()" status="rowstatus">
+        <s:iterator value="course.lessons" status="rowstatus">
             <tr>
                 <s:hidden name="course.lessons[%{#rowstatus.index}].id"/>
                 <td>
-                    <s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="selectedRooms" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/>
+                    <s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="%{getRoomIdsFromList(rooms)}" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/>
                 </td>
                 <td>
                     <div class='input-group date datetimepicker'>

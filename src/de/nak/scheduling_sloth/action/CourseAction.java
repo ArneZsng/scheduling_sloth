@@ -55,6 +55,8 @@ public class CourseAction extends ActionSupport implements Preparable{
     /** The lesson service. */
     private LessonService lessonService;
 
+    String REDIRECT = "redirect";
+
 
     /**
      * Saves the course to the database.
@@ -174,21 +176,22 @@ public class CourseAction extends ActionSupport implements Preparable{
      * @return the result string.
      */
     public String editLessons() {
-        // TODO: check if every case is doable + improve performance -> save&load
         checkCohort();
         checkCentury();
         ensureAudience();
 
-        courseService.saveCourse(course);
-        course = courseService.loadCourse(course.getId());
-
-        if(course == null) {
-            return ERROR;
+        // Only save if course already exist and has lessons
+        if (course.getId() != null) {
+            courseService.saveCourse(course);
+            course = courseService.loadCourse(course.getId());
         }
 
         for (String roomStr : rooms) {
             selectedRooms.add(Long.parseLong(roomStr, 10));
         }
+        // TODO: Remove lessons if too many? last ones?
+
+        // Add lessons if higher number of repetitions
         for (int i = 0; i <= (numberOfRepetitions - course.getLessons().size()); i++) {
             Lesson lesson = new Lesson();
 
@@ -204,6 +207,15 @@ public class CourseAction extends ActionSupport implements Preparable{
 
             course.getLessons().add(lesson);
         }
+
+        if (numberOfRepetitions == 0) {
+            courseService.saveCourse(course);
+            course.getLessons().get(0).setCourse(course);
+            lessonService.saveLesson(course.getLessons().get(0));
+
+            return REDIRECT;
+        }
+
         return SUCCESS;
     }
 
@@ -245,6 +257,21 @@ public class CourseAction extends ActionSupport implements Preparable{
         //    addActionError(getText("msg.selectCourse"));
         //}
     }
+
+    public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
+        ArrayList<Long> roomIds = new ArrayList<Long>();
+        for(Room room:rooms) {
+            roomIds.add(room.getId());
+        }
+        // If there are no rooms, set the rooms from the course form
+        if(roomIds.isEmpty()) {
+            for (Long roomId : selectedRooms) {
+                roomIds.add(roomId);
+            }
+        }
+        return roomIds;
+    }
+
 
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;

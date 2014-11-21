@@ -191,12 +191,13 @@
 
         <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
         <action name="CancelCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="cancel">
-            <result type="redirect">ShowLessonList.action</result>
+            <result name="success" type="redirect">ShowCourseList</result>
         </action>
 
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
         <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
             <result type="tiles">courseLessonForm</result>
+            <result name="redirect" type="redirect">ShowCourseList</result>
         </action>
 
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
