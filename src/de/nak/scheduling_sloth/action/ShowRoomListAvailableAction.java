@@ -62,7 +62,6 @@ public class ShowRoomListAvailableAction implements Action {
             setEndDate(new Timestamp(date.getTime() + (30 * 60000)));
         }
 
-        //TODO: Audience Interface
         if (course != null) {
             if (course.getCohort().getId() != null && course.getCohort().getId() != -1) {
                 course.setCohort(cohortService.loadCohort(course.getCohort().getId()));

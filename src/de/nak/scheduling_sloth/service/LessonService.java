@@ -36,6 +36,13 @@ public interface LessonService {
 	 *
 	 * @return a list which is empty if no lesson was found.
 	 */
-	List<Lesson> loadAllLesson();
+	List<Lesson> loadAllLessons();
+
+    /**
+     * Loads a list of all lessons in a specific week.
+     *
+     * @return a list which is empty if no lesson was found.
+     */
+    List<Lesson> loadAllLessonsInWeek(Integer week, Integer year);
 
 }

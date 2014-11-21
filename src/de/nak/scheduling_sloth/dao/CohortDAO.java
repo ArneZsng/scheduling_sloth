@@ -54,8 +54,7 @@ public class CohortDAO {
                 for (Lesson lesson: course.getLessons()) {
                     Hibernate.initialize(lesson.getRooms());
                 }
-                Hibernate.initialize(course.getCohort());
-                Hibernate.initialize(course.getCohort());
+                Hibernate.initialize(course.getCentury());
             }
         }
         return cohort;

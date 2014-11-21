@@ -217,7 +217,7 @@
         </action>
 
         <!-- Shows the homepage. -->
-        <action name="Home">
+        <action name="Home" class="de.nak.scheduling_sloth.action.ShowScheduleAction">
             <result type="tiles">home</result>
         </action>
 
