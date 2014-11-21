@@ -100,6 +100,10 @@ public class Lesson implements Comparable<Lesson> {
         return true;
     }
 
+    public boolean startDateBeforeEndDate() {
+        return startDate.before(endDate);
+    }
+
     public Integer retrieveCourseBreakTime() {
         return course.getBreakTime();
     }

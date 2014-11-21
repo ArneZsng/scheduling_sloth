@@ -1,6 +1,9 @@
 body {
     padding-top: 55px;
 }
+h1 {
+    margin-top: 10px;
+}
 .table td.rightCell {
     text-align: right;
 }

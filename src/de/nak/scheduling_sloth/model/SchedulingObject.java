@@ -26,6 +26,7 @@ public abstract class SchedulingObject {
     }
 
     private Boolean timeSlotOverlappingWithLesson(Timestamp startTimestamp, Timestamp endTimestamp, Lesson lesson) {
+        // Checks which one i bigger: break time of object or break time of lesson
         int breakTimeInMs = Math.max(retrieveBreakTime(), lesson.retrieveCourseBreakTime()) * 60000;
 
         /** Substract 1 milliseconds for transforming after() to notBefore() and before to notAfter() **/
