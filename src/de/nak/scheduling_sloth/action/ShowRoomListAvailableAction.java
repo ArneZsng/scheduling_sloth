@@ -1,17 +1,13 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
-import de.nak.scheduling_sloth.model.Century;
-import de.nak.scheduling_sloth.model.Cohort;
-import de.nak.scheduling_sloth.model.Course;
-import de.nak.scheduling_sloth.model.Room;
+import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.CenturyService;
 import de.nak.scheduling_sloth.service.CohortService;
 import de.nak.scheduling_sloth.service.RoomService;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by arne on 19.11.14.
@@ -33,6 +29,8 @@ public class ShowRoomListAvailableAction implements Action {
     private CohortService cohortService;
     /** The century service. */
     private CenturyService centuryService;
+    /** Input parameter of lesson id. */
+    private Map availableRooms = new HashMap();
 
     @Override
     public String execute() throws Exception {
@@ -47,13 +45,19 @@ public class ShowRoomListAvailableAction implements Action {
     }
 
     private void initializeParams() {
-        if (startDate == null) {
-            java.util.Date date = new java.util.Date();
-            setStartDate(new Timestamp(date.getTime()));
+        for (Iterator i = availableRooms.keySet().iterator(); i.hasNext(); ) {
+            String id = (String) i.next();
+            Integer lessonNumber = Integer.parseInt(id);
+            List<Lesson> lessons = course.getLessons();
+            startDate = lessons.get(lessonNumber).getStartDate();
+            endDate = lessons.get(lessonNumber).getEndDate();
         }
 
+        java.util.Date date = new java.util.Date();
+        if (startDate == null) {
+            setStartDate(new Timestamp(date.getTime()));
+        }
         if (endDate == null) {
-            java.util.Date date = new java.util.Date();
             // Add 30 minutes
             setEndDate(new Timestamp(date.getTime() + (30 * 60000)));
         }
@@ -123,5 +127,13 @@ public class ShowRoomListAvailableAction implements Action {
 
     public void setCenturyService(CenturyService centuryService) {
         this.centuryService = centuryService;
+    }
+
+    public Map getAvailableRooms() {
+        return availableRooms;
+    }
+
+    public void setAvailableRooms(Map availableRooms) {
+        this.availableRooms = availableRooms;
     }
 }

@@ -6,7 +6,7 @@
 <s:actionerror/>
 
 <%-- The lesson table --%>
-<s:form cssClass="form-horizontal" role="form">
+<s:form cssClass="form-horizontal" role="form" action="ShowRoomListAvailable">
     <s:hidden name="course.id"/>
     <s:hidden name="course.name"/>
     <s:hidden name="course.breakTime"/>
@@ -37,6 +37,19 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
+                    <div>
+                        <%--<input type="submit"
+                               name="availableRooms[0]"
+                               value="Show Available Rooms"
+                               class="btn btn-info room-button"
+                               onclick="this.form.target='_blank';return true;"
+                               target="_blank">--%>
+                        <s:submit key="btn.showAvailableRooms"
+                                  name="availableRooms[%{#rowstatus.index}]"
+                                  cssClass="btn btn-info room-button"
+                                  target="_blank"
+                                  onclick="this.form.target='_blank';return true;" />
+                    </div>
                 </td>
                 <td>
                     <div class='input-group date datetimepicker'>
@@ -53,8 +66,8 @@
     <%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit key="btn.save" action="SaveCourse"  cssClass="btn btn-primary"/>
-            <s:submit key="btn.cancel" action="CancelCourse"  cssClass="btn btn-danger"/>
+            <s:submit key="btn.save" action="SaveCourse" cssClass="btn btn-primary"/>
+            <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
         </div>
     </div>
 </s:form>

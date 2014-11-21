@@ -4,3 +4,6 @@ body {
 .table td.rightCell {
     text-align: right;
 }
+.room-button {
+    margin-top: 14px;
+}
