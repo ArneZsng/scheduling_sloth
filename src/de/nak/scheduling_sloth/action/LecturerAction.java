@@ -67,7 +67,11 @@ public class LecturerAction extends ActionSupport {
      */
     public String load() {
         lecturer = lecturerService.loadLecturer(lecturerId);
-        return SUCCESS;
+        if (lecturer == null) {
+            return ERROR;
+        } else {
+            return SUCCESS;
+        }
     }
 
     /**

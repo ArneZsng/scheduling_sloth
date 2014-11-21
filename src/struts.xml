@@ -36,7 +36,8 @@
 
 		<!-- Loads a existing car and shows it in the car form. -->
 		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
-			<result type="tiles">lecturerForm</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="success">lecturerForm</result>
 			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
@@ -81,7 +82,8 @@
 
         <!-- Loads a existing car and shows it in the car form. -->
         <action name="EditRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="load">
-            <result type="tiles">roomForm</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="success">roomForm</result>
             <result type="chain" name="input">ShowRoomList</result>
         </action>
 
@@ -121,7 +123,8 @@
 
         <!-- Loads a existing car and shows it in the car form. -->
         <action name="EditCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="load">
-            <result type="tiles">cohortForm</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="success">cohortForm</result>
             <result type="chain" name="input">ShowCohortList</result>
         </action>
 
@@ -161,7 +164,8 @@
 
         <!-- Loads a existing car and shows it in the car form. -->
         <action name="EditCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="load">
-            <result type="tiles">centuryForm</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="success">centuryForm</result>
             <result type="chain" name="input">ShowCenturyList</result>
         </action>
 
@@ -190,7 +194,8 @@
 
         <!-- Loads a existing car and shows it in the car form. -->
         <action name="EditCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="load">
-            <result type="tiles">courseForm</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="success">courseForm</result>
         </action>
 
         <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
