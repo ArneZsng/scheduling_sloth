@@ -7,6 +7,7 @@
 <s:form cssClass="form-horizontal" role="form">
 	<%-- Form fields for the course's attributes --%>
 	<s:hidden name="course.id"/>
+    <s:hidden name="collisionFlag"/>
     <div class="form-group">
         <s:label for="course.name" cssClass="col-sm-2 control-label" key="lbl.name" />
         <div class="col-sm-10">
@@ -96,7 +97,13 @@
 	<%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit key="btn.toLessons" action="EditCourseLessons" cssClass="btn btn-primary"/>
+            <s:if test="collisionFlag">
+                <s:submit key="btn.ignoreAndsubmit" action="EditCourseLessons" cssClass="btn btn-primary"/>
+            </s:if>
+            <s:else>
+                <s:submit key="btn.submit" action="EditCourseLessons" cssClass="btn btn-primary"/>
+            </s:else>
+
             <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
         </div>
     </div>

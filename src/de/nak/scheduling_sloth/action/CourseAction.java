@@ -54,8 +54,11 @@ public class CourseAction extends ActionSupport implements Preparable {
     private RoomService roomService;
     /** The lesson service. */
     private LessonService lessonService;
+    /** Flag for collision detection */
+    private boolean collisionFlag = false;
 
     String REDIRECT = "redirect";
+
 
 
     /**
@@ -193,7 +196,7 @@ public class CourseAction extends ActionSupport implements Preparable {
 
         Integer numberOfLessons = course.getLessons().size();
 
-        // Instantly save if no repititions
+        // Instantly save if no repetitions
         if (numberOfRepetitions == 0) {
             Lesson lesson = new Lesson();
             lesson.setCourse(course);
@@ -205,6 +208,20 @@ public class CourseAction extends ActionSupport implements Preparable {
                 rooms.add(roomService.loadRoom(roomId));
             }
             lesson.setRooms(rooms);
+
+            if (collisionFlag == false) {
+                course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
+                if (!lesson.lecturerAvailable())
+                    addActionError(getText("msg.lecturerNotAvailable"));
+                if (!lesson.audienceAvailable())
+                    addActionError(getText("msg.audienceNotAvailable"));
+                if (!lesson.allRoomsAvailable())
+                    addActionError(getText("msg.roomsNotAvailable"));
+                if (hasActionErrors()) {
+                    collisionFlag = true;
+                    return ERROR;
+                }
+            }
 
             courseService.saveCourse(course);
             lessonService.saveLesson(lesson);
@@ -235,6 +252,9 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     public void prepareEditLessons() {
         roomList = roomService.loadAllRooms();
+        lecturerList = lecturerService.loadAllLecturers();
+        cohortList = cohortService.loadAllCohorts();
+        centuryList = centuryService.loadAllCenturies();
     }
 
     /**
@@ -333,6 +353,8 @@ public class CourseAction extends ActionSupport implements Preparable {
         this.rooms = rooms;
     }
 
+    public boolean getCollisionFlag() { return collisionFlag; }
+    public void setCollisionFlag(boolean collisionFlag) { this.collisionFlag = collisionFlag; }
 
     public List<Long> getSelectedRooms() {
         return selectedRooms;

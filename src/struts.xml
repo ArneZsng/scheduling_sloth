@@ -198,6 +198,7 @@
         <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
             <result type="tiles" name="success">courseLessonForm</result>
             <result type="tiles" name="input">courseForm</result>
+            <result type="tiles" name="error">courseForm</result>
             <result name="redirect" type="redirect">Home</result>
         </action>
 
