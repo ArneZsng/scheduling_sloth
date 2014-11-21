@@ -24,6 +24,14 @@ public interface CourseService {
 	 */
      Course loadCourse(Long id);
 
+    /**
+     * Loads a single courses with Lessons and Rooms.
+     *
+     * @param id The identifier.
+     * @return a course or null.
+     */
+    Course loadWithLessonsAndRooms(long id);
+
 	/**
 	 * Deletes the given course.
 	 *

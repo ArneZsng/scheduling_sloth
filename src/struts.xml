@@ -180,7 +180,7 @@
 
         <!-- Saves the new or updated course into the database and shows the course list again. -->
         <action name="SaveCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="save">
-            <result type="redirect">ShowLessonList.action</result>
+            <result type="redirect">ShowCourseList</result>
             <result type="tiles" name="input">courseForm</result>
         </action>
 
@@ -207,8 +207,8 @@
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
-            <result type="redirect">ShowLessonList.action</result>
-            <result type="chain" name="input">ShowLessonList</result>
+            <result type="redirect">ShowCourseList</result>
+            <result type="chain" name="input">ShowCourseList</result>
         </action>
 
         <!-- Action that displays the list of courses. -->

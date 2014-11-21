@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
@@ -31,10 +32,27 @@ public class CourseDAO {
      */
     public Course load(Long id) {
         Course course = (Course) sessionFactory.getCurrentSession().get(Course.class, id);
-        Hibernate.initialize(course.getLessons());
+        if(course!= null) {
+            Hibernate.initialize(course.getLessons());
+        }
         return course;
     }
 
+    /**
+     * Loads a single course entity from the database with its lessons and rooms.
+     *
+     * @param id The identifier.
+     * @return a lecturer or null if no lecturer was found with the given identifier.
+     */
+    public Course loadWithLessonsAndRooms(Long id) {
+        Course course = load(id);
+        if(course != null) {
+            for (Lesson lesson: course.getLessons()) {
+                Hibernate.initialize(lesson.getRooms());
+            }
+        }
+        return course;
+    }
     /**
      * Deletes the course from the database.
      *

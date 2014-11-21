@@ -65,6 +65,7 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
     @SkipValidation
     public String save() {
+        ensureAudience();
         courseService.saveCourse(course);
 
         for (Lesson lesson : course.getLessons()) {
@@ -183,7 +184,8 @@ public class CourseAction extends ActionSupport implements Preparable{
         // Only save if course already exist and has lessons
         if (course.getId() != null) {
             courseService.saveCourse(course);
-            course = courseService.loadCourse(course.getId());
+            course = courseService.loadWithLessonsAndRooms(course.getId());
+            //course.retrieveLessonsWithInitRooms();
         }
 
         for (String roomStr : rooms) {
@@ -246,7 +248,15 @@ public class CourseAction extends ActionSupport implements Preparable{
      */
     private void ensureAudience() {
         if (course.getCohort() != null && course.getCentury() != null) {
-            course.setCohort(null);
+            if (course.getCohort().getId() == null) {
+                course.setCohort(null);
+            }
+            if (course.getCentury().getId() == null) {
+                course.setCentury(null);
+            }
+            if (course.getCohort() != null && course.getCentury() != null) {
+                course.setCentury(null);
+            }
         }
     }
 
