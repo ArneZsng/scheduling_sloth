@@ -99,8 +99,10 @@ public class Course {
     public boolean audienceAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
         if (cohort != null) {
             return cohort.timeSlotAvailable(startTimestamp, endTimestamp);
-        } else {
+        } else if (century != null) {
             return century.timeSlotAvailable(startTimestamp, endTimestamp);
+        } else {
+            return true;
         }
     }
 

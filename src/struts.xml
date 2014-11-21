@@ -197,6 +197,7 @@
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
         <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
             <result type="tiles">courseLessonForm</result>
+            <result name="error" type="tiles">courseForm</result>
             <result name="redirect" type="redirect">Home</result>
         </action>
 
