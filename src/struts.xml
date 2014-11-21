@@ -181,7 +181,7 @@
         <!-- Saves the new or updated course into the database and shows the course list again. -->
         <action name="SaveCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="save">
             <result type="redirect">Home</result>
-            <result type="tiles" name="input">courseForm</result>
+            <result type="tiles" name="input">courseLessonForm</result>
         </action>
 
         <!-- Loads a existing car and shows it in the car form. -->
@@ -196,7 +196,9 @@
 
         <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
         <action name="EditCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="editLessons">
-            <result type="tiles">courseLessonForm</result>
+            <result type="tiles" name="success">courseLessonForm</result>
+            <result type="tiles" name="input">courseForm</result>
+            <result type="tiles" name="error">courseForm</result>
             <result name="redirect" type="redirect">Home</result>
         </action>
 
