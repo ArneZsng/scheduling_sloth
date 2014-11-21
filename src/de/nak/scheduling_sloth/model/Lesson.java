@@ -50,7 +50,6 @@ public class Lesson implements Comparable<Lesson> {
         this.endDate = endDate;
     }
 
-    // TODO: Find better solution for .EAGER (due to error with lazy loading)
     @ManyToMany
     @LazyCollection(LazyCollectionOption.TRUE)
     @JoinTable(name="lesson_room", joinColumns={

@@ -16,7 +16,7 @@ public class Lecturer extends SchedulingObject {
     /** The name of the lecturer. */
     private String name;
     /** The needed break time of the lecturer. */
-    private Integer breakTime;
+    private Integer breakTime = 15;
     /** The courses of this lecturer. */
     private List<Course> courses = new ArrayList<Course>();
 

@@ -58,8 +58,8 @@ public class ShowRoomListAvailableAction implements Action {
             setStartDate(new Timestamp(date.getTime()));
         }
         if (endDate == null) {
-            // Add 30 minutes
-            setEndDate(new Timestamp(date.getTime() + (30 * 60000)));
+            // Add 30 minutes to startDate
+            setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
         }
 
         if (course != null) {

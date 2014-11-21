@@ -20,7 +20,7 @@ public class Century extends SchedulingObject {
     /** Number of students */
     private Integer numberOfStudents = 0;
     /** The needed break time of the century. */
-    private Integer breakTime;
+    private Integer breakTime = 15;
     /** The courses of this century. */
     private List<Course> courses = new ArrayList<Course>();
 

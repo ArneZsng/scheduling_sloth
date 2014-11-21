@@ -20,7 +20,7 @@ public class Course {
     /** The name of the course. */
     private String name;
     /** The needed break time of the course. */
-    private Integer breakTime;
+    private Integer breakTime = 15;
     /** Lecturer of the course. */
     private Lecturer lecturer;
     /** Cohort of the course. */

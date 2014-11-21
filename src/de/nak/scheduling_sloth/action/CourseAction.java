@@ -191,45 +191,43 @@ public class CourseAction extends ActionSupport implements Preparable {
         }
         // TODO: Remove lessons if too many? last ones?
 
-        // Add lessons if higher number of repetitions
-        for (int i = 0; i < (numberOfRepetitions - course.getLessons().size()); i++) {
-            Lesson lesson = new Lesson();
+        Integer numberOfLessons = course.getLessons().size();
 
-            Calendar startCalendar = Calendar.getInstance();
-            startCalendar.setTimeInMillis(startDate.getTime());
-            startCalendar.add(Calendar.DATE, 7 * (i+course.getLessons().size()));
-            lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
-
-            Calendar endCalendar = Calendar.getInstance();
-            endCalendar.setTimeInMillis(endDate.getTime());
-            endCalendar.add(Calendar.DATE, 7 * (i+course.getLessons().size()));
-            lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
-
-            course.getLessons().add(lesson);
-        }
-
+        // Instantly save if no repititions
         if (numberOfRepetitions == 0) {
-            courseService.saveCourse(course);
-
-            // Create the (only) lesson with parameters if it does not exists
-            if(course.getLessons().size() == 0) {
-                course.getLessons().add(new Lesson());
-                course.getLessons().get(0).setCourse(course);
-            }
-
-            course.getLessons().get(0).setStartDate(startDate);
-            course.getLessons().get(0).setEndDate(endDate);
+            Lesson lesson = new Lesson();
+            lesson.setCourse(course);
+            lesson.setStartDate(startDate);
+            lesson.setEndDate(endDate);
 
             List<Room> rooms = new ArrayList<Room>();
             for (Long roomId: selectedRooms) {
                 rooms.add(roomService.loadRoom(roomId));
             }
+            lesson.setRooms(rooms);
 
-            course.getLessons().get(0).setRooms(rooms);
-
-            lessonService.saveLesson(course.getLessons().get(0));
+            courseService.saveCourse(course);
+            lessonService.saveLesson(lesson);
 
             return REDIRECT;
+        }
+
+        // Add lessons if higher number of repetitions
+        for (int i = 0; i <= (numberOfRepetitions - numberOfLessons); i++) {
+            Lesson lesson = new Lesson();
+            lesson.setCourse(course);
+
+            Calendar startCalendar = Calendar.getInstance();
+            startCalendar.setTimeInMillis(startDate.getTime());
+            startCalendar.add(Calendar.DATE, 7 * (i+numberOfLessons));
+            lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
+
+            Calendar endCalendar = Calendar.getInstance();
+            endCalendar.setTimeInMillis(endDate.getTime());
+            endCalendar.add(Calendar.DATE, 7 * (i+numberOfLessons));
+            lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
+
+            course.getLessons().add(lesson);
         }
 
         return SUCCESS;
