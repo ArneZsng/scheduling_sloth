@@ -4,10 +4,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -21,6 +19,10 @@ public class CourseAction extends ActionSupport implements Preparable {
     private Course course;
     /** The current lessons. */
     private List<Lesson> lessons = new ArrayList<Lesson>();
+    /** The passed calendar week. */
+    private Integer week = 0;
+    /** The passed year. */
+    private Integer year = 0;
     /** Start date of the first lesson. */
     private Timestamp startDate;
     /** End date of the first lesson. */
@@ -33,6 +35,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     private Integer numberOfRepetitions = 0;
     /** The course's identifier selected by the user. */
     private Long courseId;
+    /** The lessons's identifier selected by the user. */
     private Long courseLessonId;
     /** The course service. */
     private CourseService courseService;
@@ -57,7 +60,6 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     String REDIRECT = "redirect";
 
-
     /**
      * Saves the course to the database.
      *
@@ -70,8 +72,6 @@ public class CourseAction extends ActionSupport implements Preparable {
 
         for (Lesson lesson : course.getLessons()) {
             lesson.setCourse(course);
-
-            // TODO: find another way to get the rest of the room since the id is already in the List
             List<Room> selectedRoomList = new ArrayList<Room>();
             for(Room room:lesson.getRooms()) {
                 selectedRoomList.add(roomService.loadRoom(room.getId()));
@@ -79,7 +79,6 @@ public class CourseAction extends ActionSupport implements Preparable {
             lesson.setRooms(selectedRoomList);
             lessonService.saveLesson(lesson);
         }
-
         return SUCCESS;
     }
 
@@ -102,16 +101,13 @@ public class CourseAction extends ActionSupport implements Preparable {
      * @return the result string.
      */
     public String deleteLesson() {
-        Lesson courseLesson = lessonService.loadLesson(courseLessonId);
-
-        if (courseLesson != null) {
-            Course courseOfLesson = courseLesson.getCourse();
-
-            lessonService.deleteLesson(courseLesson);
-
+        Lesson lesson = lessonService.loadLesson(courseLessonId);
+        if (lesson != null) {
+            Course course = lesson.getCourse();
+            lessonService.deleteLesson(lesson);
             // Delete course if this was the last lesson
-            if (courseOfLesson.getLessons().size() == 1) {
-                courseService.deleteCourse(courseOfLesson);
+            if (course.getLessons().size() == 1) {
+                courseService.deleteCourse(course);
             }
         }
         return SUCCESS;
@@ -260,14 +256,11 @@ public class CourseAction extends ActionSupport implements Preparable {
      */
     private void ensureAudience() {
         if (course.getCohort() != null && course.getCentury() != null) {
-            if (course.getCohort().getId() == null) {
-                course.setCohort(null);
-            }
             if (course.getCentury().getId() == null) {
                 course.setCentury(null);
             }
-            if (course.getCohort() != null && course.getCentury() != null) {
-                course.setCentury(null);
+            if (course.getCohort().getId() == null || course.getCentury() != null) {
+                course.setCohort(null);
             }
         }
     }
@@ -295,6 +288,11 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
 
+    @Override
+    public void prepare() throws Exception {
+        return;
+    }
+
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;
     }
@@ -309,10 +307,23 @@ public class CourseAction extends ActionSupport implements Preparable {
     public List<Lesson> getLessons() { return lessons; }
     public void setLessons(List<Lesson> lessons) {this.lessons = lessons; }
 
+    public Integer getYear() {
+        return year;
+    }
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
     public Timestamp getStartDate() {
         return startDate;
     }
-
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
@@ -320,7 +331,6 @@ public class CourseAction extends ActionSupport implements Preparable {
     public Timestamp getEndDate() {
         return endDate;
     }
-
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
@@ -328,16 +338,13 @@ public class CourseAction extends ActionSupport implements Preparable {
     public String[] getRooms() {
         return rooms;
     }
-
     public void setRooms(String[] rooms) {
         this.rooms = rooms;
     }
 
-
     public List<Long> getSelectedRooms() {
         return selectedRooms;
     }
-
     public void setSelectedRooms(List<Long> selectedRooms) {
         this.selectedRooms = selectedRooms;
     }
@@ -393,11 +400,6 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;
-    }
-
-    @Override
-    public void prepare() throws Exception {
-        return;
     }
 
 }

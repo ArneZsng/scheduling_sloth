@@ -207,8 +207,7 @@
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
-            <result type="redirect">Home</result>
-            <result type="chain" name="input">Home</result>
+            <result type="chain">Home</result>
         </action>
 
         <!-- Shows the homepage. -->
