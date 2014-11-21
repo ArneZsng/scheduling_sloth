@@ -47,30 +47,34 @@ public class ShowCenturyAction implements Action {
     public String execute() throws Exception {
         century = centuryService.loadCenturyWithLessons(centuryId);
 
-        if (week == 0 || year == 0) {
+        if (century != null) {
+            if (week == 0 || year == 0) {
+                Calendar calendar = Calendar.getInstance();
+                week = calendar.get(Calendar.WEEK_OF_YEAR);
+                year = calendar.get(Calendar.YEAR);
+            }
+
+            lessonList = century.retrieveLessonsInWeek(week, year);
+
+            initPreviousWeek();
+            initNextWeek();
+
+            // Populate calendar weeks for select box
+            for (int i = 1; i < 54; i++) {
+                weeks.add(String.format("%02d", i));
+            }
+
+            // Populate years for select box, starting 2 years ago
             Calendar calendar = Calendar.getInstance();
-            week = calendar.get(Calendar.WEEK_OF_YEAR);
-            year = calendar.get(Calendar.YEAR);
+            int currentYear = calendar.get(Calendar.YEAR);
+            for (int j = -2; j < 10; j++) {
+                years.add(Integer.toString(currentYear + j));
+            }
+
+            return SUCCESS;
+        } else {
+            return ERROR;
         }
-
-        lessonList = century.retrieveLessonsInWeek(week, year);
-
-        initPreviousWeek();
-        initNextWeek();
-
-        // Populate calendar weeks for select box
-        for (int i = 1; i < 54; i++) {
-            weeks.add(String.format("%02d", i));
-        }
-
-        // Populate years for select box, starting 2 years ago
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        for (int j = -2; j < 10; j++) {
-            years.add(Integer.toString(currentYear + j));
-        }
-
-        return SUCCESS;
     }
 
     private void initPreviousWeek() {
