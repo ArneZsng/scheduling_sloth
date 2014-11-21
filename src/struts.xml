@@ -19,7 +19,8 @@
 
         <!-- Action that displays a single lecturer. -->
         <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
-            <result type="tiles">lecturerShow</result>
+            <result type="tiles" name="success">lecturerShow</result>
+            <result type="redirect" name="error">Error</result>
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
@@ -63,7 +64,8 @@
 
         <!-- Action that displays a single room. -->
         <action name="ShowRoom" class="de.nak.scheduling_sloth.action.ShowRoomAction" method="execute">
-            <result type="tiles">roomShow</result>
+            <result name="error" type="redirect">Error</result>
+            <result name="success" type="tiles">roomShow</result>
         </action>
 
         <!-- Shows the empty form for a new room. -->
@@ -102,7 +104,8 @@
 
         <!-- Action that displays a single cohort. -->
         <action name="ShowCohort" class="de.nak.scheduling_sloth.action.ShowCohortAction" method="execute">
-            <result type="tiles">cohortShow</result>
+            <result name="error" type="redirect">Error</result>
+            <result name="success" type="tiles">cohortShow</result>
         </action>
 
         <!-- Shows the empty form for a new cohort. -->
@@ -141,7 +144,8 @@
 
         <!-- Action that displays a single century. -->
         <action name="ShowCentury" class="de.nak.scheduling_sloth.action.ShowCenturyAction" method="execute">
-            <result type="tiles">centuryShow</result>
+            <result name="error" type="redirect">Error</result>
+            <result name="success" type="tiles">centuryShow</result>
         </action>
 
         <!-- Shows the empty form for a new century. -->
@@ -210,8 +214,7 @@
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
-            <result type="redirect">Home</result>
-            <result type="chain" name="input">Home</result>
+            <result type="chain">Home</result>
         </action>
 
         <!-- Shows the homepage. -->

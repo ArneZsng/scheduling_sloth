@@ -46,31 +46,34 @@ public class ShowCohortAction implements Action {
     @Override
     public String execute() throws Exception {
         cohort = cohortService.loadCohortWithLessons(cohortId);
+        if (cohort != null) {
+            if (week == 0 || year == 0) {
+                Calendar calendar = Calendar.getInstance();
+                week = calendar.get(Calendar.WEEK_OF_YEAR);
+                year = calendar.get(Calendar.YEAR);
+            }
 
-        if (week == 0 || year == 0) {
+            lessonList = cohort.retrieveLessonsInWeek(week, year);
+
+            initPreviousWeek();
+            initNextWeek();
+
+            // Populate calendar weeks for select box
+            for (int i = 1; i < 54; i++) {
+                weeks.add(String.format("%02d", i));
+            }
+
+            // Populate years for select box, starting 2 years ago
             Calendar calendar = Calendar.getInstance();
-            week = calendar.get(Calendar.WEEK_OF_YEAR);
-            year = calendar.get(Calendar.YEAR);
+            int currentYear = calendar.get(Calendar.YEAR);
+            for (int j = -2; j < 10; j++) {
+                years.add(Integer.toString(currentYear + j));
+            }
+
+            return SUCCESS;
+        } else {
+            return ERROR;
         }
-
-        lessonList = cohort.retrieveLessonsInWeek(week, year);
-
-        initPreviousWeek();
-        initNextWeek();
-
-        // Populate calendar weeks for select box
-        for (int i = 1; i < 54; i++) {
-            weeks.add(String.format("%02d", i));
-        }
-
-        // Populate years for select box, starting 2 years ago
-        Calendar calendar = Calendar.getInstance();
-        int currentYear = calendar.get(Calendar.YEAR);
-        for (int j = -2; j < 10; j++) {
-            years.add(Integer.toString(currentYear + j));
-        }
-
-        return SUCCESS;
     }
 
     private void initPreviousWeek() {
