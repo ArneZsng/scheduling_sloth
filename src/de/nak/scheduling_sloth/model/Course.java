@@ -47,7 +47,7 @@ public class Course {
         this.name = name;
     }
 
-    @Column(name = "break_time", scale = 1, nullable = false)
+    @Column(name = "break_time", scale = 1)
     public Integer getBreakTime() {
         return breakTime;
     }
@@ -104,11 +104,13 @@ public class Course {
         }
     }
 
-    public Integer audienceSize() {
+    public Integer retrieveAudienceSize() {
         if (cohort != null) {
             return cohort.retrieveNumberOfStudents();
-        } else {
+        } else if (century != null) {
             return century.getNumberOfStudents();
+        } else {
+            return 0;
         }
 
     }

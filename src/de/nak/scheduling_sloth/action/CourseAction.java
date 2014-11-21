@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class CourseAction extends ActionSupport implements Preparable{
+public class CourseAction extends ActionSupport implements Preparable {
     private static final long serialVersionUID = -2085704409810512813L;
     /** The current course. */
     private Course course;
@@ -30,7 +30,7 @@ public class CourseAction extends ActionSupport implements Preparable{
     /** The list of the selected rooms. */
     private List<Long> selectedRooms = new ArrayList<Long>();
     /** The current number of repetitions. */
-    private Integer numberOfRepetitions;
+    private Integer numberOfRepetitions = 0;
     /** The course's identifier selected by the user. */
     private Long courseId;
     private Long courseLessonId;
@@ -163,7 +163,6 @@ public class CourseAction extends ActionSupport implements Preparable{
         cohortList = cohortService.loadAllCohorts();
         centuryList = centuryService.loadAllCenturies();
         roomList = roomService.loadAllRooms();
-        numberOfRepetitions = 0;
 
         Calendar calendar = Calendar.getInstance();
         setStartDate(new Timestamp(calendar.getTimeInMillis()));
@@ -231,7 +230,7 @@ public class CourseAction extends ActionSupport implements Preparable{
     }
 
     /**
-     * Sets cohort to null if no cohort was selected.
+     * Sets cohort to null if no cohort is selected.
      */
     private void checkCohort() {
         if (course.getCohort().getId() == -1) {
@@ -240,7 +239,7 @@ public class CourseAction extends ActionSupport implements Preparable{
     }
 
     /**
-     * Sets century to null if no century was selected.
+     * Sets century to null if no century is selected.
      */
     private void checkCentury() {
         if (course.getCentury().getId() == -1) {

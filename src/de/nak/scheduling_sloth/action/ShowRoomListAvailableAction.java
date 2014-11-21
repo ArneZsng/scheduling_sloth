@@ -62,14 +62,14 @@ public class ShowRoomListAvailableAction implements Action {
             setEndDate(new Timestamp(date.getTime() + (30 * 60000)));
         }
 
+        //TODO: Audience Interface
         if (course != null) {
-            if (course.getCohort().getId() != null  && course.getCohort().getId() != -1) {
-                Cohort cohort = cohortService.loadCohort(course.getCohort().getId());
-                setRequiredSeats(cohort.retrieveNumberOfStudents());
-            } else if (course.getCohort().getId() != null  && course.getCentury().getId() != -1) {
-                Century century = centuryService.loadCentury(course.getCentury().getId());
-                setRequiredSeats(century.getNumberOfStudents());
+            if (course.getCohort().getId() != null && course.getCohort().getId() != -1) {
+                course.setCohort(cohortService.loadCohort(course.getCohort().getId()));
+            } else if (course.getCentury().getId() != null && course.getCentury().getId() != -1) {
+                course.setCentury(centuryService.loadCentury(course.getCentury().getId()));
             }
+            setRequiredSeats(course.retrieveAudienceSize());
         }
     }
 
