@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Course;
+import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
@@ -49,7 +50,10 @@ public class CohortDAO {
         if (cohort != null) {
             List<Course> courses = cohort.getCourses();
             for (Course course : courses) {
-                Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+                Hibernate.initialize(course.getLessons());
+                for (Lesson lesson: course.getLessons()) {
+                    Hibernate.initialize(lesson.getRooms());
+                }
                 Hibernate.initialize(course.getCohort());
                 Hibernate.initialize(course.getCohort());
             }

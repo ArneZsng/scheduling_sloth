@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Course;
+import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
@@ -48,7 +49,10 @@ public class CenturyDAO {
         if (century != null) {
             List<Course> courses = century.getCourses();
             for (Course course : courses) {
-                Hibernate.initialize(course.retrieveLessonsWithInitRooms());
+                Hibernate.initialize(course.getLessons());
+                for (Lesson lesson: course.getLessons()) {
+                    Hibernate.initialize(lesson.getRooms());
+                }
                 Hibernate.initialize(course.getCentury());
                 Hibernate.initialize(course.getCohort());
             }

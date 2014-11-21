@@ -23,6 +23,11 @@ public class CourseServiceImpl implements CourseService {
         return courseDAO.load(id);
     }
 
+    @Override
+    public Course loadWithLessonsAndRooms(long id) {
+        return courseDAO.loadWithLessonsAndRooms(id);
+    }
+
 	@Override
 	public void deleteCourse(Course course) {
 		courseDAO.delete(course);
