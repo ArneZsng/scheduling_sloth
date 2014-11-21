@@ -211,12 +211,22 @@ public class CourseAction extends ActionSupport implements Preparable {
         if (numberOfRepetitions == 0) {
             courseService.saveCourse(course);
 
-            // Create the (only) lesson with parameters
-            Lesson lesson = new Lesson();
-            lesson.setStartDate(startDate);
-            lesson.setEndDate(endDate);
+            // Create the (only) lesson with parameters if it does not exists
+            if(course.getLessons().size() == 0) {
+                course.getLessons().add(new Lesson());
+                course.getLessons().get(0).setCourse(course);
+            }
 
-            course.getLessons().add(lesson);
+            course.getLessons().get(0).setStartDate(startDate);
+            course.getLessons().get(0).setEndDate(endDate);
+
+            List<Room> rooms = new ArrayList<Room>();
+            for (Long roomId: selectedRooms) {
+                rooms.add(roomService.loadRoom(roomId));
+            }
+
+            course.getLessons().get(0).setRooms(rooms);
+
             lessonService.saveLesson(course.getLessons().get(0));
 
             return REDIRECT;
