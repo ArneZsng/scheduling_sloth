@@ -361,12 +361,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         this.rooms = rooms;
     }
 
-<<<<<<< HEAD
-=======
     public boolean getCollisionFlag() { return collisionFlag; }
     public void setCollisionFlag(boolean collisionFlag) { this.collisionFlag = collisionFlag; }
 
->>>>>>> FETCH_HEAD
     public List<Long> getSelectedRooms() {
         return selectedRooms;
     }
