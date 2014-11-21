@@ -63,10 +63,10 @@ public class ShowRoomListAvailableAction implements Action {
         }
 
         if (course != null) {
-            if (course.getCohort().getId() != -1) {
+            if (course.getCohort().getId() != null  && course.getCohort().getId() != -1) {
                 Cohort cohort = cohortService.loadCohort(course.getCohort().getId());
                 setRequiredSeats(cohort.retrieveNumberOfStudents());
-            } else if (course.getCentury().getId() != -1) {
+            } else if (course.getCohort().getId() != null  && course.getCentury().getId() != -1) {
                 Century century = centuryService.loadCentury(course.getCentury().getId());
                 setRequiredSeats(century.getNumberOfStudents());
             }
