@@ -1,9 +1,8 @@
-<%@ page import="java.util.ArrayList" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.lessons"/> <s:text name="txt.for"/> <s:property value="course.name"/></h1>
-<s:actionerror/>
 
 <%-- The lesson table --%>
 <s:form cssClass="form-horizontal" role="form" action="ShowRoomListAvailable">
@@ -13,7 +12,7 @@
     <s:hidden name="course.lecturer.id"/>
     <s:hidden name="course.cohort.id"/>
     <s:hidden name="course.century.id"/>
-
+    <s:hidden name="collisionFlag"/>
     <table class="table">
         <thead>
         <tr>
@@ -66,7 +65,13 @@
     <%-- The buttons --%>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <s:submit key="btn.save" action="SaveCourse" cssClass="btn btn-primary"/>
+            <s:if test="collisionFlag">
+                <s:submit key="btn.ignoreAndsubmit" action="SaveCourse" cssClass="btn btn-primary"/>
+            </s:if>
+            <s:else>
+                <s:submit key="btn.submit" action="SaveCourse" cssClass="btn btn-primary"/>
+            </s:else>
+
             <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
         </div>
     </div>

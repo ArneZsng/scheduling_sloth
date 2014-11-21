@@ -79,9 +79,29 @@ public class CourseAction extends ActionSupport implements Preparable {
                 selectedRoomList.add(roomService.loadRoom(room.getId()));
             }
             lesson.setRooms(selectedRoomList);
-            lessonService.saveLesson(lesson);
+
+            if (collisionFlag == false) {
+                course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
+                if (!lesson.lecturerAvailable())
+                    addActionError(getText("msg.lecturerNotAvailable"));
+                if (!lesson.audienceAvailable())
+                    addActionError(getText("msg.audienceNotAvailable"));
+                if (!lesson.allRoomsAvailable())
+                    addActionError(getText("msg.roomsNotAvailable"));
+            }
+            if (hasActionErrors()) {
+                collisionFlag = true;
+                return ERROR;
+            } else {
+                lessonService.saveLesson(lesson);
+            }
         }
+
         return SUCCESS;
+    }
+
+    public void prepareSave() {
+        roomList = roomService.loadAllRooms();
     }
 
     /**
