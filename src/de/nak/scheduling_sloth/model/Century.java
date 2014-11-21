@@ -18,7 +18,7 @@ public class Century extends SchedulingObject {
     /** The Cohort. */
     private Cohort cohort;
     /** Number of students */
-    private Integer numberOfStudents;
+    private Integer numberOfStudents = 0;
     /** The needed break time of the century. */
     private Integer breakTime;
     /** The courses of this century. */
