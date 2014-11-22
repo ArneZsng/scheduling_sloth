@@ -24,7 +24,7 @@
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
-		<action name="AddLecturer">
+		<action name="AddLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="add">
 			<result type="tiles">lecturerForm</result>
 		</action>
 
@@ -70,7 +70,7 @@
         </action>
 
         <!-- Shows the empty form for a new room. -->
-        <action name="AddRoom">
+        <action name="AddRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="add">
             <result type="tiles">roomForm</result>
         </action>
 
@@ -199,6 +199,13 @@
             <result type="tiles" name="success">courseForm</result>
         </action>
 
+        <!-- Deletes the selected course and shows the schedule again. -->
+        <action name="DeleteCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="delete">
+            <result name="error" type="chain">Home</result>
+            <result name="success" type="redirect">Home</result>
+            <result type="chain" name="input">Home</result>
+        </action>
+
         <!-- Action for the cancel button. Is required to avoid stack traces in log. -->
         <action name="CancelCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="cancel">
             <result name="success" type="redirect">Home</result>
@@ -219,7 +226,9 @@
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
-            <result type="chain">Home</result>
+            <result name="error" type="redirect">Home</result>
+            <result name="redirect" type="chain">Home</result>
+            <result name="success" type="chain">ShowCourse</result>
         </action>
 
         <!-- Action that displays a single century. -->

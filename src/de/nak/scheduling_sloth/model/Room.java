@@ -11,6 +11,8 @@ import java.util.List;
  */
 @Entity
 public class Room extends SchedulingObject {
+    /** The default breakTime of the room **/
+    public static int DEFAULT_BREAKTIME = 0;
     /** The identifier. */
     private Long id;
     /** The name of the room. */
@@ -51,10 +53,14 @@ public class Room extends SchedulingObject {
     public Integer getBreakTime() {
         return breakTime;
     }
-    public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
-    }
 
+    public void setBreakTime(Integer breakTime) {
+        if(breakTime == null) {
+            this.breakTime = DEFAULT_BREAKTIME;
+        } else {
+            this.breakTime = breakTime;
+        }
+    }
     @ManyToMany(fetch = FetchType.LAZY, mappedBy="rooms")
     public List<Lesson> getLessons() {
         return lessons;

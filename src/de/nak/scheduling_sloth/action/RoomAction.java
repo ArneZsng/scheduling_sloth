@@ -1,13 +1,15 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class RoomAction extends ActionSupport {
+public class RoomAction extends ActionSupport implements Preparable{
     private static final long serialVersionUID = 6411696302084986323L;
     /** The current room. */
     private Room room;
@@ -17,6 +19,9 @@ public class RoomAction extends ActionSupport {
 
     /** The room service. */
     private RoomService roomService;
+
+    /** The default breakTime **/
+    private Integer defaultBreakTime;
 
     /**
      * Saves the room to the database.
@@ -71,6 +76,17 @@ public class RoomAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * Start adding a Room
+     *
+     * @return the result string.
+     */
+    @SkipValidation
+    public String add() {
+        return SUCCESS;
+    }
+
+
     @Override
     public void validate() {
         // If the room is not set, the room ID has to be set.
@@ -78,6 +94,14 @@ public class RoomAction extends ActionSupport {
             addActionError(getText("msg.selectRoom"));
         }
     }
+
+    /**
+     * Sets the default breakTime
+     */
+    public void prepare() {
+        defaultBreakTime = Room.DEFAULT_BREAKTIME;
+    }
+
 
     public Room getRoom() {
         return room;
@@ -98,4 +122,9 @@ public class RoomAction extends ActionSupport {
     public void setRoomService(RoomService roomService) {
         this.roomService = roomService;
     }
+
+    public Integer getDefaultBreakTime() {
+        return this.defaultBreakTime;
+    }
+
 }

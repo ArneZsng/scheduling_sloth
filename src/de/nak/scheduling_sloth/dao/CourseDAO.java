@@ -77,14 +77,7 @@ public class CourseDAO {
      */
     @SuppressWarnings("unchecked")
     public List<Course> loadAll() {
-        List<Course> courses = sessionFactory.getCurrentSession().createQuery("from Course").list();
-        for (Course course : courses) {
-            //TODO: Do we really need rooms here?
-            for (Lesson lesson: course.getLessons()) {
-                Hibernate.initialize(lesson.getRooms());
-            }
-        }
-        return courses;
+        return sessionFactory.getCurrentSession().createQuery("from Course").list();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

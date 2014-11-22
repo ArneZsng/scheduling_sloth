@@ -15,12 +15,14 @@ import java.util.Set;
  */
 @Entity
 public class Course {
+    /** The default breakTime of the century **/
+    public static final int DEFAULT_BREAKTIME = 15;
     /** The identifier. */
     private Long id;
     /** The name of the course. */
     private String name;
     /** The needed break time of the course. */
-    private Integer breakTime = 15;
+    private Integer breakTime = DEFAULT_BREAKTIME;
     /** Lecturer of the course. */
     private Lecturer lecturer;
     /** Cohort of the course. */
@@ -82,7 +84,6 @@ public class Course {
         this.lecturer = lecturer;
     }
 
-    // TODO: Find better solution for .EAGER (due to error with lazy loading)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     @LazyCollection(LazyCollectionOption.TRUE)
     public List<Lesson> getLessons() {
@@ -150,7 +151,7 @@ public class Course {
         } else if (century != null) {
             return century.getName();
         } else {
-            return "";
+            return "-";
         }
     }
 }

@@ -11,12 +11,14 @@ import java.util.List;
  */
 @Entity
 public class Lecturer extends SchedulingObject {
+    /** The default breakTime of the lecturer **/
+    public static final int DEFAULT_BREAKTIME = 15;
     /** The identifier. */
     private Long id;
     /** The name of the lecturer. */
     private String name;
     /** The needed break time of the lecturer. */
-    private Integer breakTime = 15;
+    private Integer breakTime = DEFAULT_BREAKTIME;
     /** The courses of this lecturer. */
     private List<Course> courses = new ArrayList<Course>();
 
@@ -44,7 +46,7 @@ public class Lecturer extends SchedulingObject {
     }
     public void setBreakTime(Integer breakTime) {
         if(breakTime == null) {
-            this.breakTime = 15;
+            this.breakTime = DEFAULT_BREAKTIME;
         } else {
             this.breakTime = breakTime;
         }
