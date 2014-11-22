@@ -254,24 +254,34 @@ public class CourseAction extends ActionSupport implements Preparable {
             }
             lesson.setRooms(rooms);
 
-            if (collisionFlag == false) {
+            // Check if start date is before end date
+            if (!lesson.startDateBeforeEndDate()) {
+                addActionError(getText("msg.startDateBeforeEndDate"));
+            }
+
+            if (collisionFlag == false && !hasActionErrors()) {
                 course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
+
+                // Fully load century/cohort
                 if (!lesson.lecturerAvailable())
                     addActionError(getText("msg.lecturerNotAvailable"));
                 if (!lesson.audienceAvailable())
                     addActionError(getText("msg.audienceNotAvailable"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
-                if (hasActionErrors()) {
+                if (hasActionErrors())
                     collisionFlag = true;
-                    return ERROR;
-                }
             }
+            if (hasActionErrors()) {
+                return ERROR;
+            } else {
+                for (Lesson lessonToDelete : course.getLessons())
+                    lessonService.deleteLesson(lessonToDelete);
 
-            courseService.saveCourse(course);
-            lessonService.saveLesson(lesson);
-
-            return REDIRECT;
+                courseService.saveCourse(course);
+                lessonService.saveLesson(lesson);
+                return REDIRECT;
+            }
         }
 
         // Add lessons if higher number of repetitions
