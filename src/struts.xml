@@ -123,7 +123,7 @@
             <result type="tiles" name="input">cohortForm</result>
         </action>
 
-        <!-- Loads a existing car and shows it in the car form. -->
+        <!-- Loads a existing cohort and shows it in the cohort form. -->
         <action name="EditCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="load">
             <result name="error" type="redirect">Error</result>
             <result name="success" type="tiles">cohortForm</result>
@@ -164,7 +164,7 @@
             <result type="tiles" name="input">centuryForm</result>
         </action>
 
-        <!-- Loads a existing car and shows it in the car form. -->
+        <!-- Loads a existing century and shows it in the century form. -->
         <action name="EditCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="load">
             <result name="error" type="redirect">Error</result>
             <result type="tiles" name="success">centuryForm</result>
@@ -202,7 +202,7 @@
             <result name="input" type="redirect">Home</result>
         </action>
 
-        <!-- Loads a existing car and shows it in the car form. -->
+        <!-- Set recheck status and load the course lessons form. -->
         <action name="EditCourseRecheck" class="de.nak.scheduling_sloth.action.CourseAction" method="recheck">
             <result name="success" type="chain">
                 <param name="actionName">EditCourseLessons</param>
@@ -230,7 +230,7 @@
             <result name="redirect" type="redirect">Home</result>
         </action>
 
-        <!-- Loads a existing car and shows it in the car form. -->
+        <!-- Set recheck status and load the course form. -->
         <action name="EditCourseLessonsRecheck" class="de.nak.scheduling_sloth.action.CourseAction" method="recheck">
             <result name="success" type="chain">
                 <param name="actionName">SaveCourse</param>
