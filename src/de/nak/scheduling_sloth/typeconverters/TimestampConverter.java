@@ -17,24 +17,24 @@ public class TimestampConverter extends StrutsTypeConverter {
 
     @Override
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {
-        try{
+        try {
             if (values == null || values.length == 0) {
                 return null;
             }
             return new java.sql.Timestamp(sdf.parse(values[0]).getTime());
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new TypeConversionException(e);
         }
     }
 
     @Override
     public String convertToString(Map context, Object object)  throws TypeConversionException  {
-        try{
-            if(object instanceof Timestamp){
+        try {
+            if (object instanceof Timestamp) {
                 return sdf.format(new Date(((Timestamp)object).getTime()));
             }
             return "";
-        }catch(Exception e){
+        } catch(Exception e) {
             throw new TypeConversionException(e);
         }
     }
