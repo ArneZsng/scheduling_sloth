@@ -198,8 +198,6 @@ public class CourseAction extends ActionSupport implements Preparable {
      * @return the result string.
      */
     public String editLessons() {
-        checkCohort();
-        checkCentury();
         ensureAudience();
 
         // Only save if course already exist and has lessons
@@ -291,6 +289,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     private void checkCentury() {
         if (course.getCentury().getId() == -1) {
             course.setCentury(null);
+            course.setCentury(null);
         }
     }
 
@@ -298,6 +297,8 @@ public class CourseAction extends ActionSupport implements Preparable {
      * Ensures that century has precedence over cohort if both are selected.
      */
     private void ensureAudience() {
+        checkCohort();
+        checkCentury();
         if (course.getCohort() != null && course.getCentury() != null) {
             if (course.getCentury().getId() == null) {
                 course.setCentury(null);

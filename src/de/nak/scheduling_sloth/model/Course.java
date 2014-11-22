@@ -150,7 +150,7 @@ public class Course {
         } else if (century != null) {
             return century.getName();
         } else {
-            return "";
+            return "-";
         }
     }
 }
