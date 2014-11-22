@@ -2,7 +2,6 @@
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
 <h1><s:text name="txt.availableRooms"/></h1>
-<s:actionerror/>
 
 <%-- The availability form --%>
 <s:form cssClass="form-horizontal" role="form" method="GET">

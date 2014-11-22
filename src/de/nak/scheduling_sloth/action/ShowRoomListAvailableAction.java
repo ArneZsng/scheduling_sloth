@@ -37,6 +37,12 @@ public class ShowRoomListAvailableAction extends ActionSupport implements Prepar
     @Override
     public String execute() throws Exception {
         initializeParams();
+
+
+        // Check if start date is before end date
+        if (!startDateBeforeEndDate()) {
+            addActionError(getText("msg.startDateBeforeEndDate"));
+        }
         List<Room> allRooms = roomService.loadAllRoomsWithLessons();
         for (Room room : allRooms) {
             if (room.timeSlotAvailable(startDate, endDate) && room.bigEnough(requiredSeats)) {
@@ -84,6 +90,15 @@ public class ShowRoomListAvailableAction extends ActionSupport implements Prepar
     @Override
     public void validate() {
     }
+
+    private boolean startDateBeforeEndDate() {
+        if (startDate != null && endDate != null) {
+            return startDate.before(endDate);
+        } else {
+            return false;
+        }
+    }
+
 
     public Timestamp getStartDate() {
         return startDate;
