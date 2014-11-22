@@ -75,6 +75,9 @@ public class LecturerAction extends ActionSupport implements Preparable {
         if (lecturer == null) {
             return ERROR;
         } else {
+            if (lecturer.getBreakTime() != null) {
+                defaultBreakTime = lecturer.getBreakTime();
+            }
             return SUCCESS;
         }
     }

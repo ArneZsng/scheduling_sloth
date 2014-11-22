@@ -75,7 +75,14 @@ public class CenturyAction extends ActionSupport implements Preparable {
      */
      public String load(){
          century = centuryService.loadCentury(centuryId);
-         return SUCCESS;
+         if (century == null) {
+             return ERROR;
+         } else {
+             if (century.getBreakTime() != null) {
+                 defaultBreakTime = century.getBreakTime();
+             }
+             return SUCCESS;
+         }
      }
 
     /**

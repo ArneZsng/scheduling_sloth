@@ -61,7 +61,14 @@ public class RoomAction extends ActionSupport implements Preparable{
      */
     public String load() {
         room = roomService.loadRoom(roomId);
-        return SUCCESS;
+        if (room == null) {
+            return ERROR;
+        } else {
+            if (room.getBreakTime() != null) {
+                defaultBreakTime = room.getBreakTime();
+            }
+            return SUCCESS;
+        }
     }
 
     /**
