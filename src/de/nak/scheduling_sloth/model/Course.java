@@ -6,9 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -49,12 +47,16 @@ public class Course {
         this.name = name;
     }
 
-    @Column(name = "break_time", scale = 1)
+    @Column(name = "break_time", scale = 1, nullable = false)
     public Integer getBreakTime() {
         return breakTime;
     }
     public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
+        if(breakTime == null) {
+            this.breakTime = DEFAULT_BREAKTIME;
+        } else {
+            this.breakTime = breakTime;
+        }
     }
 
     @ManyToOne
@@ -93,15 +95,15 @@ public class Course {
         this.lessons = lessons;
     }
 
-    public boolean lecturerAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
-        return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
+    public boolean lecturerAvailableFor(Lesson lesson) {
+        return lecturer.timeSlotAvailableFor(lesson);
     }
 
-    public boolean audienceAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+    public boolean audienceAvailableFor(Lesson lesson) {
         if (cohort != null) {
-            return cohort.timeSlotAvailable(startTimestamp, endTimestamp);
+            return cohort.timeSlotAvailableFor(lesson);
         } else if (century != null) {
-            return century.timeSlotAvailable(startTimestamp, endTimestamp);
+            return century.timeSlotAvailableFor(lesson);
         } else {
             return true;
         }
@@ -153,5 +155,31 @@ public class Course {
         } else {
             return "-";
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+
+        Course course = (Course) o;
+
+        if (breakTime != null ? !breakTime.equals(course.breakTime) : course.breakTime != null) return false;
+        if (century != null ? !century.equals(course.century) : course.century != null) return false;
+        if (cohort != null ? !cohort.equals(course.cohort) : course.cohort != null) return false;
+        if (lecturer != null ? !lecturer.equals(course.lecturer) : course.lecturer != null) return false;
+        if (name != null ? !name.equals(course.name) : course.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (breakTime != null ? breakTime.hashCode() : 0);
+        result = 31 * result + (lecturer != null ? lecturer.hashCode() : 0);
+        result = 31 * result + (cohort != null ? cohort.hashCode() : 0);
+        result = 31 * result + (century != null ? century.hashCode() : 0);
+        return result;
     }
 }

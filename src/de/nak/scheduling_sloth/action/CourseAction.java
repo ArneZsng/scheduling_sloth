@@ -105,10 +105,10 @@ public class CourseAction extends ActionSupport implements Preparable {
             lesson.setRooms(selectedRoomList);
 
             // Check if start date is before end date
-            if (!lesson.startDateBeforeEndDate()) {
+            if (!lesson.startDateBeforeEndDate())
                 addActionError(getText("msg.startDateBeforeEndDate"));
-                return ERROR;
-            }
+            if (!lesson.hasRoom())
+                addActionError(getText("msg.noRoomSelected"));
 
             if ((!collisionFlag || recheck) && !hasActionErrors()) {
                 course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
@@ -116,14 +116,16 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.lecturerNotAvailable"));
                 if (!lesson.audienceAvailable())
                     addActionError(getText("msg.audienceNotAvailable"));
-                if (!lesson.hasRoom())
-                    addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
+                if (!lesson.allRoomsBigEnough())
+                    addActionError(getText("msg.roomsNotBigEnough"));
                 if (hasActionErrors()) {
                     collisionFlag = true;
                     return ERROR;
                 }
+            } else {
+                return ERROR;
             }
         }
         // Save course & lessons
@@ -151,6 +153,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
+    @SkipValidation
     public String delete() {
         course = courseService.loadCourse(courseId);
         if (course != null) {
@@ -164,15 +167,17 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
+    @SkipValidation
     public String deleteLesson() {
         Lesson lesson = lessonService.loadLesson(courseLessonId);
         if (lesson != null) {
             Course course = lesson.getCourse();
-            lessonService.deleteLesson(lesson);
-            // Delete course if this was the last lesson
+            // Delete whole course if this was the last lesson
             if (course.getLessons().size() == 1) {
                 courseService.deleteCourse(course);
                 return REDIRECT;
+            } else {
+                lessonService.deleteLesson(lesson);
             }
             if (courseId != null) {
                 return SUCCESS;
@@ -188,25 +193,25 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
-
-     public String load(){
-         course = courseService.loadCourse(courseId);
-         if (course != null) {
-             numberOfRepetitions = course.getLessons().size() - 1;
-             startDate = course.retrieveStartDate();
-             endDate = course.retrieveEndDate();
-             return SUCCESS;
-         } else {
-            return ERROR;
-         }
+    @SkipValidation
+    public String load(){
+     course = courseService.loadCourse(courseId);
+     if (course != null) {
+         numberOfRepetitions = course.getLessons().size() - 1;
+         startDate = course.retrieveStartDate();
+         endDate = course.retrieveEndDate();
+         return SUCCESS;
+     } else {
+        return ERROR;
      }
+    }
 
-     public void prepareLoad() {
-         lecturerList = lecturerService.loadAllLecturers();
-         cohortList = cohortService.loadAllCohorts();
-         centuryList = centuryService.loadAllCenturies();
-         roomList = roomService.loadAllRooms();
-     }
+    public void prepareLoad() {
+        lecturerList = lecturerService.loadAllLecturers();
+        cohortList = cohortService.loadAllCohorts();
+        centuryList = centuryService.loadAllCenturies();
+        roomList = roomService.loadAllRooms();
+    }
 
     /**
      * Cancels the editing.
@@ -290,6 +295,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
+                if (!lesson.allRoomsBigEnough())
+                    addActionError(getText("msg.roomsNotBigEnough"));
                 if (hasActionErrors())
                     collisionFlag = true;
             }
@@ -435,6 +442,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         return startDate;
     }
     public void setStartDate(Timestamp startDate) {
+        if ("".equals(startDate)) {
+            this.startDate = null;
+        }
         this.startDate = startDate;
     }
 
@@ -442,6 +452,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         return endDate;
     }
     public void setEndDate(Timestamp endDate) {
+        if ("".equals(endDate)) {
+            this.endDate = null;
+        }
         this.endDate = endDate;
     }
 

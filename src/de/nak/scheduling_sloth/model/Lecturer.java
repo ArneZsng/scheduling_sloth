@@ -74,4 +74,23 @@ public class Lecturer extends SchedulingObject {
         return getBreakTime();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Lecturer)) return false;
+
+        Lecturer lecturer = (Lecturer) o;
+
+        if (breakTime != null ? !breakTime.equals(lecturer.breakTime) : lecturer.breakTime != null) return false;
+        if (name != null ? !name.equals(lecturer.name) : lecturer.name != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (breakTime != null ? breakTime.hashCode() : 0);
+        return result;
+    }
 }
