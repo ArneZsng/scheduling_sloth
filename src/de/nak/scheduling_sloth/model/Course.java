@@ -84,7 +84,7 @@ public class Course {
         this.lecturer = lecturer;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.TRUE)
     public List<Lesson> getLessons() {
         return lessons;
