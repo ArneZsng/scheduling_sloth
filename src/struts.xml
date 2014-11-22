@@ -199,6 +199,14 @@
             <result type="tiles" name="success">courseForm</result>
         </action>
 
+        <!-- Loads a existing car and shows it in the car form. -->
+        <action name="EditCourseRecheck" class="de.nak.scheduling_sloth.action.CourseAction" method="recheck">
+            <result name="success" type="chain">
+                <param name="actionName">EditCourseLessons</param>
+                <param name="recheck">true</param>
+            </result>
+        </action>
+
         <!-- Deletes the selected course and shows the schedule again. -->
         <action name="DeleteCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="delete">
             <result name="error" type="chain">Home</result>
@@ -219,9 +227,13 @@
             <result name="redirect" type="redirect">Home</result>
         </action>
 
-        <!-- Saves the new or updated lesson into the database and shows the lesson list again. -->
-        <action name="SaveCourseLessons" class="de.nak.scheduling_sloth.action.CourseAction" method="saveLessons">
-            <result type="tiles">courseLessonForm</result>
+        <!-- Loads a existing car and shows it in the car form. -->
+        <action name="EditCourseLessonsRecheck" class="de.nak.scheduling_sloth.action.CourseAction" method="recheck">
+            <result name="success" type="chain">
+                <param name="actionName">SaveCourse</param>
+                <param name="recheck">true</param>
+            </result>
+            <result name="input" type="redirect">Home</result>
         </action>
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->

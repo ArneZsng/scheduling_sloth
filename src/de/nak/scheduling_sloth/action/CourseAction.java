@@ -59,6 +59,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     private LessonService lessonService;
     /** Flag for collision detection */
     private boolean collisionFlag = false;
+    private boolean recheck = false;
 
     String REDIRECT = "redirect";
 
@@ -109,7 +110,7 @@ public class CourseAction extends ActionSupport implements Preparable {
                 return ERROR;
             }
 
-            if (collisionFlag == false && !hasActionErrors()) {
+            if ((!collisionFlag || recheck) && !hasActionErrors()) {
                 course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
                 if (!lesson.lecturerAvailable())
                     addActionError(getText("msg.lecturerNotAvailable"));
@@ -277,7 +278,7 @@ public class CourseAction extends ActionSupport implements Preparable {
                 addActionError(getText("msg.startDateBeforeEndDate"));
             }
 
-            if (collisionFlag == false && !hasActionErrors()) {
+            if ((!collisionFlag || recheck) && !hasActionErrors()) {
                 course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
 
                 // Fully load century/cohort
@@ -337,6 +338,12 @@ public class CourseAction extends ActionSupport implements Preparable {
         centuryList = centuryService.loadAllCenturies();
     }
 
+    @SkipValidation
+    public String recheck() {
+        recheck = true;
+        return SUCCESS;
+    }
+
     /**
      * Sets cohort to null if no cohort is selected.
      */
@@ -373,10 +380,7 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     @Override
     public void validate() {
-        // If the room is not set, the room ID has to be set.
-        //if (course == null && courseId == null) {
-        //    addActionError(getText("msg.selectCourse"));
-        //}
+        // Skip by @SkipValidate, if no form validations necessary
     }
 
     public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
@@ -509,5 +513,12 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;
+    }
+
+    public boolean isRecheck() {
+        return recheck;
+    }
+    public void setRecheck(boolean recheck) {
+        this.recheck = recheck;
     }
 }
