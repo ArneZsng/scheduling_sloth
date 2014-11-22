@@ -150,6 +150,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
+    @SkipValidation
     public String delete() {
         course = courseService.loadCourse(courseId);
         if (course != null) {
@@ -163,15 +164,17 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
+    @SkipValidation
     public String deleteLesson() {
         Lesson lesson = lessonService.loadLesson(courseLessonId);
         if (lesson != null) {
             Course course = lesson.getCourse();
-            lessonService.deleteLesson(lesson);
-            // Delete course if this was the last lesson
+            // Delete whole course if this was the last lesson
             if (course.getLessons().size() == 1) {
                 courseService.deleteCourse(course);
                 return REDIRECT;
+            } else {
+                lessonService.deleteLesson(lesson);
             }
             if (courseId != null) {
                 return SUCCESS;
@@ -187,25 +190,25 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @return the result string.
      */
-
-     public String load(){
-         course = courseService.loadCourse(courseId);
-         if (course != null) {
-             numberOfRepetitions = course.getLessons().size() - 1;
-             startDate = course.retrieveStartDate();
-             endDate = course.retrieveEndDate();
-             return SUCCESS;
-         } else {
-            return ERROR;
-         }
+    @SkipValidation
+    public String load(){
+     course = courseService.loadCourse(courseId);
+     if (course != null) {
+         numberOfRepetitions = course.getLessons().size() - 1;
+         startDate = course.retrieveStartDate();
+         endDate = course.retrieveEndDate();
+         return SUCCESS;
+     } else {
+        return ERROR;
      }
+    }
 
-     public void prepareLoad() {
-         lecturerList = lecturerService.loadAllLecturers();
-         cohortList = cohortService.loadAllCohorts();
-         centuryList = centuryService.loadAllCenturies();
-         roomList = roomService.loadAllRooms();
-     }
+    public void prepareLoad() {
+        lecturerList = lecturerService.loadAllLecturers();
+        cohortList = cohortService.loadAllCohorts();
+        centuryList = centuryService.loadAllCenturies();
+        roomList = roomService.loadAllRooms();
+    }
 
     /**
      * Cancels the editing.
