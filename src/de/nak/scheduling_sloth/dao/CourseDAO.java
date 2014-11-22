@@ -50,6 +50,14 @@ public class CourseDAO {
             for (Lesson lesson: course.getLessons()) {
                 Hibernate.initialize(lesson.getRooms());
             }
+            if (course.getCohort() != null) {
+                Hibernate.initialize(course.getCohort().getCourses());
+                Hibernate.initialize(course.getCohort().getCenturies());
+            }
+            if (course.getCentury() != null) {
+                Hibernate.initialize(course.getCentury().getCourses());
+            }
+
         }
         return course;
     }
