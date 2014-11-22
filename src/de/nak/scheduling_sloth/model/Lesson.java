@@ -91,6 +91,10 @@ public class Lesson implements Comparable<Lesson> {
         return course.audienceAvailableBetween(startDate, endDate);
     }
 
+    public boolean hasRoom() {
+        return rooms.size() > 0;
+    }
+
     public boolean allRoomsBigEnough() {
         for (Room room : rooms) {
             if (!room.bigEnough(course.retrieveAudienceSize()))

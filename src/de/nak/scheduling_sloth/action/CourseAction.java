@@ -104,6 +104,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.lecturerNotAvailable"));
                 if (!lesson.audienceAvailable())
                     addActionError(getText("msg.audienceNotAvailable"));
+                if (!lesson.hasRoom())
+                    addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
             }
@@ -267,6 +269,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.lecturerNotAvailable"));
                 if (!lesson.audienceAvailable())
                     addActionError(getText("msg.audienceNotAvailable"));
+                if (!lesson.hasRoom())
+                    addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
                 if (hasActionErrors())
