@@ -96,4 +96,25 @@ public class Cohort extends SchedulingObject {
         }
         return numberOfStudents;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Cohort cohort = (Cohort) o;
+
+        if (name != cohort.name) return false;
+        if (major != cohort.major) return false;
+        if (year != cohort.year) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 29 * result + major.hashCode() + year;
+        return result;
+    }
 }

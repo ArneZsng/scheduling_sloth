@@ -76,19 +76,19 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     public boolean lecturerAvailable() {
-        return course.lecturerAvailableBetween(startDate, endDate);
+        return course.lecturerAvailableFor(this);
     }
 
     public boolean allRoomsAvailable() {
         for (Room room : rooms) {
-            if (!room.timeSlotAvailable(startDate, endDate))
+            if (!room.timeSlotAvailableFor(this))
                 return false;
         }
         return true;
     }
 
     public boolean audienceAvailable() {
-        return course.audienceAvailableBetween(startDate, endDate);
+        return course.audienceAvailableFor(this);
     }
 
     public boolean hasRoom() {
@@ -113,5 +113,26 @@ public class Lesson implements Comparable<Lesson> {
 
     public Integer retrieveCourseBreakTime() {
         return course.getBreakTime();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Lesson lesson = (Lesson) o;
+
+        if (startDate != lesson.startDate) return false;
+        if (endDate != lesson.endDate) return false;
+        if (!course.equals(lesson.course)) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = course.hashCode();
+        result = 31 * result + startDate.hashCode() + endDate.hashCode();
+        return result;
     }
 }

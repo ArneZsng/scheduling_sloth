@@ -93,4 +93,26 @@ public class Century extends SchedulingObject {
     public Integer retrieveBreakTime() {
         return getBreakTime();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Century century = (Century) o;
+
+        if (name != century.name) return false;
+        if (!cohort.equals(century.cohort)) return false;
+        if (numberOfStudents != century.numberOfStudents) return false;
+        if (breakTime != century.breakTime) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 29 * result + cohort.hashCode() + numberOfStudents + breakTime;
+        return result;
+    }
 }

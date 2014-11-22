@@ -6,9 +6,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -97,15 +95,15 @@ public class Course {
         this.lessons = lessons;
     }
 
-    public boolean lecturerAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
-        return lecturer.timeSlotAvailable(startTimestamp, endTimestamp);
+    public boolean lecturerAvailableFor(Lesson lesson) {
+        return lecturer.timeSlotAvailableFor(lesson);
     }
 
-    public boolean audienceAvailableBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
+    public boolean audienceAvailableFor(Lesson lesson) {
         if (cohort != null) {
-            return cohort.timeSlotAvailable(startTimestamp, endTimestamp);
+            return cohort.timeSlotAvailableFor(lesson);
         } else if (century != null) {
-            return century.timeSlotAvailable(startTimestamp, endTimestamp);
+            return century.timeSlotAvailableFor(lesson);
         } else {
             return true;
         }
@@ -157,5 +155,28 @@ public class Course {
         } else {
             return "-";
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Course course = (Course) o;
+
+        if (name != course.name) return false;
+        if (breakTime != course.breakTime) return false;
+        if (!lecturer.equals(course.lecturer)) return false;
+        if (!cohort.equals(course.cohort)) return false;
+        if (!century.equals(course.century)) return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 29 * result + breakTime + lecturer.hashCode() + cohort.hashCode() + century.hashCode();
+        return result;
     }
 }

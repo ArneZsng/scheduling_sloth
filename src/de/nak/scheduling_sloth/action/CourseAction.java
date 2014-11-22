@@ -119,6 +119,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
+                if (!lesson.allRoomsBigEnough())
+                    addActionError(getText("msg.roomsNotBigEnough"));
                 if (hasActionErrors()) {
                     collisionFlag = true;
                     return ERROR;
@@ -292,6 +294,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
+                if (!lesson.allRoomsBigEnough())
+                    addActionError(getText("msg.roomsNotBigEnough"));
                 if (hasActionErrors())
                     collisionFlag = true;
             }
