@@ -81,14 +81,14 @@
         <put-attribute name="content" value="/courseForm.jsp"/>
     </definition>
 
+    <!-- The show screen for a single century. -->
+    <definition name="courseShow" extends="mainLayout">
+        <put-attribute name="content" value="/courseShow.jsp"/>
+    </definition>
+
     <!-- The form for the lessons of a course. -->
     <definition name="courseLessonForm" extends="mainLayout">
         <put-attribute name="content" value="/courseLessonForm.jsp"/>
-    </definition>
-
-    <!-- The list screen for all courses. -->
-    <definition name="courseList" extends="mainLayout">
-        <put-attribute name="content" value="/courseList.jsp"/>
     </definition>
 
     <!-- The homepage. -->

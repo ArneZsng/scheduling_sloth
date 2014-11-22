@@ -67,8 +67,15 @@
     </thead>
     <tbody>
     <s:iterator value="lessonList">
+        <s:url action="ShowCourse" var="show" >
+            <s:param name="courseId"><s:property value="course.id"/></s:param>
+        </s:url>
         <tr>
-            <td><s:property value="course.name"/></td>
+            <td>
+                <a href="<s:property value="#show" />">
+                    <s:property value="course.name" />
+                </a>
+            </td>
             <td><s:property value="course.lecturer.name"/></td>
             <td><s:property value="course.century.name"/></td>
             <td><s:property value="course.cohort.name"/></td>

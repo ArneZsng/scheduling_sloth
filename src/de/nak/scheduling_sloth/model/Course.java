@@ -84,7 +84,6 @@ public class Course {
         this.lecturer = lecturer;
     }
 
-    // TODO: Find better solution for .EAGER (due to error with lazy loading)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     @LazyCollection(LazyCollectionOption.TRUE)
     public List<Lesson> getLessons() {
@@ -116,7 +115,6 @@ public class Course {
         } else {
             return 0;
         }
-
     }
 
     public Timestamp retrieveStartDate() {
@@ -145,5 +143,15 @@ public class Course {
             }
         }
         return result;
+    }
+
+    public String retrieveAudienceName() {
+        if (cohort != null) {
+            return cohort.getName();
+        } else if (century != null) {
+            return century.getName();
+        } else {
+            return "-";
+        }
     }
 }
