@@ -36,12 +36,6 @@
                         </span>
                     </div>
                     <div>
-                        <%--<input type="submit"
-                               name="availableRooms[0]"
-                               value="Show Available Rooms"
-                               class="btn btn-info room-button"
-                               onclick="this.form.target='_blank';return true;"
-                               target="_blank">--%>
                         <s:submit key="btn.showAvailableRooms"
                                   name="availableRooms[%{#rowstatus.index}]"
                                   cssClass="btn btn-info room-button"
