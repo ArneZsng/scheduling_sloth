@@ -104,7 +104,11 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     public boolean startDateBeforeEndDate() {
-        return startDate.before(endDate);
+        if (startDate != null && endDate != null) {
+            return startDate.before(endDate);
+        } else {
+            return false;
+        }
     }
 
     public Integer retrieveCourseBreakTime() {
