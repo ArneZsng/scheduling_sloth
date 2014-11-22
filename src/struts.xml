@@ -222,6 +222,11 @@
             <result type="chain">Home</result>
         </action>
 
+        <!-- Action that displays a single century. -->
+        <action name="ShowCourse" class="de.nak.scheduling_sloth.action.ShowCourseAction" method="execute">
+            <result type="tiles">courseShow</result>
+        </action>
+
         <!-- Shows the homepage. -->
         <action name="Home" class="de.nak.scheduling_sloth.action.ShowScheduleAction">
             <result type="tiles">home</result>

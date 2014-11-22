@@ -56,6 +56,32 @@
     </div>
 </s:form>
 
+<%-- The bottom navigation --%>
+<s:url action="ShowLecturer" var="previousWeek" escapeAmp="false">
+    <s:param name="lecturerId"><s:property value="lecturerId"/></s:param>
+    <s:param name="week"><s:property value="weekOfPreviousWeek"/></s:param>
+    <s:param name="year"><s:property value="yearOfPreviousWeek"/></s:param>
+</s:url>
+<s:url action="ShowLecturer" var="nextWeek" escapeAmp="false">
+    <s:param name="lecturerId"><s:property value="lecturerId"/></s:param>
+    <s:param name="week"><s:property value="weekOfNextWeek"/></s:param>
+    <s:param name="year"><s:property value="yearOfNextWeek"/></s:param>
+</s:url>
+<nav>
+    <ul class="pager">
+        <li class="previous">
+            <a href="<s:property value="#previousWeek" />">
+                <span aria-hidden="true">&larr;</span> <s:text name="txt.previousWeek"/>
+            </a>
+        </li>
+        <li class="next">
+            <a href="<s:property value="#nextWeek" />">
+                <s:text name="txt.nextWeek"/> <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 <%-- The schedule --%>
 <table class="table">
     <thead>
@@ -96,29 +122,3 @@
     </s:iterator>
     </tbody>
 </table>
-
-<%-- The bottom navigation --%>
-<s:url action="ShowLecturer" var="previousWeek" escapeAmp="false">
-    <s:param name="lecturerId"><s:property value="lecturerId"/></s:param>
-    <s:param name="week"><s:property value="weekOfPreviousWeek"/></s:param>
-    <s:param name="year"><s:property value="yearOfPreviousWeek"/></s:param>
-</s:url>
-<s:url action="ShowLecturer" var="nextWeek" escapeAmp="false">
-    <s:param name="lecturerId"><s:property value="lecturerId"/></s:param>
-    <s:param name="week"><s:property value="weekOfNextWeek"/></s:param>
-    <s:param name="year"><s:property value="yearOfNextWeek"/></s:param>
-</s:url>
-<nav>
-    <ul class="pager">
-        <li class="previous">
-            <a href="<s:property value="#previousWeek" />">
-                <span aria-hidden="true">&larr;</span> <s:text name="txt.previousWeek"/>
-            </a>
-        </li>
-        <li class="next">
-            <a href="<s:property value="#nextWeek" />">
-                <s:text name="txt.nextWeek"/> <span aria-hidden="true">&rarr;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
