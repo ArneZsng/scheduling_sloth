@@ -322,7 +322,6 @@ public class CourseAction extends ActionSupport implements Preparable {
     private void checkCentury() {
         if ((course.getCentury() != null) && (course.getCentury().getId() != null) && (course.getCentury().getId() == -1)) {
             course.setCentury(null);
-            course.setCentury(null);
         }
     }
 
