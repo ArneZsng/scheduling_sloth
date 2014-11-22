@@ -25,7 +25,6 @@
         <tbody>
         <s:iterator value="course.lessons" status="rowstatus">
             <tr>
-                <s:hidden name="course.lessons[%{#rowstatus.index}].id"/>
                 <td>
                     <s:select name="course.lessons[%{#rowstatus.index}].rooms.id" value="%{getRoomIdsFromList(rooms)}" list="roomList" listKey="id" listValue="name" multiple="true" cssClass="form-control"/>
                 </td>

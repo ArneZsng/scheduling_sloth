@@ -70,7 +70,25 @@ public class CourseAction extends ActionSupport implements Preparable {
     @SkipValidation
     public String save() {
         ensureAudience();
+
+        // Remember all the lessons which are left in form to keep
+        List<Long> lessonIdsToKeep = new ArrayList<Long>();
+        for (Lesson lesson : course.getLessons()) {
+            if (lesson != null)
+                lessonIdsToKeep.add(lesson.getId());
+        }
+
         courseService.saveCourse(course);
+
+        List<Lesson> lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
+        for (Long lessonId : lessonIdsToKeep) {
+            for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
+                if (lessonId.equals(lessonsToDelete.get(i).getId())) {
+                    lessonsToDelete.remove(i);
+                    break;
+                }
+            }
+        }
 
         for (Lesson lesson : course.getLessons()) {
             lesson.setCourse(course);
@@ -95,6 +113,11 @@ public class CourseAction extends ActionSupport implements Preparable {
             } else {
                 lessonService.saveLesson(lesson);
             }
+        }
+
+        // Remove all lessons which are not needed
+        for (Lesson lesson:lessonsToDelete) {
+            lessonService.deleteLesson(lesson);
         }
 
         return SUCCESS;
@@ -211,7 +234,6 @@ public class CourseAction extends ActionSupport implements Preparable {
         for (String roomStr : rooms) {
             selectedRooms.add(Long.parseLong(roomStr, 10));
         }
-        // TODO: Remove lessons if too many? last ones?
 
         Integer numberOfLessons = course.getLessons().size();
 
@@ -264,6 +286,11 @@ public class CourseAction extends ActionSupport implements Preparable {
             lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
 
             course.getLessons().add(lesson);
+        }
+        // Remove lessons if lower number of repetitions
+        Collections.sort(course.getLessons());
+        for (int i = numberOfLessons-1; i > numberOfRepetitions; i--) {
+            course.getLessons().remove(i);
         }
 
         return SUCCESS;
