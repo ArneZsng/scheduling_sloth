@@ -79,6 +79,8 @@ public class CourseAction extends ActionSupport implements Preparable {
         }
 
         courseService.saveCourse(course);
+        course = courseService.loadWithLessonsAndRooms(course.getId());
+
 
         List<Lesson> lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
         for (Long lessonId : lessonIdsToKeep) {
@@ -494,5 +496,4 @@ public class CourseAction extends ActionSupport implements Preparable {
     public void setLessonService(LessonService lessonService) {
         this.lessonService = lessonService;
     }
-
 }
