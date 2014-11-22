@@ -60,7 +60,9 @@
 
         <!-- Action that displays the list of rooms. -->
         <action name="ShowRoomListAvailable" class="de.nak.scheduling_sloth.action.ShowRoomListAvailableAction">
-            <result type="tiles">roomListAvailable</result>
+            <result name="error" type="redirect">Error</result>
+            <result type="tiles" name="input">roomListAvailable</result>
+            <result type="tiles" name="success">roomListAvailable</result>
         </action>
 
         <!-- Action that displays a single room. -->

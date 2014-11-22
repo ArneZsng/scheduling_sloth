@@ -1,6 +1,8 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.CenturyService;
 import de.nak.scheduling_sloth.service.CohortService;
@@ -12,7 +14,7 @@ import java.util.*;
 /**
  * Created by arne on 19.11.14.
  */
-public class ShowRoomListAvailableAction implements Action {
+public class ShowRoomListAvailableAction extends ActionSupport implements Preparable {
     /** The list of rooms. */
     private List<Room> roomList = new ArrayList<Room>();
     /** Start date of the lesson. */
@@ -57,7 +59,7 @@ public class ShowRoomListAvailableAction implements Action {
         if (startDate == null) {
             setStartDate(new Timestamp(date.getTime()));
         }
-        if (endDate == null) {
+        if (endDate == null && startDate != null) {
             // Add 30 minutes to startDate
             setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
         }
@@ -70,6 +72,17 @@ public class ShowRoomListAvailableAction implements Action {
             }
             setRequiredSeats(course.retrieveAudienceSize());
         }
+    }
+
+    @Override
+    public void prepare() throws Exception {
+        java.util.Date date = new java.util.Date();
+        setStartDate(new Timestamp(date.getTime()));        // Add 30 minutes to startDate
+        setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
+    }
+
+    @Override
+    public void validate() {
     }
 
     public Timestamp getStartDate() {

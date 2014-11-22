@@ -417,6 +417,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         return startDate;
     }
     public void setStartDate(Timestamp startDate) {
+        if ("".equals(startDate)) {
+            this.startDate = null;
+        }
         this.startDate = startDate;
     }
 
@@ -424,6 +427,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         return endDate;
     }
     public void setEndDate(Timestamp endDate) {
+        if ("".equals(endDate)) {
+            this.endDate = null;
+        }
         this.endDate = endDate;
     }
 
