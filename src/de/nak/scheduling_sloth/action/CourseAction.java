@@ -311,7 +311,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      * Sets cohort to null if no cohort is selected.
      */
     private void checkCohort() {
-        if (course.getCohort().getId() == -1) {
+        if ((course.getCohort() != null) && (course.getCohort().getId() != null) && (course.getCohort().getId() == -1)) {
             course.setCohort(null);
         }
     }
@@ -320,7 +320,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      * Sets century to null if no century is selected.
      */
     private void checkCentury() {
-        if (course.getCentury().getId() == -1) {
+        if ((course.getCentury() != null) && (course.getCentury().getId() != null) && (course.getCentury().getId() == -1)) {
             course.setCentury(null);
             course.setCentury(null);
         }

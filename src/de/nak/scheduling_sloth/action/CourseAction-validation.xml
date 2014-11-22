@@ -9,4 +9,11 @@
             <message/>
         </field-validator>
     </field>
+    <field name="numberOfRepetitions">
+        <field-validator type="int">
+            <param name="min">0</param>
+            <param name="max">52</param>
+            <message key="msg.validator.intRange"/>
+        </field-validator>
+    </field>
 </validators>
