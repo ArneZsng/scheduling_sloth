@@ -79,12 +79,18 @@ public class CourseAction extends ActionSupport implements Preparable {
         }
 
         // Determine which lessons need to be deleted
-        List<Lesson> lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
-        for (Long lessonId : lessonIdsToKeep) {
-            for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
-                if (lessonId.equals(lessonsToDelete.get(i).getId())) {
-                    lessonsToDelete.remove(i);
-                    break;
+        List<Lesson> lessonsToDelete;
+
+        if (course.getId() == null) {
+            lessonsToDelete = new ArrayList<Lesson>();
+        } else {
+            lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
+            for (Long lessonId : lessonIdsToKeep) {
+                for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
+                    if (lessonId.equals(lessonsToDelete.get(i).getId())) {
+                        lessonsToDelete.remove(i);
+                        break;
+                    }
                 }
             }
         }
@@ -118,11 +124,13 @@ public class CourseAction extends ActionSupport implements Preparable {
                     return ERROR;
                 }
             }
+        }
+        // Save course & lessons
+        courseService.saveCourse(course);
+
+        for (Lesson lesson : course.getLessons()) {
             lessonService.saveLesson(lesson);
         }
-
-        // Save course
-        courseService.saveCourse(course);
         course = courseService.loadWithLessonsAndRooms(course.getId());
 
         // Remove all lessons which are not needed
