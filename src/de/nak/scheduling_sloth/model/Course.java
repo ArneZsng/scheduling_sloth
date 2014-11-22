@@ -49,12 +49,16 @@ public class Course {
         this.name = name;
     }
 
-    @Column(name = "break_time", scale = 1)
+    @Column(name = "break_time", scale = 1, nullable = false)
     public Integer getBreakTime() {
         return breakTime;
     }
     public void setBreakTime(Integer breakTime) {
-        this.breakTime = breakTime;
+        if(breakTime == null) {
+            this.breakTime = DEFAULT_BREAKTIME;
+        } else {
+            this.breakTime = breakTime;
+        }
     }
 
     @ManyToOne
