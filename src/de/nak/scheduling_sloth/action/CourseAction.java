@@ -215,7 +215,6 @@ public class CourseAction extends ActionSupport implements Preparable {
         for (String roomStr : rooms) {
             selectedRooms.add(Long.parseLong(roomStr, 10));
         }
-        // TODO: Remove lessons if too many? last ones?
 
         Integer numberOfLessons = course.getLessons().size();
 

@@ -82,7 +82,6 @@ public class Course {
         this.lecturer = lecturer;
     }
 
-    // TODO: Find better solution for .EAGER (due to error with lazy loading)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     @LazyCollection(LazyCollectionOption.TRUE)
     public List<Lesson> getLessons() {
