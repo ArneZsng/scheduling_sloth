@@ -226,7 +226,9 @@
 
         <!-- Deletes the selected lesson and shows the lesson list again. -->
         <action name="DeleteCourseLesson" class="de.nak.scheduling_sloth.action.CourseAction" method="deleteLesson">
-            <result type="chain">Home</result>
+            <result name="error" type="redirect">Home</result>
+            <result name="redirect" type="chain">Home</result>
+            <result name="success" type="chain">ShowCourse</result>
         </action>
 
         <!-- Action that displays a single century. -->

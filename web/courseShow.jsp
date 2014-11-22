@@ -63,6 +63,7 @@
             <td class="rightCell">
                 <s:url action="DeleteCourseLesson" var="delete" escapeAmp="false">
                     <s:param name="courseLessonId"><s:property value="id"/></s:param>
+                    <s:param name="courseId"><s:property value="course.id"/></s:param>
                 </s:url>
                 <a type="button" class="btn btn-danger btn-sm" href="<s:property value="#delete" />">
                     <span class="glyphicon glyphicon-remove"></span>

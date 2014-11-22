@@ -130,9 +130,15 @@ public class CourseAction extends ActionSupport implements Preparable {
             // Delete course if this was the last lesson
             if (course.getLessons().size() == 1) {
                 courseService.deleteCourse(course);
+                return REDIRECT;
+            }
+            if (courseId != null) {
+                return SUCCESS;
+            } else {
+                return REDIRECT;
             }
         }
-        return SUCCESS;
+        return ERROR;
     }
 
     /**
