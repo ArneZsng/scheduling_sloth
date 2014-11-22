@@ -160,23 +160,26 @@ public class Course {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (!(o instanceof Course)) return false;
 
         Course course = (Course) o;
 
-        if (name != course.name) return false;
-        if (breakTime != course.breakTime) return false;
-        if (!lecturer.equals(course.lecturer)) return false;
-        if (!cohort.equals(course.cohort)) return false;
-        if (!century.equals(course.century)) return false;
+        if (breakTime != null ? !breakTime.equals(course.breakTime) : course.breakTime != null) return false;
+        if (century != null ? !century.equals(course.century) : course.century != null) return false;
+        if (cohort != null ? !cohort.equals(course.cohort) : course.cohort != null) return false;
+        if (lecturer != null ? !lecturer.equals(course.lecturer) : course.lecturer != null) return false;
+        if (name != null ? !name.equals(course.name) : course.name != null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 29 * result + breakTime + lecturer.hashCode() + cohort.hashCode() + century.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (breakTime != null ? breakTime.hashCode() : 0);
+        result = 31 * result + (lecturer != null ? lecturer.hashCode() : 0);
+        result = 31 * result + (cohort != null ? cohort.hashCode() : 0);
+        result = 31 * result + (century != null ? century.hashCode() : 0);
         return result;
     }
 }

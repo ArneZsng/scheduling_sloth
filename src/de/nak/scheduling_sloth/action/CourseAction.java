@@ -104,10 +104,10 @@ public class CourseAction extends ActionSupport implements Preparable {
             lesson.setRooms(selectedRoomList);
 
             // Check if start date is before end date
-            if (!lesson.startDateBeforeEndDate()) {
+            if (!lesson.startDateBeforeEndDate())
                 addActionError(getText("msg.startDateBeforeEndDate"));
-                return ERROR;
-            }
+            if (!lesson.hasRoom())
+                addActionError(getText("msg.noRoomSelected"));
 
             if (collisionFlag == false && !hasActionErrors()) {
                 course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
@@ -115,8 +115,6 @@ public class CourseAction extends ActionSupport implements Preparable {
                     addActionError(getText("msg.lecturerNotAvailable"));
                 if (!lesson.audienceAvailable())
                     addActionError(getText("msg.audienceNotAvailable"));
-                if (!lesson.hasRoom())
-                    addActionError(getText("msg.noRoomSelected"));
                 if (!lesson.allRoomsAvailable())
                     addActionError(getText("msg.roomsNotAvailable"));
                 if (!lesson.allRoomsBigEnough())
@@ -125,6 +123,8 @@ public class CourseAction extends ActionSupport implements Preparable {
                     collisionFlag = true;
                     return ERROR;
                 }
+            } else {
+                return ERROR;
             }
         }
         // Save course & lessons
