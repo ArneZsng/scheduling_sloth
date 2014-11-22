@@ -1,4 +1,4 @@
-
+<%@ page import="de.nak.scheduling_sloth.model.Lecturer" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="/struts-tags" prefix="s" %>
 
@@ -16,7 +16,7 @@
     <div class="form-group">
         <s:label for="lecturer.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="lecturer.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="lecturer.breakTime" size="4" maxlength="4" requiredLabel="true" value="%{defaultBreakTime}" cssClass="form-control"/>
         </div>
     </div>
 

@@ -24,7 +24,7 @@
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
-		<action name="AddLecturer">
+		<action name="AddLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="add">
 			<result type="tiles">lecturerForm</result>
 		</action>
 
@@ -70,7 +70,7 @@
         </action>
 
         <!-- Shows the empty form for a new room. -->
-        <action name="AddRoom">
+        <action name="AddRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="add">
             <result type="tiles">roomForm</result>
         </action>
 

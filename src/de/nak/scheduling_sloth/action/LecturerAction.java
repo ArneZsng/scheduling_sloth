@@ -2,9 +2,11 @@ package de.nak.scheduling_sloth.action;
 
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.LecturerService;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
  *
  * Created by arne on 10/28/14.
  */
-public class LecturerAction extends ActionSupport {
+public class LecturerAction extends ActionSupport implements Preparable {
     /** Serial version UID. */
     private static final long serialVersionUID = 6548293890662119587L;
 
@@ -26,6 +28,9 @@ public class LecturerAction extends ActionSupport {
 
     /** The lecturer service. */
     private LecturerService lecturerService;
+
+    /** The default breakTime **/
+    private Integer defaultBreakTime;
 
     /**
      * Saves the lecturer to the database.
@@ -86,12 +91,30 @@ public class LecturerAction extends ActionSupport {
         return SUCCESS;
     }
 
+    /**
+     * Start adding a Lecturer
+     *
+     * @return the result string.
+     */
+    @SkipValidation
+    public String add() {
+        return SUCCESS;
+    }
+
     @Override
     public void validate() {
         // If the lecturer is not set, the lecturer ID has to be set.
         if (lecturer == null && lecturerId == null) {
             addActionError(getText("msg.selectLecturer"));
         }
+    }
+
+
+    /**
+     * Sets the default breakTime
+     */
+    public void prepare() {
+        defaultBreakTime = Lecturer.DEFAULT_BREAKTIME;
     }
 
     public Lecturer getLecturer() {
@@ -112,6 +135,10 @@ public class LecturerAction extends ActionSupport {
 
     public void setLecturerService(LecturerService lecturerService) {
         this.lecturerService = lecturerService;
+    }
+
+    public Integer getDefaultBreakTime() {
+        return this.defaultBreakTime;
     }
 
 }

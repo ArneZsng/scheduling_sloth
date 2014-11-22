@@ -28,7 +28,7 @@
     <div class="form-group">
         <s:label for="century.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="century.breakTime" size="4" maxlength="4" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="century.breakTime" size="4" maxlength="4" requiredLabel="true" value="%{defaultBreakTime}" cssClass="form-control"/>
         </div>
     </div>
 

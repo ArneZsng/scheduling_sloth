@@ -32,6 +32,10 @@ public class CenturyAction extends ActionSupport implements Preparable {
     /** The cohort service. */
     private CohortService cohortService;
 
+    /** The default breakTime **/
+    private Integer defaultBreakTime = Century.DEFAULT_BREAKTIME;
+
+
     /**
      * Saves the century to the database.
      *
@@ -105,11 +109,10 @@ public class CenturyAction extends ActionSupport implements Preparable {
     }
 
     /**
-     * Load all Cohorts for selection
+     * Load all Cohorts for selection and sets the default breakTime
      */
     public void prepare() {
         cohortList = cohortService.loadAllCohorts();
-
         if(cohortList == null) {
             cohortList = new ArrayList<Cohort>();
         }
@@ -141,5 +144,9 @@ public class CenturyAction extends ActionSupport implements Preparable {
 
     public List<Cohort> getCohortList() {
         return this.cohortList;
+    }
+
+    public Integer getDefaultBreakTime() {
+        return this.defaultBreakTime;
     }
 }

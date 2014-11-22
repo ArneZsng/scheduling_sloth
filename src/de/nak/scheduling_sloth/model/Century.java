@@ -11,6 +11,8 @@ import java.util.Set;
  */
 @Entity
 public class Century extends SchedulingObject {
+    /** The default breakTime of the century **/
+    public static final int DEFAULT_BREAKTIME = 15;
     /** The identifier. */
     private Long id;
     /** The name of the century. */
@@ -20,7 +22,7 @@ public class Century extends SchedulingObject {
     /** Number of students */
     private Integer numberOfStudents = 0;
     /** The needed break time of the century. */
-    private Integer breakTime = 15;
+    private Integer breakTime = DEFAULT_BREAKTIME;
     /** The courses of this century. */
     private List<Course> courses = new ArrayList<Course>();
 
@@ -56,7 +58,7 @@ public class Century extends SchedulingObject {
     }
     public void setBreakTime(Integer breakTime) {
         if(breakTime == null) {
-            this.breakTime = 15;
+            this.breakTime = DEFAULT_BREAKTIME;
         } else {
             this.breakTime = breakTime;
         }
