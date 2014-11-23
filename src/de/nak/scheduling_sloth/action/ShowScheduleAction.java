@@ -41,7 +41,7 @@ public class ShowScheduleAction extends AbstractAction implements Action {
      * @return the result string.
      */
     @Override
-    public String execute() throws Exception {
+    public String execute() {
         if (week == 0 || year == 0) {
             Calendar calendar = Utilities.getSchedulingCalendar();
             week = calendar.get(Calendar.WEEK_OF_YEAR);

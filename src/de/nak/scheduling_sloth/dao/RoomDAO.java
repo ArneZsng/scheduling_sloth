@@ -1,8 +1,10 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.model.Room;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -22,11 +24,16 @@ public class RoomDAO extends AbstractDAO<Room> {
      * @param id The identifier.
      * @return a room or null if no room was found with the given identifier.
      */
-    public Room load(Long id) {
-        Room room =  (Room) getSessionFactory().getCurrentSession().get(Room.class, id);
-        if (room != null) {
-            Hibernate.initialize(room.getLessons());
+    public Room load(Long id) throws EntityNotFoundException {
+        Session session = getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Room room =  (Room) session.get(Room.class, id);
+        if (room == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
         }
+        Hibernate.initialize(room.getLessons());
+        session.getTransaction().commit();
         return room;
     }
 
@@ -36,15 +43,20 @@ public class RoomDAO extends AbstractDAO<Room> {
      * @param id The identifier.
      * @return a room or null if no room was found with the given identifier.
      */
-    public Room loadWithLessons(Long id) {
-        Room room = (Room) getSessionFactory().getCurrentSession().get(Room.class, id);
-        if (room != null) {
-            List<Lesson> lessons = room.getLessons();
-            for (Lesson lesson : lessons) {
-                Hibernate.initialize(lesson.getCourse().getCentury());
-                Hibernate.initialize(lesson.getCourse().getCohort());
-            }
+    public Room loadWithLessons(Long id) throws EntityNotFoundException {
+        Session session = getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Room room = (Room) session.get(Room.class, id);
+        if (room == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
         }
+        List<Lesson> lessons = room.getLessons();
+        for (Lesson lesson : lessons) {
+            Hibernate.initialize(lesson.getCourse().getCentury());
+            Hibernate.initialize(lesson.getCourse().getCohort());
+        }
+        session.getTransaction().commit();
         return room;
     }
 

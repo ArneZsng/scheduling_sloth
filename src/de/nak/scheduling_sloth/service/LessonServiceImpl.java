@@ -1,6 +1,9 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.LessonDAO;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.utilities.Utilities;
 
@@ -16,22 +19,22 @@ public class LessonServiceImpl implements LessonService {
 	private LessonDAO lessonDAO;
 
 	@Override
-	public void saveLesson(Lesson lesson) {
+	public void saveLesson(Lesson lesson) throws EntityNotSavableException {
 		lessonDAO.save(lesson);
 	}
 
     @Override
-    public Lesson loadLesson(Long id) {
+    public Lesson loadLesson(Long id) throws EntityNotFoundException {
         return lessonDAO.load(id);
     }
 
 	@Override
-	public void deleteLesson(Lesson lesson) {
+	public void deleteLesson(Lesson lesson) throws EntityNotDeletableException {
 		lessonDAO.delete(lesson);
 	}
 
 	@Override
-	public List<Lesson> loadAllLessons() {
+	public List<Lesson> loadAllLessons() throws EntityNotFoundException {
 		return lessonDAO.loadAll();
 	}
 

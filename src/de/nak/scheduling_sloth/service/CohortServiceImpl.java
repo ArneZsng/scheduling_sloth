@@ -1,6 +1,9 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.CohortDAO;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Cohort;
 
 import java.util.List;
@@ -13,27 +16,27 @@ public class CohortServiceImpl implements CohortService {
 	private CohortDAO cohortDAO;
 
 	@Override
-	public void saveCohort(Cohort cohort) {
+	public void saveCohort(Cohort cohort) throws EntityNotSavableException {
 		cohortDAO.save(cohort);
 	}
 
     @Override
-    public Cohort loadCohort(Long id) {
+    public Cohort loadCohort(Long id) throws EntityNotFoundException {
         return cohortDAO.load(id);
     }
 
     @Override
-    public Cohort loadCohortWithLessons(Long id) {
+    public Cohort loadCohortWithLessons(Long id) throws EntityNotFoundException {
         return cohortDAO.loadWithLessons(id);
     }
 
     @Override
-	public void deleteCohort(Cohort cohort) {
+	public void deleteCohort(Cohort cohort)throws EntityNotDeletableException {
 		cohortDAO.delete(cohort);
 	}
 
 	@Override
-	public List<Cohort> loadAllCohorts() {
+	public List<Cohort> loadAllCohorts() throws EntityNotFoundException {
 		return cohortDAO.loadAll();
 	}
 

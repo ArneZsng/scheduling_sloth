@@ -1,6 +1,12 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
+import org.h2.constraint.Constraint;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 
@@ -22,8 +28,16 @@ public abstract class AbstractDAO<E> {
      *
      * @param objectToSave The object to persist. The given entity can be transient or detached.
      */
-    public final void save(final E objectToSave) {
-        sessionFactory.getCurrentSession().saveOrUpdate(objectToSave);
+    public final void save(final E objectToSave) throws EntityNotSavableException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.saveOrUpdate(objectToSave);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException e) {
+            session.getTransaction().rollback();
+            throw new EntityNotSavableException(EntityNotSavableException.DEFAULT_MESSAGE);
+        }
     }
 
     /**
@@ -31,8 +45,15 @@ public abstract class AbstractDAO<E> {
      *
      * @param objectToDelete The object to be deleted.
      */
-    public final void delete(final E objectToDelete) {
-        sessionFactory.getCurrentSession().delete(objectToDelete);
+    public final void delete(final E objectToDelete) throws EntityNotDeletableException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        if (objectToDelete == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotDeletableException(EntityNotDeletableException.DEFAULT_MESSAGE);
+        }
+        session.delete(objectToDelete);
+        session.getTransaction().commit();
     }
 
     /**
@@ -50,8 +71,16 @@ public abstract class AbstractDAO<E> {
      * @return a list which is empty if no element was found.
      */
     @SuppressWarnings("unchecked")
-    public final List<E> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from " + table).list();
+    public final List<E> loadAll() throws EntityNotFoundException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        List<E> result = session.createQuery("from " + table).list();
+        if (result == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
+        }
+        session.getTransaction().commit();
+        return result;
     }
 
     /**
@@ -60,7 +89,7 @@ public abstract class AbstractDAO<E> {
      * @param id The identifier.
      * @return an Instance of E or null if no element was found with the given identifier.
      */
-    public abstract E load(Long id);
+    public abstract E load(Long id) throws EntityNotFoundException;
 
     public final void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

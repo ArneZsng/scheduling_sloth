@@ -1,6 +1,9 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CohortService;
 
@@ -25,8 +28,13 @@ public class CohortAction extends AbstractAction {
      * @return the result string.
      */
     public String save() {
-        cohortService.saveCohort(cohort);
-        return SUCCESS;
+        try {
+            cohortService.saveCohort(cohort);
+            return SUCCESS;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**
@@ -35,18 +43,14 @@ public class CohortAction extends AbstractAction {
      * @return the result string.
      */
     public String delete() {
-        String response;
-        cohort = cohortService.loadCohort(cohortId);
-
-        if (cohort == null) {
-            response = SUCCESS;
-        } else {
+        try {
+            cohort = cohortService.loadCohort(cohortId);
             Boolean coursesAssociated = !cohort.getCourses().isEmpty();
             Boolean centuriesAssociated = !cohort.getCenturies().isEmpty();
             System.out.println(cohort.getCenturies());
             if (!coursesAssociated && !centuriesAssociated) {
                 cohortService.deleteCohort(cohort);
-                response = SUCCESS;
+                return SUCCESS;
             } else {
                 if (coursesAssociated){
                     addActionError(getText("error.strong") + cohort.getName() + getText("error.cohort.delete.courses"));
@@ -55,10 +59,15 @@ public class CohortAction extends AbstractAction {
                     addActionError(getText("error.strong") + cohort.getName() +
                             getText("error.cohort.delete.centuries"));
                 }
-                response = ERROR;
+                return ERROR;
             }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-        return response;
     }
 
     /**
@@ -68,8 +77,13 @@ public class CohortAction extends AbstractAction {
      */
 
      public String load(){
-         cohort = cohortService.loadCohort(cohortId);
-         return SUCCESS;
+         try {
+             cohort = cohortService.loadCohort(cohortId);
+             return SUCCESS;
+         } catch (EntityNotFoundException e) {
+             addActionError(getText(e.getMessage()));
+             return ERROR;
+         }
      }
 
     /**

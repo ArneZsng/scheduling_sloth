@@ -1,5 +1,8 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Course;
 
 import java.util.List;
@@ -14,7 +17,7 @@ public interface CourseService {
 	 *
 	 * @param course The course.
 	 */
-	void saveCourse(Course course);
+	void saveCourse(Course course) throws EntityNotSavableException;
 
 	/**
 	 * Loads a single courses.
@@ -22,7 +25,7 @@ public interface CourseService {
 	 * @param id The identifier.
 	 * @return a course or null.
 	 */
-     Course loadCourse(Long id);
+     Course loadCourse(Long id) throws EntityNotFoundException;
 
     /**
      * Loads a single courses with Lessons and Rooms.
@@ -30,20 +33,20 @@ public interface CourseService {
      * @param id The identifier.
      * @return a course or null.
      */
-    Course loadWithLessonsAndRooms(long id);
+    Course loadWithLessonsAndRooms(long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given course.
 	 *
 	 * @param course The course.
 	 */
-	void deleteCourse(Course course);
+	void deleteCourse(Course course) throws EntityNotDeletableException;
 
 	/**
 	 * Loads a list of all coursess.
 	 *
 	 * @return a list which is empty if no course was found.
 	 */
-	List<Course> loadAllCourses();
+	List<Course> loadAllCourses() throws EntityNotFoundException;
 
 }

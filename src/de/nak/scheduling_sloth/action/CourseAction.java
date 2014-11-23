@@ -1,7 +1,9 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.*;
 import de.nak.scheduling_sloth.utilities.Utilities;
@@ -71,65 +73,76 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String save() {
-        ensureAudience();
+        try {
+            ensureAudience();
 
-        // Remember all the lessons which are left in form to keep
-        List<Long> lessonIdsToKeep = new ArrayList<Long>();
-        for (Lesson lesson : course.getLessons()) {
-            if (lesson != null) {
-                lessonIdsToKeep.add(lesson.getId());
+            // Remember all the lessons which are left in form to keep
+            List<Long> lessonIdsToKeep = new ArrayList<Long>();
+            for (Lesson lesson : course.getLessons()) {
+                if (lesson != null) {
+                    lessonIdsToKeep.add(lesson.getId());
+                }
             }
-        }
 
-        // Determine which lessons need to be deleted
-        List<Lesson> lessonsToDelete;
+            // Determine which lessons need to be deleted
+            List<Lesson> lessonsToDelete;
 
-        if (course.getId() == null) {
-            lessonsToDelete = new ArrayList<Lesson>();
-        } else {
-            lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
-            for (Long lessonId : lessonIdsToKeep) {
-                for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
-                    if (lessonId.equals(lessonsToDelete.get(i).getId())) {
-                        lessonsToDelete.remove(i);
-                        break;
+            if (course.getId() == null) {
+                lessonsToDelete = new ArrayList<Lesson>();
+            } else {
+                lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
+                for (Long lessonId : lessonIdsToKeep) {
+                    for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
+                        if (lessonId.equals(lessonsToDelete.get(i).getId())) {
+                            lessonsToDelete.remove(i);
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        for (Lesson lesson : course.getLessons()) {
-            lesson.setCourse(course);
-            List<Room> selectedRoomList = new ArrayList<Room>();
-            for (Room room:lesson.getRooms()) {
-                selectedRoomList.add(roomService.loadRoom(room.getId()));
+            for (Lesson lesson : course.getLessons()) {
+                lesson.setCourse(course);
+                List<Room> selectedRoomList = new ArrayList<Room>();
+                for (Room room:lesson.getRooms()) {
+                    selectedRoomList.add(roomService.loadRoom(room.getId()));
+                }
+                lesson.setRooms(selectedRoomList);
+
+                if (!isValidLesson(course, lesson)) {
+                    return ERROR;
+                }
             }
-            lesson.setRooms(selectedRoomList);
-
-            if (!isValidLesson(course, lesson)) {
+            if (!isValidCourse(course)) {
                 return ERROR;
             }
-        }
-        if (!isValidCourse(course)) {
+            // Save course & lessons
+            courseService.saveCourse(course);
+
+            for (Lesson lesson : course.getLessons()) {
+                lessonService.saveLesson(lesson);
+            }
+            course = courseService.loadWithLessonsAndRooms(course.getId());
+
+            // Remove all lessons which are not needed
+            for (Lesson lesson:lessonsToDelete) {
+                lessonService.deleteLesson(lesson);
+            }
+
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
             return ERROR;
         }
-        // Save course & lessons
-        courseService.saveCourse(course);
-
-        for (Lesson lesson : course.getLessons()) {
-            lessonService.saveLesson(lesson);
-        }
-        course = courseService.loadWithLessonsAndRooms(course.getId());
-
-        // Remove all lessons which are not needed
-        for (Lesson lesson:lessonsToDelete) {
-            lessonService.deleteLesson(lesson);
-        }
-
-        return SUCCESS;
     }
 
-    public void prepareSave() {
+    public void prepareSave() throws EntityNotFoundException {
         roomList = roomService.loadAllRooms();
     }
 
@@ -140,11 +153,17 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String delete() {
-        course = courseService.loadCourse(courseId);
-        if (course != null) {
+        try {
+            course = courseService.loadCourse(courseId);
             courseService.deleteCourse(course);
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-        return SUCCESS;
     }
 
     /**
@@ -154,8 +173,8 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String deleteLesson() {
-        Lesson lesson = lessonService.loadLesson(courseLessonId);
-        if (lesson != null) {
+        try {
+            Lesson lesson = lessonService.loadLesson(courseLessonId);
             Course course = lesson.getCourse();
             // Delete whole course if this was the last lesson
             if (course.getLessons().size() == 1) {
@@ -169,8 +188,13 @@ public class CourseAction extends AbstractAction implements Preparable {
             } else {
                 return REDIRECT;
             }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-        return ERROR;
     }
 
     /**
@@ -180,16 +204,17 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String load(){
-     course = courseService.loadWithLessonsAndRooms(courseId);
-     if (course != null) {
-         numberOfRepetitions = course.getLessons().size() - 1;
-         startDate = course.retrieveStartDate();
-         endDate = course.retrieveEndDate();
-         selectedRooms = getRoomIdsFromList(course.retrieveRoomsOfFirstLesson());
-         return SUCCESS;
-     } else {
-        return ERROR;
-     }
+        try {
+            course = courseService.loadWithLessonsAndRooms(courseId);
+            numberOfRepetitions = course.getLessons().size() - 1;
+            startDate = course.retrieveStartDate();
+            endDate = course.retrieveEndDate();
+            selectedRooms = getRoomIdsFromList(course.retrieveRoomsOfFirstLesson());
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     public void prepareLoad() {
@@ -228,10 +253,15 @@ public class CourseAction extends AbstractAction implements Preparable {
     }
 
     private void loadCoreDate() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-        roomList = roomService.loadAllRooms();
+        try {
+            lecturerList = lecturerService.loadAllLecturers();
+            cohortList = cohortService.loadAllCohorts();
+            centuryList = centuryService.loadAllCenturies();
+            roomList = roomService.loadAllRooms();
+
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+        }
     }
 
     /**
@@ -240,85 +270,96 @@ public class CourseAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String editLessons() {
-        ensureAudience();
+        try {
+            ensureAudience();
 
-        // Only save if course already exist and has lessons
-        if (course.getId() != null) {
-            courseService.saveCourse(course);
-            course = courseService.loadWithLessonsAndRooms(course.getId());
-        }
-
-        for (String roomStr : rooms) {
-            selectedRooms.add(Long.parseLong(roomStr, 10));
-        }
-
-        Integer numberOfLessons = course.getLessons().size();
-
-        // Instantly save if no repetitions
-        if (numberOfRepetitions == 0) {
-            Lesson lesson = new Lesson();
-            lesson.setCourse(course);
-            lesson.setStartDate(startDate);
-            lesson.setEndDate(endDate);
-
-            List<Room> rooms = new ArrayList<Room>();
-            for (Long roomId: selectedRooms) {
-                rooms.add(roomService.loadRoom(roomId));
-            }
-            lesson.setRooms(rooms);
-
-            if (!isValidLesson(course, lesson) || !isValidCourse(course)) {
-                return ERROR;
+            // Only save if course already exist and has lessons
+            if (course.getId() != null) {
+                courseService.saveCourse(course);
+                course = courseService.loadWithLessonsAndRooms(course.getId());
             }
 
-            for (Lesson lessonToDelete : course.getLessons())
-                lessonService.deleteLesson(lessonToDelete);
-
-            courseService.saveCourse(course);
-            lessonService.saveLesson(lesson);
-            return REDIRECT;
-        }
-
-        // Add lessons if higher number of repetitions
-        for (int i = 0; i <= (numberOfRepetitions - numberOfLessons); i++) {
-            Lesson lesson = new Lesson();
-            lesson.setCourse(course);
-
-            Calendar startCalendar = Utilities.getSchedulingCalendar();
-            startCalendar.setTimeInMillis(startDate.getTime());
-            startCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
-            lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
-
-            Calendar endCalendar = Utilities.getSchedulingCalendar();
-            endCalendar.setTimeInMillis(endDate.getTime());
-            endCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
-            lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
-
-            course.getLessons().add(lesson);
-        }
-
-        // Populate first lesson with settings from course form
-        if (numberOfLessons >= 1) {
-            Lesson lesson = course.retrieveFirstLesson();
-            lesson.setStartDate(startDate);
-            lesson.setEndDate(endDate);
-
-            List<Room> rooms = new ArrayList<Room>();
-            for (Long roomId: selectedRooms) {
-                rooms.add(roomService.loadRoom(roomId));
+            for (String roomStr : rooms) {
+                selectedRooms.add(Long.parseLong(roomStr, 10));
             }
-            lesson.setRooms(rooms);
+
+            Integer numberOfLessons = course.getLessons().size();
+
+            // Instantly save if no repetitions
+            if (numberOfRepetitions == 0) {
+                Lesson lesson = new Lesson();
+                lesson.setCourse(course);
+                lesson.setStartDate(startDate);
+                lesson.setEndDate(endDate);
+
+                List<Room> rooms = new ArrayList<Room>();
+                for (Long roomId: selectedRooms) {
+                    rooms.add(roomService.loadRoom(roomId));
+                }
+                lesson.setRooms(rooms);
+
+                if (!isValidLesson(course, lesson) || !isValidCourse(course)) {
+                    return ERROR;
+                }
+
+                for (Lesson lessonToDelete : course.getLessons())
+                    lessonService.deleteLesson(lessonToDelete);
+
+                courseService.saveCourse(course);
+                lessonService.saveLesson(lesson);
+                return REDIRECT;
+            }
+
+            // Add lessons if higher number of repetitions
+            for (int i = 0; i <= (numberOfRepetitions - numberOfLessons); i++) {
+                Lesson lesson = new Lesson();
+                lesson.setCourse(course);
+
+                Calendar startCalendar = Utilities.getSchedulingCalendar();
+                startCalendar.setTimeInMillis(startDate.getTime());
+                startCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
+                lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
+
+                Calendar endCalendar = Utilities.getSchedulingCalendar();
+                endCalendar.setTimeInMillis(endDate.getTime());
+                endCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
+                lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
+
+                course.getLessons().add(lesson);
+            }
+
+            // Populate first lesson with settings from course form
+            if (numberOfLessons >= 1) {
+                Lesson lesson = course.retrieveFirstLesson();
+                lesson.setStartDate(startDate);
+                lesson.setEndDate(endDate);
+
+                List<Room> rooms = new ArrayList<Room>();
+                for (Long roomId: selectedRooms) {
+                    rooms.add(roomService.loadRoom(roomId));
+                }
+                lesson.setRooms(rooms);
+            }
+
+            // Remove lessons if lower number of repetitions
+            Collections.sort(course.getLessons());
+            for (int i = numberOfLessons - 1; i > numberOfRepetitions; i--) {
+                course.getLessons().remove(i);
+            }
+            collisionFlag = false;
+
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
 
-        // Remove lessons if lower number of repetitions
-        Collections.sort(course.getLessons());
-        for (int i = numberOfLessons - 1; i > numberOfRepetitions; i--) {
-            course.getLessons().remove(i);
-        }
-
-        collisionFlag = false;
-
-        return SUCCESS;
     }
 
     public void prepareEditLessons() {
@@ -339,40 +380,46 @@ public class CourseAction extends AbstractAction implements Preparable {
      * @return isValidLesson Are course and lessons valid as is
      */
     private Boolean isValidLesson(Course course, Lesson lesson) {
-        // Check if start date is before end date
-        if (!lesson.startDateBeforeEndDate()) {
-            addActionError(getText("msg.startDateBeforeEndDate"));
-        }
-        // Check if room is set
-        if (!lesson.hasRoom()) {
-            addActionError(getText("msg.noRoomSelected"));
-        }
-        if (hasActionErrors()) {
+        try {
+            // Check if start date is before end date
+            if (!lesson.startDateBeforeEndDate()) {
+                addActionError(getText("msg.startDateBeforeEndDate"));
+            }
+            // Check if room is set
+            if (!lesson.hasRoom()) {
+                addActionError(getText("msg.noRoomSelected"));
+            }
+            if (hasActionErrors()) {
+                return false;
+            }
+
+            if (!collisionFlag || recheck) {
+                course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
+
+                // Fully load century/cohort
+                if (!lesson.lecturerAvailable()) {
+                    addActionError(getText("msg.lecturerNotAvailable"));
+                }
+                if (!lesson.audienceAvailable()) {
+                    addActionError(getText("msg.audienceNotAvailable"));
+                }
+                if (!lesson.allRoomsAvailable()) {
+                    addActionError(getText("msg.roomsNotAvailable"));
+                }
+                if (!lesson.allRoomsBigEnough()) {
+                    addActionError(getText("msg.roomsNotBigEnough"));
+                }
+                if (hasActionErrors()) {
+                    collisionFlag = true;
+                    return false;
+                }
+            }
+            return true;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
             return false;
         }
 
-        if (!collisionFlag || recheck) {
-            course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
-
-            // Fully load century/cohort
-            if (!lesson.lecturerAvailable()) {
-                addActionError(getText("msg.lecturerNotAvailable"));
-            }
-            if (!lesson.audienceAvailable()) {
-                addActionError(getText("msg.audienceNotAvailable"));
-            }
-            if (!lesson.allRoomsAvailable()) {
-                addActionError(getText("msg.roomsNotAvailable"));
-            }
-            if (!lesson.allRoomsBigEnough()) {
-                addActionError(getText("msg.roomsNotBigEnough"));
-            }
-            if (hasActionErrors()) {
-                collisionFlag = true;
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

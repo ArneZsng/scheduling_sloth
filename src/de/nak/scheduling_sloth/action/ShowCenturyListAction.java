@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CenturyService;
@@ -25,10 +26,15 @@ public class ShowCenturyListAction extends AbstractAction implements Action {
     private CohortService cohortService;
 
     @Override
-    public String execute() throws Exception {
-        centuryList = centuryService.loadAllCenturies();
-        cohortList = cohortService.loadAllCohorts();
-        return SUCCESS;
+    public String execute() {
+        try {
+            centuryList = centuryService.loadAllCenturies();
+            cohortList = cohortService.loadAllCohorts();
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     public List<Century> getCenturyList() {

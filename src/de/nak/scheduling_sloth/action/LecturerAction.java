@@ -1,6 +1,9 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.service.LecturerService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -32,8 +35,14 @@ public class LecturerAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String save() {
-        lecturerService.saveLecturer(lecturer);
-        return SUCCESS;
+        try {
+            lecturerService.saveLecturer(lecturer);
+            return SUCCESS;
+
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**
@@ -42,20 +51,22 @@ public class LecturerAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String delete() {
-        String response;
-        lecturer = lecturerService.loadLecturer(lecturerId);
-
-        if (lecturer == null) {
-            response = SUCCESS;
-        } else if (lecturer.getCourses().isEmpty()) {
-            lecturerService.deleteLecturer(lecturer);
-            response = SUCCESS;
-        } else {
-            addActionError(getText("error.strong") + lecturer.getName() + getText("error.lecturer.delete"));
-            response = ERROR;
+        try {
+            lecturer = lecturerService.loadLecturer(lecturerId);
+            if (lecturer.getCourses().isEmpty()) {
+                lecturerService.deleteLecturer(lecturer);
+                return SUCCESS;
+            } else {
+                addActionError(getText("error.strong") + lecturer.getName() + getText("error.lecturer.delete"));
+                return ERROR;
+            }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-
-        return response;
 
     }
 
@@ -65,14 +76,15 @@ public class LecturerAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String load() {
-        lecturer = lecturerService.loadLecturer(lecturerId);
-        if (lecturer == null) {
-            return ERROR;
-        } else {
+        try {
+            lecturer = lecturerService.loadLecturer(lecturerId);
             if (lecturer.getBreakTime() != null) {
                 defaultBreakTime = lecturer.getBreakTime();
             }
             return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
     }
 

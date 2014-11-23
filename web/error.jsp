@@ -3,4 +3,3 @@
 
 <h1><s:text name="txt.actionError"/></h1>
 <p><s:text name="txt.actionErrorExplanation"/></p>
-<s:actionerror/>
