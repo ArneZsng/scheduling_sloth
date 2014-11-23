@@ -31,7 +31,7 @@ public interface CohortService {
      * @return a lecturer or null.
      */
     Cohort loadCohortWithLessons(Long id);
-    
+
 	/**
 	 * Deletes the given cohort.
 	 *

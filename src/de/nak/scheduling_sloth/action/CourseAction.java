@@ -61,7 +61,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     private boolean collisionFlag = false;
     private boolean recheck = false;
 
-    String REDIRECT = "redirect";
+    final String REDIRECT = "redirect";
 
     /**
      * Saves the course to the database.
@@ -75,8 +75,9 @@ public class CourseAction extends ActionSupport implements Preparable {
         // Remember all the lessons which are left in form to keep
         List<Long> lessonIdsToKeep = new ArrayList<Long>();
         for (Lesson lesson : course.getLessons()) {
-            if (lesson != null)
+            if (lesson != null) {
                 lessonIdsToKeep.add(lesson.getId());
+            }
         }
 
         // Determine which lessons need to be deleted
@@ -99,7 +100,7 @@ public class CourseAction extends ActionSupport implements Preparable {
         for (Lesson lesson : course.getLessons()) {
             lesson.setCourse(course);
             List<Room> selectedRoomList = new ArrayList<Room>();
-            for(Room room:lesson.getRooms()) {
+            for (Room room:lesson.getRooms()) {
                 selectedRoomList.add(roomService.loadRoom(room.getId()));
             }
             lesson.setRooms(selectedRoomList);
@@ -212,7 +213,9 @@ public class CourseAction extends ActionSupport implements Preparable {
      * @return the result string.
      */
     @SkipValidation
-    public String add() { return SUCCESS; }
+    public String add() {
+        return SUCCESS;
+    }
 
     public void prepareAdd() {
         lecturerList = lecturerService.loadAllLecturers();
@@ -278,12 +281,12 @@ public class CourseAction extends ActionSupport implements Preparable {
 
             Calendar startCalendar = Calendar.getInstance();
             startCalendar.setTimeInMillis(startDate.getTime());
-            startCalendar.add(Calendar.DATE, 7 * (i+numberOfLessons));
+            startCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
             lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
 
             Calendar endCalendar = Calendar.getInstance();
             endCalendar.setTimeInMillis(endDate.getTime());
-            endCalendar.add(Calendar.DATE, 7 * (i+numberOfLessons));
+            endCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
             lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
 
             course.getLessons().add(lesson);
@@ -291,7 +294,7 @@ public class CourseAction extends ActionSupport implements Preparable {
 
         // Remove lessons if lower number of repetitions
         Collections.sort(course.getLessons());
-        for (int i = numberOfLessons-1; i > numberOfRepetitions; i--) {
+        for (int i = numberOfLessons - 1; i > numberOfRepetitions; i--) {
             course.getLessons().remove(i);
         }
 
@@ -313,29 +316,40 @@ public class CourseAction extends ActionSupport implements Preparable {
 
     /**
      * Validates for business logic
+     *
+     * @param course Course which will be checked
+     * @param lesson Lesson which will be checked
+     * @return isValid Are course and lessons valid as is
      */
     private Boolean isValid(Course course, Lesson lesson) {
         // Check if start date is before end date
-        if (!lesson.startDateBeforeEndDate())
+        if (!lesson.startDateBeforeEndDate()) {
             addActionError(getText("msg.startDateBeforeEndDate"));
+        }
         // Check if room is set
-        if (!lesson.hasRoom())
+        if (!lesson.hasRoom()) {
             addActionError(getText("msg.noRoomSelected"));
-        if (hasActionErrors())
+        }
+        if (hasActionErrors()) {
             return false;
+        }
 
         if (!collisionFlag || recheck) {
             course.setLecturer(lecturerService.loadLecturerWithLessons(course.getLecturer().getId()));
 
             // Fully load century/cohort
-            if (!lesson.lecturerAvailable())
+            if (!lesson.lecturerAvailable()) {
                 addActionError(getText("msg.lecturerNotAvailable"));
-            if (!lesson.audienceAvailable())
+            }
+            if (!lesson.audienceAvailable()) {
                 addActionError(getText("msg.audienceNotAvailable"));
-            if (!lesson.allRoomsAvailable())
+            }
+            if (!lesson.allRoomsAvailable()) {
                 addActionError(getText("msg.roomsNotAvailable"));
-            if (!lesson.allRoomsBigEnough())
+            }
+            if (!lesson.allRoomsBigEnough()) {
                 addActionError(getText("msg.roomsNotBigEnough"));
+            }
             if (hasActionErrors()) {
                 collisionFlag = true;
                 return false;
@@ -348,7 +362,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      * Sets cohort to null if no cohort is selected.
      */
     private void checkCohort() {
-        if ((course.getCohort() != null) && (course.getCohort().getId() != null) && (course.getCohort().getId() == -1)) {
+        if (course.getCohort() != null && course.getCohort().getId() != null && course.getCohort().getId() == -1) {
             course.setCohort(null);
         }
     }
@@ -357,7 +371,7 @@ public class CourseAction extends ActionSupport implements Preparable {
      * Sets century to null if no century is selected.
      */
     private void checkCentury() {
-        if ((course.getCentury() != null) && (course.getCentury().getId() != null) && (course.getCentury().getId() == -1)) {
+        if (course.getCentury() != null && course.getCentury().getId() != null && course.getCentury().getId() == -1) {
             course.setCentury(null);
         }
     }
