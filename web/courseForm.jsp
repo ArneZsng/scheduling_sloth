@@ -99,7 +99,7 @@
                           action="EditCourseRecheck"
                           cssClass="btn btn-primary"
                           onclick="this.form.target='_self';return true;" />
-                <s:submit key="btn.ignoreAndsubmit"
+                <s:submit key="btn.ignoreAndSubmit"
                           action="EditCourseLessons"
                           cssClass="btn btn-default"
                           onclick="this.form.target='_self';return true;" />

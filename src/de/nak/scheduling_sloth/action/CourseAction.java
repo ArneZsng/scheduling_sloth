@@ -316,6 +316,8 @@ public class CourseAction extends AbstractAction implements Preparable {
             course.getLessons().remove(i);
         }
 
+        collisionFlag = false;
+
         return SUCCESS;
     }
 
