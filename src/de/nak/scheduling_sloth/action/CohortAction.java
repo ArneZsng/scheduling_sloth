@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CohortService;
@@ -55,6 +56,9 @@ public class CohortAction extends AbstractAction {
                 return ERROR;
             }
         } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotDeletableException e) {
             addActionError(getText(e.getMessage()));
             return ERROR;
         }

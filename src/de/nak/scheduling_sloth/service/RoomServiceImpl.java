@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.RoomDAO;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 
@@ -29,7 +30,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
 	@Override
-	public void deleteRoom(Room room) {
+	public void deleteRoom(Room room) throws EntityNotDeletableException {
 		roomDAO.delete(room);
 	}
 

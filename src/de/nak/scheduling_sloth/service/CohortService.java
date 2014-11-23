@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Cohort;
 
@@ -38,7 +39,7 @@ public interface CohortService {
 	 *
 	 * @param cohort The cohort.
 	 */
-	void deleteCohort(Cohort cohort);
+	void deleteCohort(Cohort cohort) throws EntityNotDeletableException;
 
 	/**
 	 * Loads a list of all cohorts.

@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 
@@ -38,7 +39,7 @@ public interface RoomService {
 	 *
 	 * @param room The room.
 	 */
-	void deleteRoom(Room room);
+	void deleteRoom(Room room)throws EntityNotDeletableException;
 
 	/**
 	 * Loads a list of all rooms.

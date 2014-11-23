@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,8 +34,15 @@ public abstract class AbstractDAO<E> {
      *
      * @param objectToDelete The object to be deleted.
      */
-    public final void delete(final E objectToDelete) {
-        sessionFactory.getCurrentSession().delete(objectToDelete);
+    public final void delete(final E objectToDelete) throws EntityNotDeletableException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        if (objectToDelete == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotDeletableException(EntityNotDeletableException.DEFAULT_MESSAGE);
+        }
+        session.delete(objectToDelete);
+        session.getTransaction().commit();
     }
 
     /**

@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.CohortDAO;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Cohort;
 
@@ -29,7 +30,7 @@ public class CohortServiceImpl implements CohortService {
     }
 
     @Override
-	public void deleteCohort(Cohort cohort) {
+	public void deleteCohort(Cohort cohort)throws EntityNotDeletableException {
 		cohortDAO.delete(cohort);
 	}
 

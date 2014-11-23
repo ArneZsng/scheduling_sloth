@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lesson;
 
@@ -30,7 +31,7 @@ public interface LessonService {
 	 *
 	 * @param lesson The lesson.
 	 */
-	void deleteLesson(Lesson lesson);
+	void deleteLesson(Lesson lesson) throws EntityNotDeletableException;
 
 	/**
 	 * Loads a list of all lessons.

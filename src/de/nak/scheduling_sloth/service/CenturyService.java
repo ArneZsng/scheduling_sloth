@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Century;
 import java.util.List;
@@ -37,7 +38,7 @@ public interface CenturyService {
 	 *
 	 * @param century The century.
 	 */
-	void deleteCentury(Century century);
+	void deleteCentury(Century century) throws EntityNotDeletableException;
 
 	/**
 	 * Loads a list of all centuries.

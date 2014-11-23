@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.CenturyDAO;
+import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Century;
 
@@ -29,7 +30,7 @@ public class CenturyServiceImpl implements CenturyService {
     }
 
 	@Override
-	public void deleteCentury(final Century century) {
+	public void deleteCentury(final Century century) throws EntityNotDeletableException {
 		centuryDAO.delete(century);
 	}
 

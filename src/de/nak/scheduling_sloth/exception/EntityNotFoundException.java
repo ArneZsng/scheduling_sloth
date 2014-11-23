@@ -6,7 +6,6 @@ package de.nak.scheduling_sloth.exception;
  */
 public class EntityNotFoundException extends Exception {
     private static final long serialVersionUID = 5524946781470109353L;
-
     public static final String DEFAULT_MESSAGE = "msg.exception.entityNotFound";
 
     public EntityNotFoundException(String message) {
