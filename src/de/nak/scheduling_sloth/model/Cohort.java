@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Represents the cohort business logic.
+ *
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 @Entity
 public class Cohort extends SchedulingObject {

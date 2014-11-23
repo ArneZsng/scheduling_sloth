@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Represents the century business logic.
+ *
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 @Entity
 public class Century extends SchedulingObject {
@@ -15,7 +19,7 @@ public class Century extends SchedulingObject {
     private Long id;
     /** The name of the century. */
     private String name;
-    /** The Cohort. */
+    /** The cohort the century is part of. */
     private Cohort cohort;
     /** Number of students */
     private Integer numberOfStudents = 0;

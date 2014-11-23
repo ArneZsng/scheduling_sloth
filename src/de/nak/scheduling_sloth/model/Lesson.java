@@ -71,14 +71,29 @@ public class Lesson implements Comparable<Lesson> {
         this.course = course;
     }
 
+    /**
+     * Compare to other lesson for ordering.
+     *
+     * @param lesson lesson to compare with
+     * @return larger, smaller or equals
+     */
     public int compareTo(Lesson lesson) {
         return startDate.compareTo(lesson.getStartDate());
     }
 
+    /**
+     * Check if lecturer is available for defined time slots.
+     * @return available
+     */
     public boolean lecturerAvailable() {
         return course.lecturerAvailableFor(this);
     }
 
+    /**
+     * Check if all rooms are available.
+     *
+     * @return rooms available
+     */
     public boolean allRoomsAvailable() {
         for (Room room : rooms) {
             if (!room.timeSlotAvailableFor(this))
@@ -87,14 +102,29 @@ public class Lesson implements Comparable<Lesson> {
         return true;
     }
 
+    /**
+     * Check if audience (cohort or century) is available.
+     *
+     * @return audience available
+     */
     public boolean audienceAvailable() {
         return course.audienceAvailableFor(this);
     }
 
+    /**
+     * Check if a room is set for this lesson.
+     *
+     * @return room is set
+     */
     public boolean hasRoom() {
         return rooms.size() > 0;
     }
 
+    /**
+     * Check if all rooms are big enough for the audience.
+     *
+     * @return rooms big enough
+     */
     public boolean allRoomsBigEnough() {
         for (Room room : rooms) {
             if (!room.bigEnough(course.retrieveAudienceSize()))
@@ -103,6 +133,11 @@ public class Lesson implements Comparable<Lesson> {
         return true;
     }
 
+    /**
+     * Check if start date and end date is set properly.
+     *
+     * @return start date before end date
+     */
     public boolean startDateBeforeEndDate() {
         if (startDate != null && endDate != null) {
             return startDate.before(endDate);
@@ -111,10 +146,21 @@ public class Lesson implements Comparable<Lesson> {
         }
     }
 
+    /**
+     * Get course break time for lesson, defined by course.
+     * @return break time
+     */
     public Integer retrieveCourseBreakTime() {
         return getCourse().getBreakTime();
     }
 
+    /**
+     * Check if given lesson overlaps with this lesson.
+     *
+     * @param lesson lesson to check with
+     * @param breakTime additional break time
+     * @return overlapping
+     */
     public Boolean overlappingWithLesson(Lesson lesson, Integer breakTime) {
         // Checks which one is bigger: break time of object or break time of lesson or break time of givenLesson
         breakTime = Math.max(breakTime, lesson.retrieveCourseBreakTime());
@@ -122,7 +168,14 @@ public class Lesson implements Comparable<Lesson> {
         return timeSlotOverlapping(lesson.getStartDate(), lesson.getEndDate(), breakTimeInMs);
     }
 
-
+    /**
+     * Check if time slots are overlapping. Include break times for calculation.
+     *
+     * @param startTimestamp start date
+     * @param endTimestamp end date
+     * @param breakTimeInMs break
+     * @return time slots overlap
+     */
     public Boolean timeSlotOverlapping(Timestamp startTimestamp, Timestamp endTimestamp, Integer breakTimeInMs) {
         // Subtract 1 millisecond for transforming after() to notBefore() and before to notAfter()
         breakTimeInMs = breakTimeInMs - 1;

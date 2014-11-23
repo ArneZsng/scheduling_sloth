@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Represents the course business logic. A course has one ore more lessons.
+ *
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 @Entity
 public class Course {
@@ -99,6 +103,12 @@ public class Course {
         return lecturer.timeSlotAvailableFor(lesson);
     }
 
+    /**
+     * Checks if audience is available for given lesson.
+     *
+     * @param lesson Lesson to check
+     * @return True if available
+     */
     public boolean audienceAvailableFor(Lesson lesson) {
         if (cohort != null) {
             return cohort.timeSlotAvailableFor(lesson);
@@ -109,6 +119,11 @@ public class Course {
         }
     }
 
+    /**
+     * Get the audience size, which consists of century or cohort.
+     *
+     * @return Audience size
+     */
     public Integer retrieveAudienceSize() {
         if (cohort != null) {
             return cohort.retrieveNumberOfStudents();
@@ -119,6 +134,11 @@ public class Course {
         }
     }
 
+    /**
+     * Get start date of first lesson.
+     *
+     * @return start date
+     */
     public Timestamp retrieveStartDate() {
         Timestamp result = null;
         if(lessons != null && lessons.size() > 0) {
@@ -133,6 +153,11 @@ public class Course {
         return result;
     }
 
+    /**
+     * Get end date of first lesson.
+     *
+     * @return end date
+     */
     public Timestamp retrieveEndDate() {
         Timestamp result = null;
         if (lessons != null && lessons.size() > 0) {
@@ -178,6 +203,11 @@ public class Course {
         return true;
     }
 
+    /**
+     * Get maximal break time.
+     *
+     * @return break time
+     */
     private Integer maxBreakTime() {
         Integer breakTime = this.breakTime;
         if (lecturer != null) {

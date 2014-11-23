@@ -1,7 +1,6 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * Abstract class for all application action and global fields.
@@ -17,7 +16,6 @@ public abstract class AbstractAction extends ActionSupport {
      * @return Active user language
      */
     public final String getLocalLang() {
-
         return getLocale().getLanguage();
     }
 }
