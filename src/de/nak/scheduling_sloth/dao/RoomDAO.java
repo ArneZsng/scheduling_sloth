@@ -1,10 +1,8 @@
 package de.nak.scheduling_sloth.dao;
 
-import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.model.Room;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 
@@ -12,16 +10,11 @@ import java.util.List;
  * Created by patrickghahramanian on 28.10.14.
  */
 
-public class RoomDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class RoomDAO extends AbstractDAO<Room> {
 
-    /**
-     * Persists or merges the room into the database.
-     *
-     * @param room The room to persist. The given entity can be transient or detached.
-     */
-    public void save(Room room) {sessionFactory.getCurrentSession().saveOrUpdate(room);}
+    public RoomDAO() {
+        super(Room.class.getSimpleName());
+    }
 
     /**
      * Loads a single room entity from the database.
@@ -54,31 +47,6 @@ public class RoomDAO {
         }
         return room;
     }
-    
-    /**
-     * Deletes the room from the database.
-     *
-     * @param room The room to be deleted.
-     */
-    public void delete(Room room) {sessionFactory.getCurrentSession().delete(room);}
-
-
-    /**
-     * Edits the room from the database.
-     *
-     * @param room The room to be deleted.
-     */
-    public void edit(Room room) {sessionFactory.getCurrentSession().update(room);}
-
-    /**
-     * Loads all rooms from the database.
-     *
-     * @return a list or room which is empty if no room was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Room> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Room").list();
-    }
 
     /**
      * Loads all rooms from the database including lessons.
@@ -94,11 +62,5 @@ public class RoomDAO {
         }
         return roomList;
     }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
 }
 

@@ -1,28 +1,18 @@
 package de.nak.scheduling_sloth.dao;
 
-import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
-
-import java.util.List;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
 
-public class CourseDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class CourseDAO extends AbstractDAO<Course> {
 
-    /**
-     * Persists or merges the room into the database.
-     *
-     * @param course The course to persist. The given entity can be transient or detached.
-     */
-
-    public void save(Course course) {sessionFactory.getCurrentSession().saveOrUpdate(course);}
+    public CourseDAO() {
+        super(Course.class.getSimpleName());
+    }
 
     /**
      * Loads a single course entity from the database.
@@ -61,37 +51,5 @@ public class CourseDAO {
         }
         return course;
     }
-    /**
-     * Deletes the course from the database.
-     *
-     * @param course The room to be deleted.
-     */
-
-    public void delete(Course course) {sessionFactory.getCurrentSession().delete(course);}
-
-
-    /**
-     * Edits the course from the database.
-     *
-     * @param course The course to be deleted.
-     */
-
-    public void edit(Course course) {sessionFactory.getCurrentSession().update(course);}
-
-    /**
-     * Loads all courses from the database.
-     *
-     * @return a list or courses which is empty if no course was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Course> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Course").list();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
 }
 

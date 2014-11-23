@@ -13,19 +13,11 @@ import java.util.List;
  *
  * Created by arne on 10/28/14.
  */
-public class LecturerDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class LecturerDAO extends AbstractDAO<Lecturer> {
 
-    /**
-     * Persists or merges the lecturer into the database.
-     *
-     * @param lecturer The lecturer to persist. The given entity can be transient or detached.
-     */
-    public void save(Lecturer lecturer) {
-        sessionFactory.getCurrentSession().saveOrUpdate(lecturer);
+    public LecturerDAO() {
+        super(Lecturer.class.getSimpleName());
     }
-
     /**
      * Loads a single lecturer entity from the database.
      *
@@ -39,7 +31,6 @@ public class LecturerDAO {
         }
         return lecturer;
     }
-
 
     /**
      * Loads a single lecturer entity from the database with its courses and lessons.
@@ -61,28 +52,5 @@ public class LecturerDAO {
             }
         }
         return lecturer;
-    }
-
-    /**
-     * Deletes the lecturer from the database.
-     *
-     * @param lecturer The lecturer to be deleted.
-     */
-    public void delete(Lecturer lecturer) {
-        sessionFactory.getCurrentSession().delete(lecturer);
-    }
-
-    /**
-     * Loads all lecturers from the database.
-     *
-     * @return a list or lecturer which is empty if no lecturer was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Lecturer> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Lecturer").list();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 }

@@ -4,7 +4,6 @@ import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 
@@ -12,17 +11,11 @@ import java.util.List;
  * Created by patrickghahramanian on 28.10.14.
  */
 
-public class CohortDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class CohortDAO extends AbstractDAO<Cohort> {
 
-    /**
-     * Persists or merges the cohort into the database.
-     *
-     * @param cohort The cohort to persist. The given entity can be transient or detached.
-     */
-
-    public void save(Cohort cohort) {sessionFactory.getCurrentSession().saveOrUpdate(cohort);}
+    public CohortDAO() {
+        super(Cohort.class.getSimpleName());
+    }
 
     /**
      * Loads a single cohort entity from the database.
@@ -59,37 +52,5 @@ public class CohortDAO {
         }
         return cohort;
     }
-
-    /**
-     * Deletes the cohort from the database.
-     *
-     * @param cohort The cohort to be deleted.
-     */
-
-    public void delete(Cohort cohort) {sessionFactory.getCurrentSession().delete(cohort);}
-
-    /**
-     * Edits the cohorts from the database.
-     *
-     * @param cohort The cohort to be deleted.
-     */
-
-    public void edit(Cohort cohort) {sessionFactory.getCurrentSession().update(cohort);}
-
-    /**
-     * Loads all cohorts from the database.
-     *
-     * @return a list or cohorts which is empty if no cohort was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Cohort> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Cohort").list();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
 }
 

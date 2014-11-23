@@ -2,8 +2,6 @@ package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,17 +9,11 @@ import java.util.List;
  * Created by patrickghahramanian on 28.10.14.
  */
 
-public class LessonDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class LessonDAO extends AbstractDAO<Lesson> {
 
-    /**
-     * Persists or merges the lesson into the database.
-     *
-     * @param lesson The lesson to persist. The given entity can be transient or detached.
-     */
-
-    public void save(Lesson lesson) {sessionFactory.getCurrentSession().saveOrUpdate(lesson);}
+    public LessonDAO() {
+        super(Lesson.class.getSimpleName());
+    }
 
     /**
      * Loads a single lesson entity from the database.
@@ -35,33 +27,6 @@ public class LessonDAO {
             Hibernate.initialize(lesson.getCourse().getLessons());
         }
         return lesson;
-    }
-
-    /**
-     * Deletes the lessons from the database.
-     *
-     * @param lesson The lesson to be deleted.
-     */
-
-    public void delete(Lesson lesson) {sessionFactory.getCurrentSession().delete(lesson);}
-
-
-    /**
-     * Edits the lesson from the database.
-     *
-     * @param lesson The lesson to be deleted.
-     */
-
-    public void edit(Lesson lesson) {sessionFactory.getCurrentSession().update(lesson);}
-
-    /**
-     * Loads all lessons from the database.
-     *
-     * @return a list or lesson which is empty if no lesson was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Lesson> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Lesson").list();
     }
 
     /**
@@ -82,11 +47,5 @@ public class LessonDAO {
         }
         return lessonList;
     }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
 }
 

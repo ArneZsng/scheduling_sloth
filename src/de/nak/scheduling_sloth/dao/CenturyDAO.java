@@ -4,7 +4,6 @@ import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 
@@ -12,17 +11,11 @@ import java.util.List;
  * Created by patrickghahramanian on 28.10.14.
  */
 
-public class CenturyDAO {
-    /** The Hibernate session factory. */
-    private SessionFactory sessionFactory;
+public class CenturyDAO extends AbstractDAO<Century> {
 
-    /**
-     * Persists or merges the century into the database.
-     *
-     * @param century The century to persist. The given entity can be transient or detached.
-     */
-
-    public void save(Century century) {sessionFactory.getCurrentSession().saveOrUpdate(century);}
+    public CenturyDAO() {
+        super(Century.class.getSimpleName());
+    }
 
     /**
      * Loads a single century entity from the database.
@@ -59,38 +52,5 @@ public class CenturyDAO {
         }
         return century;
     }
-    
-    /**
-     * Deletes the century from the database.
-     *
-     * @param century The century to be deleted.
-     */
-
-    public void delete(Century century) {sessionFactory.getCurrentSession().delete(century);}
-
-
-    /**
-     * Edits the century from the database.
-     *
-     * @param century The century to be deleted.
-     */
-
-    public void edit(Century century) {sessionFactory.getCurrentSession().update(century);}
-
-    /**
-     * Loads all centuries from the database.
-     *
-     * @return a list or centuries which is empty if no room was found.
-     */
-    @SuppressWarnings("unchecked")
-    public List<Century> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Century").list();
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
 }
 
