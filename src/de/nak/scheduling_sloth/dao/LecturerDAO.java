@@ -6,7 +6,6 @@ import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import java.util.List;
 

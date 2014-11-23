@@ -57,7 +57,7 @@
         <!-- Action that displays a single lecturer. -->
         <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
             <result type="tiles" name="success">lecturerShow</result>
-            <result type="redirect" name="error">ShowLecturerList</result>
+            <result type="redirectAction" name="error">ShowLecturerList.action</result>
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
@@ -67,32 +67,33 @@
 
 		<!-- Saves the new or updated lecturer into the database and shows the lecturer list again. -->
 		<action name="SaveLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="save">
-			<result type="redirect">ShowLecturerList.action</result>
+			<result type="redirectAction">ShowLecturerList.action</result>
 			<result type="tiles" name="input">lecturerForm</result>
 		</action>
 
 		<!-- Loads a existing lecturer and shows it in the lecturer form. -->
 		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowLecturerList.action</result>
             <result type="tiles" name="success">lecturerForm</result>
 			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Deletes the selected lecturer and shows the lecturer list again. -->
 		<action name="DeleteLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="delete">
-			<result name="error" type="chain">ShowLecturerList</result>
-            <result name="success" type="redirect">ShowLecturerList.action</result>
+            <result type="redirectAction" name="error">ShowLecturerList.action</result>
+            <result name="success" type="redirectAction">ShowLecturerList.action</result>
 			<result type="chain" name="input">ShowLecturerList</result>
 		</action>
 
 		<!-- Action for the cancel button. Is required to avoid stack traces in log. -->
 		<action name="CancelLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="cancel">
-			<result type="redirect">ShowLecturerList.action</result>
+			<result type="redirectAction">ShowLecturerList.action</result>
 		</action>
 
         <!-- Action that displays the list of rooms. -->
         <action name="ShowRoomList" class="de.nak.scheduling_sloth.action.ShowRoomListAction">
             <result type="tiles">roomList</result>
+            <result type="tiles" name="input">roomList</result>
         </action>
 
         <!-- Action that displays the list of rooms. -->
@@ -104,7 +105,7 @@
 
         <!-- Action that displays a single room. -->
         <action name="ShowRoom" class="de.nak.scheduling_sloth.action.ShowRoomAction" method="execute">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowRoomList.action</result>
             <result name="success" type="tiles">roomShow</result>
         </action>
 
@@ -121,15 +122,15 @@
 
         <!-- Loads a existing room and shows it in the room form. -->
         <action name="EditRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="load">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowRoomList.action</result>
             <result type="tiles" name="success">roomForm</result>
-            <result type="chain" name="input">ShowRoomList</result>
+            <result type="redirectAction" name="input">ShowRoomList.action</result>
         </action>
 
         <!-- Deletes the selected room and shows the room list again. -->
         <action name="DeleteRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="delete">
-            <result name="error" type="chain">ShowRoomList</result>
-            <result name="success" type="redirect">ShowRoomList.action</result>
+            <result type="redirectAction" name="error">ShowRoomList.action</result>
+            <result name="success" type="redirectAction">ShowRoomList.action</result>
             <result name="input" type="chain" >ShowRoomList</result>
         </action>
 
@@ -141,11 +142,13 @@
         <!-- Action that displays the list of cohorts. -->
         <action name="ShowCohortList" class="de.nak.scheduling_sloth.action.ShowCohortListAction">
             <result type="tiles">cohortList</result>
+            <result type="tiles" name="input">cohortList</result>
+
         </action>
 
         <!-- Action that displays a single cohort. -->
         <action name="ShowCohort" class="de.nak.scheduling_sloth.action.ShowCohortAction" method="execute">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowCohortList.action</result>
             <result name="success" type="tiles">cohortShow</result>
         </action>
 
@@ -162,15 +165,15 @@
 
         <!-- Loads a existing cohort and shows it in the cohort form. -->
         <action name="EditCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="load">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowCohortList.action</result>
             <result name="success" type="tiles">cohortForm</result>
             <result name="input" type="chain">ShowCohortList</result>
         </action>
 
         <!-- Deletes the selected cohort and shows the cohort list again. -->
         <action name="DeleteCohort" class="de.nak.scheduling_sloth.action.CohortAction" method="delete">
-            <result name="error" type="chain">ShowCohortList</result>
-            <result name="success" type="redirect">ShowCohortList.action</result>
+            <result type="redirectAction" name="error">ShowCohortList.action</result>
+            <result name="success" type="redirectAction">ShowCohortList.action</result>
             <result name="input" type="chain">ShowCohortList</result>
         </action>
 
@@ -182,11 +185,12 @@
         <!-- Action that displays the list of centuries. -->
         <action name="ShowCenturyList" class="de.nak.scheduling_sloth.action.ShowCenturyListAction">
             <result type="tiles">centuryList</result>
+            <result type="tiles" name="input">centuryList</result>
         </action>
 
         <!-- Action that displays a single century. -->
         <action name="ShowCentury" class="de.nak.scheduling_sloth.action.ShowCenturyAction" method="execute">
-            <result name="error" type="chain">Error</result>
+            <result type="redirectAction" name="error">ShowCenturyList.action</result>
             <result name="success" type="tiles">centuryShow</result>
         </action>
 
@@ -203,15 +207,15 @@
 
         <!-- Loads a existing century and shows it in the century form. -->
         <action name="EditCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="load">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">ShowCenturyList.action</result>
             <result type="tiles" name="success">centuryForm</result>
             <result type="chain" name="input">ShowCenturyList</result>
         </action>
 
         <!-- Deletes the selected century and shows the century list again. -->
         <action name="DeleteCentury" class="de.nak.scheduling_sloth.action.CenturyAction" method="delete">
-            <result name="error" type="chain">ShowCenturyList</result>
-            <result name="success" type="redirect">ShowCenturyList.action</result>
+            <result type="redirectAction" name="error">ShowCenturyList.action</result>
+            <result name="success" type="redirectAction">ShowCenturyList.action</result>
             <result name="input" type="chain">ShowCenturyList</result>
         </action>
 
@@ -234,7 +238,7 @@
 
         <!-- Loads a existing course and shows it in the course form. -->
         <action name="EditCourse" class="de.nak.scheduling_sloth.action.CourseAction" method="load">
-            <result name="error" type="redirect">Error</result>
+            <result type="redirectAction" name="error">Home.action</result>
             <result type="tiles" name="success">courseForm</result>
             <result name="input" type="redirect">Home</result>
         </action>
@@ -245,6 +249,7 @@
                 <param name="actionName">EditCourseLessons</param>
                 <param name="recheck">true</param>
             </result>
+            <result type="redirectAction" name="error">Home.action</result>
         </action>
 
         <!-- Deletes the selected course and shows the schedule again. -->
@@ -273,6 +278,7 @@
                 <param name="actionName">SaveCourse</param>
                 <param name="recheck">true</param>
             </result>
+            <result type="tiles" name="error">courseForm</result>
             <result name="input" type="redirect">Home</result>
         </action>
 
@@ -286,6 +292,7 @@
 
         <!-- Action that displays a single century. -->
         <action name="ShowCourse" class="de.nak.scheduling_sloth.action.ShowCourseAction" method="execute">
+            <result type="redirectAction" name="error">Home.action</result>
             <result type="tiles">courseShow</result>
         </action>
 
