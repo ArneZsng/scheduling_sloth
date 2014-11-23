@@ -21,7 +21,7 @@ public class CourseDAO extends AbstractDAO<Course> {
      * @return a course or null if no course was found with the given identifier.
      */
     public Course load(Long id) {
-        Course course = (Course) sessionFactory.getCurrentSession().get(Course.class, id);
+        Course course = (Course) getSessionFactory().getCurrentSession().get(Course.class, id);
         if(course!= null) {
             Hibernate.initialize(course.getLessons());
         }
@@ -47,7 +47,6 @@ public class CourseDAO extends AbstractDAO<Course> {
             if (course.getCentury() != null) {
                 Hibernate.initialize(course.getCentury().getCourses());
             }
-
         }
         return course;
     }

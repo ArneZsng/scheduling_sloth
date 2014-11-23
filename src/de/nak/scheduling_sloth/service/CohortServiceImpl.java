@@ -1,8 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
-import de.nak.scheduling_sloth.dao.CenturyDAO;
 import de.nak.scheduling_sloth.dao.CohortDAO;
-import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Cohort;
 
 import java.util.List;

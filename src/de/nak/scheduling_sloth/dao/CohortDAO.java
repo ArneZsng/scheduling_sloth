@@ -24,7 +24,7 @@ public class CohortDAO extends AbstractDAO<Cohort> {
      * @return a cohort or null if no cohort was found with the given identifier.
      */
     public Cohort load(Long id) {
-        Cohort cohort =  (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
+        Cohort cohort =  (Cohort) getSessionFactory().getCurrentSession().get(Cohort.class, id);
         if (cohort != null) {
             Hibernate.initialize(cohort.getCourses());
             Hibernate.initialize(cohort.getCenturies());
@@ -39,7 +39,7 @@ public class CohortDAO extends AbstractDAO<Cohort> {
      * @return a lecturer or null if no lecturer was found with the given identifier.
      */
     public Cohort loadWithLessons(Long id) {
-        Cohort cohort = (Cohort) sessionFactory.getCurrentSession().get(Cohort.class, id);
+        Cohort cohort = (Cohort) getSessionFactory().getCurrentSession().get(Cohort.class, id);
         if (cohort != null) {
             List<Course> courses = cohort.getCourses();
             for (Course course : courses) {

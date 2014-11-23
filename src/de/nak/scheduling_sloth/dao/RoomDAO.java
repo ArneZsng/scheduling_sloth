@@ -23,7 +23,7 @@ public class RoomDAO extends AbstractDAO<Room> {
      * @return a room or null if no room was found with the given identifier.
      */
     public Room load(Long id) {
-        Room room =  (Room) sessionFactory.getCurrentSession().get(Room.class, id);
+        Room room =  (Room) getSessionFactory().getCurrentSession().get(Room.class, id);
         if (room != null) {
             Hibernate.initialize(room.getLessons());
         }
@@ -37,7 +37,7 @@ public class RoomDAO extends AbstractDAO<Room> {
      * @return a room or null if no room was found with the given identifier.
      */
     public Room loadWithLessons(Long id) {
-        Room room = (Room) sessionFactory.getCurrentSession().get(Room.class, id);
+        Room room = (Room) getSessionFactory().getCurrentSession().get(Room.class, id);
         if (room != null) {
             List<Lesson> lessons = room.getLessons();
             for (Lesson lesson : lessons) {
@@ -56,7 +56,7 @@ public class RoomDAO extends AbstractDAO<Room> {
     @SuppressWarnings("unchecked")
     public List<Room> loadAllWithLessons() {
 
-        List<Room> roomList = (List<Room>) sessionFactory.getCurrentSession().createQuery("from Room").list();
+        List<Room> roomList = (List<Room>) getSessionFactory().getCurrentSession().createQuery("from Room").list();
         for (Room room : roomList) {
             Hibernate.initialize(room.getLessons());
         }

@@ -9,37 +9,38 @@ import java.util.List;
  */
 public abstract class AbstractDAO<E> {
     /** The Hibernate session factory. */
-    protected SessionFactory sessionFactory;
-    protected String table;
+    private SessionFactory sessionFactory;
+    /** The table name */
+    private String table;
 
-    public AbstractDAO(String table) {
+    public AbstractDAO(final String table) {
         this.table = table;
     }
 
     /**
      * Persists or merges the object to save into the database.
      *
-     * @param E The object to persist. The given entity can be transient or detached.
+     * @param objectToSave The object to persist. The given entity can be transient or detached.
      */
-    public void save(E objectToSave) {
+    public final void save(final E objectToSave) {
         sessionFactory.getCurrentSession().saveOrUpdate(objectToSave);
     }
 
     /**
      * Deletes the object from the database.
      *
-     * @param E The object to be deleted.
+     * @param objectToDelete The object to be deleted.
      */
-    public void delete(E objectToDelete) {
+    public final void delete(final E objectToDelete) {
         sessionFactory.getCurrentSession().delete(objectToDelete);
     }
 
     /**
      * Edits the object from the database.
      *
-     * @param E The object to be edited.
+     * @param objectToEdit The object to be edited.
      */
-    public void edit(E objectToEdit) {
+    public final void edit(final E objectToEdit) {
         sessionFactory.getCurrentSession().update(objectToEdit);
     }
 
@@ -49,7 +50,7 @@ public abstract class AbstractDAO<E> {
      * @return a list which is empty if no element was found.
      */
     @SuppressWarnings("unchecked")
-    public List<E> loadAll() {
+    public final List<E> loadAll() {
         return sessionFactory.getCurrentSession().createQuery("from " + table).list();
     }
 
@@ -61,7 +62,16 @@ public abstract class AbstractDAO<E> {
      */
     public abstract E load(Long id);
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public final void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+    public final SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+    public final String getTable() {
+        return table;
+    }
+    public final void setTable(final String table) {
+        this.table = table;
     }
 }

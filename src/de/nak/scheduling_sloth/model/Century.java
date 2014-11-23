@@ -2,9 +2,7 @@ package de.nak.scheduling_sloth.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by patrickghahramanian on 28.10.14.
@@ -57,7 +55,7 @@ public class Century extends SchedulingObject {
         return breakTime;
     }
     public void setBreakTime(Integer breakTime) {
-        if(breakTime == null) {
+        if (breakTime == null) {
             this.breakTime = DEFAULT_BREAKTIME;
         } else {
             this.breakTime = breakTime;
@@ -72,7 +70,7 @@ public class Century extends SchedulingObject {
         this.numberOfStudents = numberOfStudents;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="century")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "century")
     public List<Course> getCourses() {
         return courses;
     }

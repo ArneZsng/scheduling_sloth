@@ -25,7 +25,7 @@ public class LecturerDAO extends AbstractDAO<Lecturer> {
      * @return a lecturer or null if no lecturer was found with the given identifier.
      */
     public Lecturer load(Long id) {
-        Lecturer lecturer =  (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+        Lecturer lecturer =  (Lecturer) getSessionFactory().getCurrentSession().get(Lecturer.class, id);
         if (lecturer != null) {
             Hibernate.initialize(lecturer.getCourses());
         }
@@ -39,7 +39,7 @@ public class LecturerDAO extends AbstractDAO<Lecturer> {
      * @return a lecturer or null if no lecturer was found with the given identifier.
      */
     public Lecturer loadWithLessons(Long id) {
-        Lecturer lecturer = (Lecturer) sessionFactory.getCurrentSession().get(Lecturer.class, id);
+        Lecturer lecturer = (Lecturer) getSessionFactory().getCurrentSession().get(Lecturer.class, id);
         if (lecturer != null) {
             List<Course> courses = lecturer.getCourses();
             for (Course course : courses) {
