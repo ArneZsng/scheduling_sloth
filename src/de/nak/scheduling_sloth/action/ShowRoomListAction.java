@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
 
@@ -17,9 +18,14 @@ public class ShowRoomListAction extends AbstractAction implements Action {
     private RoomService roomService;
 
     @Override
-    public String execute() throws Exception {
-        roomList = roomService.loadAllRooms();
-        return SUCCESS;
+    public String execute() {
+        try {
+            roomList = roomService.loadAllRooms();
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     public List<Room> getRoomList() {

@@ -34,7 +34,7 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     private Map availableRooms = new HashMap();
 
     @Override
-    public String execute() throws Exception {
+    public String execute() {
         initializeParams();
 
         // Check if start date is before end date

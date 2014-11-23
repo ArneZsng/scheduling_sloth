@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.CourseService;
@@ -28,10 +29,15 @@ public class ShowCourseAction extends AbstractAction implements Action {
      * @return the result string.
      */
     @Override
-    public String execute() throws Exception {
-        course = courseService.loadWithLessonsAndRooms(courseId);
-        setAudienceName(course.retrieveAudienceName());
-        return SUCCESS;
+    public String execute() {
+        try {
+            course = courseService.loadWithLessonsAndRooms(courseId);
+            setAudienceName(course.retrieveAudienceName());
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     public Course getCourse() {
