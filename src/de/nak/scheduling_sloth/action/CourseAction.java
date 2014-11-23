@@ -189,10 +189,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareLoad() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-        roomList = roomService.loadAllRooms();
+        loadCoreDate();
     }
 
     /**
@@ -218,15 +215,19 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareAdd() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-        roomList = roomService.loadAllRooms();
+        loadCoreDate();
 
         Calendar calendar = Calendar.getInstance();
         setStartDate(new Timestamp(calendar.getTimeInMillis()));
         calendar.add(Calendar.MINUTE, 30);
         setEndDate(new Timestamp(calendar.getTimeInMillis()));
+    }
+
+    private void loadCoreDate() {
+        lecturerList = lecturerService.loadAllLecturers();
+        cohortList = cohortService.loadAllCohorts();
+        centuryList = centuryService.loadAllCenturies();
+        roomList = roomService.loadAllRooms();
     }
 
     /**
@@ -302,10 +303,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareEditLessons() {
-        roomList = roomService.loadAllRooms();
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
+        loadCoreDate();
     }
 
     @SkipValidation
