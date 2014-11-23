@@ -287,6 +287,7 @@ public class CourseAction extends ActionSupport implements Preparable {
 
             course.getLessons().add(lesson);
         }
+        
         // Remove lessons if lower number of repetitions
         Collections.sort(course.getLessons());
         for (int i = numberOfLessons-1; i > numberOfRepetitions; i--) {
@@ -330,8 +331,6 @@ public class CourseAction extends ActionSupport implements Preparable {
                 addActionError(getText("msg.lecturerNotAvailable"));
             if (!lesson.audienceAvailable())
                 addActionError(getText("msg.audienceNotAvailable"));
-            if (!lesson.hasRoom())
-                addActionError(getText("msg.noRoomSelected"));
             if (!lesson.allRoomsAvailable())
                 addActionError(getText("msg.roomsNotAvailable"));
             if (!lesson.allRoomsBigEnough())
