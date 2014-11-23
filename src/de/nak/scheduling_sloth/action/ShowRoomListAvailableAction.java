@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.CenturyService;
 import de.nak.scheduling_sloth.service.CohortService;
@@ -50,31 +51,36 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     }
 
     private void initializeParams() {
-        for (Iterator i = availableRooms.keySet().iterator(); i.hasNext(); ) {
-            String id = (String) i.next();
-            Integer lessonNumber = Integer.parseInt(id);
-            List<Lesson> lessons = course.getLessons();
-            startDate = lessons.get(lessonNumber).getStartDate();
-            endDate = lessons.get(lessonNumber).getEndDate();
-        }
-
-        java.util.Date date = new java.util.Date();
-        if (startDate == null) {
-            setStartDate(new Timestamp(date.getTime()));
-        }
-        if (endDate == null && startDate != null) {
-            // Add 30 minutes to startDate
-            setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
-        }
-
-        if (course != null) {
-            if (course.getCohort().getId() != null && course.getCohort().getId() != -1) {
-                course.setCohort(cohortService.loadCohort(course.getCohort().getId()));
-            } else if (course.getCentury().getId() != null && course.getCentury().getId() != -1) {
-                course.setCentury(centuryService.loadCentury(course.getCentury().getId()));
+        try {
+            for (Iterator i = availableRooms.keySet().iterator(); i.hasNext(); ) {
+                String id = (String) i.next();
+                Integer lessonNumber = Integer.parseInt(id);
+                List<Lesson> lessons = course.getLessons();
+                startDate = lessons.get(lessonNumber).getStartDate();
+                endDate = lessons.get(lessonNumber).getEndDate();
             }
-            setRequiredSeats(course.retrieveAudienceSize());
+
+            java.util.Date date = new java.util.Date();
+            if (startDate == null) {
+                setStartDate(new Timestamp(date.getTime()));
+            }
+            if (endDate == null && startDate != null) {
+                // Add 30 minutes to startDate
+                setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
+            }
+
+            if (course != null) {
+                if (course.getCohort().getId() != null && course.getCohort().getId() != -1) {
+                    course.setCohort(cohortService.loadCohort(course.getCohort().getId()));
+                } else if (course.getCentury().getId() != null && course.getCentury().getId() != -1) {
+                    course.setCentury(centuryService.loadCentury(course.getCentury().getId()));
+                }
+                setRequiredSeats(course.retrieveAudienceSize());
+            }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
         }
+
     }
 
     @Override

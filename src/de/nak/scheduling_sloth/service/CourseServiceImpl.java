@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course loadWithLessonsAndRooms(long id) {
+    public Course loadWithLessonsAndRooms(long id) throws EntityNotFoundException {
         return courseDAO.loadWithLessonsAndRooms(id);
     }
 

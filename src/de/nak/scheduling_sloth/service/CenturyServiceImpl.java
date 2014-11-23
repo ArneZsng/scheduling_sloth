@@ -24,7 +24,7 @@ public class CenturyServiceImpl implements CenturyService {
     }
 
     @Override
-    public Century loadCenturyWithLessons(final Long id) {
+    public Century loadCenturyWithLessons(final Long id) throws EntityNotFoundException {
         return centuryDAO.loadWithLessons(id);
     }
 

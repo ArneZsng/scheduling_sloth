@@ -31,7 +31,7 @@ public interface RoomService {
      * @param id The identifier.
      * @return a lecturer or null.
      */
-    Room loadRoomWithLessons(Long id);
+    Room loadRoomWithLessons(Long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given room.

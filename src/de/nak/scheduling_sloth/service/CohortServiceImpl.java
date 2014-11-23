@@ -24,7 +24,7 @@ public class CohortServiceImpl implements CohortService {
     }
 
     @Override
-    public Cohort loadCohortWithLessons(Long id) {
+    public Cohort loadCohortWithLessons(Long id) throws EntityNotFoundException {
         return cohortDAO.loadWithLessons(id);
     }
 

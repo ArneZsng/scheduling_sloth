@@ -31,7 +31,7 @@ public interface CourseService {
      * @param id The identifier.
      * @return a course or null.
      */
-    Course loadWithLessonsAndRooms(long id);
+    Course loadWithLessonsAndRooms(long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given course.

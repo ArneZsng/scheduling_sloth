@@ -30,7 +30,7 @@ public interface LecturerService {
      * @param id The identifier.
      * @return a lecturer or null.
      */
-    Lecturer loadLecturerWithLessons(Long id);
+    Lecturer loadLecturerWithLessons(Long id) throws EntityNotFoundException;
 
     /**
      * Deletes the given lecturer.

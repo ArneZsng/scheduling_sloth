@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.service.LecturerService;
 
@@ -17,9 +18,14 @@ public class ShowLecturerListAction extends AbstractAction implements Action{
     private LecturerService lecturerService;
 
     @Override
-    public String execute() throws Exception {
-        lecturerList = lecturerService.loadAllLecturers();
-        return SUCCESS;
+    public String execute() {
+        try {
+            lecturerList = lecturerService.loadAllLecturers();
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     public List<Lecturer> getLecturerList() {

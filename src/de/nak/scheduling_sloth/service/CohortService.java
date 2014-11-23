@@ -31,7 +31,7 @@ public interface CohortService {
      * @param id The identifier.
      * @return a lecturer or null.
      */
-    Cohort loadCohortWithLessons(Long id);
+    Cohort loadCohortWithLessons(Long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given cohort.

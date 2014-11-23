@@ -24,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
     @Override
-    public Room loadRoomWithLessons(Long id) {
+    public Room loadRoomWithLessons(Long id) throws EntityNotFoundException {
         return roomDAO.loadWithLessons(id);
     }
 

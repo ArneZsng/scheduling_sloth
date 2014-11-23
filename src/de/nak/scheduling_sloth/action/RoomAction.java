@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -38,19 +39,21 @@ public class RoomAction extends AbstractAction implements Preparable{
      * @return the result string.
      */
     public String delete() {
-        String response;
-        room = roomService.loadRoom(roomId);
-
-        if (room == null) {
-            response = SUCCESS;
-        } else if (room.getLessons().isEmpty()) {
-            roomService.deleteRoom(room);
-            response = SUCCESS;
-        } else {
-            addActionError(getText("error.strong") + room.getName() + getText("error.room.delete"));
-            response = ERROR;
+        try {
+            room = roomService.loadRoom(roomId);
+            if (room.getLessons().isEmpty()) {
+                roomService.deleteRoom(room);
+                return SUCCESS;
+            } else {
+                addActionError(getText("error.strong") + room.getName() + getText("error.room.delete"));
+                return ERROR;
+            }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-        return response;
+
+
     }
 
     /**
@@ -59,14 +62,15 @@ public class RoomAction extends AbstractAction implements Preparable{
      * @return the result string.
      */
     public String load() {
-        room = roomService.loadRoom(roomId);
-        if (room == null) {
-            return ERROR;
-        } else {
+        try {
+            room = roomService.loadRoom(roomId);
             if (room.getBreakTime() != null) {
                 defaultBreakTime = room.getBreakTime();
             }
             return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
     }
 

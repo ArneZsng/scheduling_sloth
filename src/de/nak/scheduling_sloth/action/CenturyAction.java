@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Preparable;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CenturyService;
@@ -40,7 +41,7 @@ public class CenturyAction extends AbstractAction implements Preparable {
      *
      * @return the result string.
      */
-    public String save() {
+    public String save() throws EntityNotFoundException {
         cohortList = cohortService.loadAllCohorts();
         centuryService.saveCentury(century);
         return SUCCESS;
@@ -52,19 +53,19 @@ public class CenturyAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String delete() {
-        String response;
-        century = centuryService.loadCentury(centuryId);
-
-        if (century == null) {
-            response = SUCCESS;
-        } else if (century.getCourses().isEmpty()) {
-            centuryService.deleteCentury(century);
-            response = SUCCESS;
-        } else {
-            addActionError(getText("error.strong") + century.getName() + getText("error.century.delete"));
-            response = ERROR;
+        try {
+            century = centuryService.loadCentury(centuryId);
+            if (century.getCourses().isEmpty()) {
+                centuryService.deleteCentury(century);
+                return SUCCESS;
+            } else {
+                addActionError(getText("error.strong") + century.getName() + getText("error.century.delete"));
+                return ERROR;
+            }
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
         }
-        return response;
     }
 
     /**
@@ -73,16 +74,18 @@ public class CenturyAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
      public String load(){
-         century = centuryService.loadCentury(centuryId);
-         if (century == null) {
-             return ERROR;
-         } else {
+         try {
+             century = centuryService.loadCentury(centuryId);
              if (century.getBreakTime() != null) {
                  defaultBreakTime = century.getBreakTime();
              }
              return SUCCESS;
+         } catch (EntityNotFoundException e) {
+             addActionError(getText(e.getMessage()));
+             return ERROR;
          }
      }
+
 
     /**
      * Cancels the editing.
@@ -117,7 +120,7 @@ public class CenturyAction extends AbstractAction implements Preparable {
     /**
      * Load all Cohorts for selection and sets the default breakTime
      */
-    public void prepare() {
+    public void prepare() throws EntityNotFoundException {
         cohortList = cohortService.loadAllCohorts();
         if(cohortList == null) {
             cohortList = new ArrayList<Cohort>();

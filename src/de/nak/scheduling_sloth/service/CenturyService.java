@@ -30,7 +30,7 @@ public interface CenturyService {
      * @param id The identifier.
      * @return a lecturer or null.
      */
-    Century loadCenturyWithLessons(Long id);
+    Century loadCenturyWithLessons(Long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given century.
