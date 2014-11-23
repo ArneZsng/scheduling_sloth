@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.LecturerDAO;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lecturer;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
-    public Lecturer loadLecturer(Long id) {
+    public Lecturer loadLecturer(Long id) throws EntityNotFoundException {
         return lecturerDAO.load(id);
     }
 
@@ -36,7 +37,7 @@ public class LecturerServiceImpl implements LecturerService {
     }
 
     @Override
-    public List<Lecturer> loadAllLecturers() {
+    public List<Lecturer> loadAllLecturers() throws EntityNotFoundException{
         return lecturerDAO.loadAll();
     }
 

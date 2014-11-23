@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface LecturerService {
      * @param id The identifier.
      * @return a lecturer or null.
      */
-    Lecturer loadLecturer(Long id);
+    Lecturer loadLecturer(Long id) throws EntityNotFoundException;
 
     /**
      * Loads a single lecturer with lessons and courses.
@@ -43,6 +44,6 @@ public interface LecturerService {
      *
      * @return a list which is empty if no lecturer was found.
      */
-    List<Lecturer> loadAllLecturers();
+    List<Lecturer> loadAllLecturers() throws EntityNotFoundException;
 
 }

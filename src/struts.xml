@@ -11,16 +11,51 @@
             <exception-mapping exception="java.lang.Exception" result="error" />
         </global-exception-mappings>
         -->
+        <interceptors>
+            <interceptor name="redirectMessage"
+                         class="de.nak.scheduling_sloth.interceptor.RedirectMessageInterceptor" />
+            <interceptor-stack name="slothInterceptorStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="multiselect"/>
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="actionMappingParams"/>
+                <interceptor-ref name="redirectMessage" />
+                <interceptor-ref name="params">
+                    <param name="excludeParams">dojo\..*,^struts\..*</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">add, load, delete, cancel</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="slothInterceptorStack" />
 
-		<!-- Action that displays the list of lecturers. -->
+
+        <!-- Action that displays the list of lecturers. -->
 		<action name="ShowLecturerList" class="de.nak.scheduling_sloth.action.ShowLecturerListAction">
-			<result type="tiles">lecturerList</result>
+            <result type="tiles">lecturerList</result>
+            <result type="tiles" name="input">lecturerList</result>
 		</action>
 
         <!-- Action that displays a single lecturer. -->
         <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
             <result type="tiles" name="success">lecturerShow</result>
-            <result type="redirect" name="error">Error</result>
+            <result type="redirectAction" name="error">ShowLecturerList.action</result>
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
@@ -149,7 +184,7 @@
 
         <!-- Action that displays a single century. -->
         <action name="ShowCentury" class="de.nak.scheduling_sloth.action.ShowCenturyAction" method="execute">
-            <result name="error" type="redirect">Error</result>
+            <result name="error" type="chain">Error</result>
             <result name="success" type="tiles">centuryShow</result>
         </action>
 
@@ -260,6 +295,7 @@
         <!-- Shows Error Page. -->
         <action name="Error">
             <result type="tiles">error</result>
+            <result type="tiles" name="input">error</result>
         </action>
 
 	</package>

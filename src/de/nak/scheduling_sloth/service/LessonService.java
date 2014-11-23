@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lesson;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface LessonService {
 	 * @param id The identifier.
 	 * @return a lesson or null.
 	 */
-     Lesson loadLesson(Long id);
+     Lesson loadLesson(Long id) throws EntityNotFoundException;
 
 	/**
 	 * Deletes the given lesson.
@@ -36,7 +37,7 @@ public interface LessonService {
 	 *
 	 * @return a list which is empty if no lesson was found.
 	 */
-	List<Lesson> loadAllLessons();
+	List<Lesson> loadAllLessons() throws EntityNotFoundException;
 
     /**
      * Loads a list of all lessons in a specific week.

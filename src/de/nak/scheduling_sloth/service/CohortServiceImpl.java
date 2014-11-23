@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.CohortDAO;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Cohort;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class CohortServiceImpl implements CohortService {
 	}
 
     @Override
-    public Cohort loadCohort(Long id) {
+    public Cohort loadCohort(Long id) throws EntityNotFoundException {
         return cohortDAO.load(id);
     }
 
@@ -33,7 +34,7 @@ public class CohortServiceImpl implements CohortService {
 	}
 
 	@Override
-	public List<Cohort> loadAllCohorts() {
+	public List<Cohort> loadAllCohorts() throws EntityNotFoundException {
 		return cohortDAO.loadAll();
 	}
 

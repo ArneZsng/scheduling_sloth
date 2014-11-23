@@ -1,5 +1,6 @@
 package de.nak.scheduling_sloth.service;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface RoomService {
 	 * @param id The identifier.
 	 * @return a room or null.
 	 */
-	Room loadRoom(Long id);
+	Room loadRoom(Long id) throws EntityNotFoundException;
 
     /**
      * Loads a single room with lessons and courses.
@@ -44,7 +45,7 @@ public interface RoomService {
 	 *
 	 * @return a list which is empty if no room was found.
 	 */
-	List<Room> loadAllRooms();
+	List<Room> loadAllRooms() throws EntityNotFoundException;
 
     /**
      * Loads a list of all rooms including lessons.

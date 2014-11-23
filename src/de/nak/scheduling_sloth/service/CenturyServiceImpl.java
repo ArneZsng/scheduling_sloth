@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.CenturyDAO;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Century;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class CenturyServiceImpl implements CenturyService {
 	}
 
     @Override
-    public Century loadCentury(final Long id) {
+    public Century loadCentury(final Long id) throws EntityNotFoundException {
         return centuryDAO.load(id);
     }
 
@@ -33,7 +34,7 @@ public class CenturyServiceImpl implements CenturyService {
 	}
 
 	@Override
-	public List<Century> loadAllCenturies() {
+	public List<Century> loadAllCenturies() throws EntityNotFoundException {
 		return centuryDAO.loadAll();
 	}
 

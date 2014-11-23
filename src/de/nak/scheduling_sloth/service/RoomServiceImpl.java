@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.RoomDAO;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public Room loadRoom(Long id) {
+	public Room loadRoom(Long id) throws EntityNotFoundException {
 		return roomDAO.load(id);
 	}
 
@@ -33,7 +34,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<Room> loadAllRooms() {
+	public List<Room> loadAllRooms() throws EntityNotFoundException {
 		return roomDAO.loadAll();
 	}
 

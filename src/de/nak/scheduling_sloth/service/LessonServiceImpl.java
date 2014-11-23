@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.LessonDAO;
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.utilities.Utilities;
 
@@ -21,7 +22,7 @@ public class LessonServiceImpl implements LessonService {
 	}
 
     @Override
-    public Lesson loadLesson(Long id) {
+    public Lesson loadLesson(Long id) throws EntityNotFoundException {
         return lessonDAO.load(id);
     }
 
@@ -31,7 +32,7 @@ public class LessonServiceImpl implements LessonService {
 	}
 
 	@Override
-	public List<Lesson> loadAllLessons() {
+	public List<Lesson> loadAllLessons() throws EntityNotFoundException {
 		return lessonDAO.loadAll();
 	}
 
