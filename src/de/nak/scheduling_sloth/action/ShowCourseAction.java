@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowCourseAction extends AbstractAction implements Action {
+public class ShowCourseAction extends AbstractAction {
     /** The current course. */
     private Course course;
     /** The course's identifier selected by the user. */

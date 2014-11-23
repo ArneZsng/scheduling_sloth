@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CohortService;
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class ShowCohortListAction extends AbstractAction implements Action {
+public class ShowCohortListAction extends AbstractAction implements Preparable {
     /** The list of cohorts. */
     private List<Cohort> cohortList;
 
@@ -18,13 +19,11 @@ public class ShowCohortListAction extends AbstractAction implements Action {
     private CohortService cohortService;
 
     @Override
-    public String execute() {
+    public void prepare() {
         try {
             cohortList = cohortService.loadAllCohorts();
-            return SUCCESS;
         } catch (EntityNotFoundException e) {
             addActionError(getText(e.getMessage()));
-            return ERROR;
         }
     }
 

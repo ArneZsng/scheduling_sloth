@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowScheduleAction extends AbstractAction implements Action {
+public class ShowScheduleAction extends AbstractAction {
     /** The passed calendar week. */
     private Integer week = 0;
     /** The passed year. */

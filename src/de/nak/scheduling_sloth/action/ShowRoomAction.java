@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowRoomAction extends AbstractAction implements Action {
+public class ShowRoomAction extends AbstractAction {
     /** The current room. */
     private Room room;
     /** The room's identifier selected by the user. */
