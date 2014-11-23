@@ -17,7 +17,6 @@ public abstract class AbstractAction extends ActionSupport {
      * @return Active user language
      */
     public final String getLocalLang() {
-        RequestContextUtils.getLocale(request);
         return LocaleContextHolder.getLocale().getLanguage();
     }
 }
