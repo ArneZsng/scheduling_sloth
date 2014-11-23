@@ -59,7 +59,8 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <s:if test="collisionFlag">
-                <s:submit key="btn.ignoreAndsubmit" action="SaveCourse" cssClass="btn btn-primary"/>
+                <s:submit key="btn.checkAgain" action="EditCourseLessonsRecheck" cssClass="btn btn-primary"/>
+                <s:submit key="btn.ignoreAndSubmit" action="SaveCourse" cssClass="btn btn-default"/>
             </s:if>
             <s:else>
                 <s:submit key="btn.submit" action="SaveCourse" cssClass="btn btn-primary"/>
