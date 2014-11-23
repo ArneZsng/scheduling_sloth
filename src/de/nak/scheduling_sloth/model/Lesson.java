@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Represents the lesson business logic with collision checks.
+ *
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 @Entity
 public class Lesson implements Comparable<Lesson> {

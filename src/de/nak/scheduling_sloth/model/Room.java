@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Room entity
+ * Represents the room business logic.
  *
- * Created by patrickghahramanian on 28.10.14.
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 @Entity
 public class Room extends SchedulingObject {
     /** The default breakTime of the room **/
-    public static int DEFAULT_BREAKTIME = 0;
+    public static final int DEFAULT_BREAKTIME = 0;
     /** The identifier. */
     private Long id;
     /** The name of the room. */
@@ -79,6 +81,12 @@ public class Room extends SchedulingObject {
         return getBreakTime();
     }
 
+    /**
+     * Check if a given audience (via size) fits into the room.
+     *
+     * @param audienceSize size of audience
+     * @return big enough
+     */
     public Boolean bigEnough(Integer audienceSize) {
         return audienceSize <= availableSeats;
     }

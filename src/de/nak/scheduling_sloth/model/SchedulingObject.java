@@ -6,14 +6,32 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * Created by arne on 04/11/14.
+ * Represents the business logic for all object which can be scheduled.
+ *
+ * @author      <werwardas?> <>
+ * @version     1.0
+ * @since       2014-10-30
  */
 public abstract class SchedulingObject {
 
+    /**
+     * Retrieve the break time for this object.
+     * @return break time.
+     */
     abstract public Integer retrieveBreakTime();
 
+    /**
+     * Retrieve all scheduled lessons for this object.
+     * @return lessons
+     */
     abstract public List<Lesson> retrieveLessons();
 
+    /**
+     * Check if the object is bookable by giving a lesson.
+     *
+     * @param givenLesson lesson to check for
+     * @return is bookable
+     */
     public Boolean timeSlotAvailableFor(Lesson givenLesson) {
         List<Lesson> lessons = retrieveLessons();
         for (Lesson lesson : lessons) {
@@ -25,6 +43,13 @@ public abstract class SchedulingObject {
         return true;
     }
 
+    /**
+     * Check if time slot is available.
+     *
+     * @param startTimestamp start date of slot
+     * @param endTimestamp end date of slot
+     * @return is available
+     */
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
         List<Lesson> lessons = retrieveLessons();
         for (Lesson lesson : lessons) {
@@ -37,7 +62,13 @@ public abstract class SchedulingObject {
         return true;
     }
 
-    /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */
+    /**
+     * Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday.
+     *
+     * @param week
+     * @param year
+     * @return
+     */
     public List<Lesson> retrieveLessonsInWeek(int week, int year) {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 1); //Let week begin on Monday
@@ -49,6 +80,13 @@ public abstract class SchedulingObject {
         return retrieveLessonsBetween(startTimestamp, endTimestamp);
     }
 
+    /**
+     * Get all lessons scheduled for a given time period.
+     *
+     * @param startTimestamp start date of period
+     * @param endTimestamp end date of period
+     * @return scheduled lessons
+     */
     protected List<Lesson> retrieveLessonsBetween(Timestamp startTimestamp, Timestamp endTimestamp) {
         List<Lesson> lessons = retrieveLessons();
         List<Lesson> lessonsBetweenDates = new ArrayList<Lesson> ();
