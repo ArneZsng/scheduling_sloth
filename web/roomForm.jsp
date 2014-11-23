@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="room.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
+        <s:label for="room.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-10">
             <s:textfield type="number" name="room.breakTime" size="4" maxlength="4" value="%{defaultBreakTime}" cssClass="form-control"/>
         </div>

@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
+        <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-3">
             <s:textfield type="number" name="course.breakTime" size="4" maxlength="4" cssClass="form-control"/>
         </div>
