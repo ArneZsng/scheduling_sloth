@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
@@ -9,7 +8,7 @@ import org.apache.struts2.interceptor.validation.SkipValidation;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class RoomAction extends ActionSupport implements Preparable{
+public class RoomAction extends AbstractAction implements Preparable{
     private static final long serialVersionUID = 6411696302084986323L;
     /** The current room. */
     private Room room;

@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.CenturyService;
@@ -13,7 +12,7 @@ import java.util.*;
 /**
  * Created by arne on 19.11.14.
  */
-public class ShowRoomListAvailableAction extends ActionSupport implements Preparable {
+public class ShowRoomListAvailableAction extends AbstractAction implements Preparable {
     /** The list of rooms. */
     private List<Room> roomList = new ArrayList<Room>();
     /** Start date of the lesson. */

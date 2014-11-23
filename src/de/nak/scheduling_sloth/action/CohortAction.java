@@ -8,7 +8,7 @@ import de.nak.scheduling_sloth.service.CohortService;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class CohortAction extends ActionSupport {
+public class CohortAction extends AbstractAction {
     private static final long serialVersionUID = -4754341871128447493L;
     /** The current cohort. */
     private Cohort cohort;

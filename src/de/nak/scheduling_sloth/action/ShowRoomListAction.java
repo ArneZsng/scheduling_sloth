@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class ShowRoomListAction implements Action {
+public class ShowRoomListAction extends AbstractAction implements Action {
     /** The list of rooms. */
     private List<Room> roomList;
 

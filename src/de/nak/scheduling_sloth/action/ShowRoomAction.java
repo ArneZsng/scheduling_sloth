@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowRoomAction implements Action {
+public class ShowRoomAction extends AbstractAction implements Action {
     /** The current room. */
     private Room room;
     /** The room's identifier selected by the user. */

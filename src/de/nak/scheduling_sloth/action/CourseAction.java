@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class CourseAction extends ActionSupport implements Preparable {
+public class CourseAction extends AbstractAction implements Preparable {
     private static final long serialVersionUID = -2085704409810512813L;
     /** The current course. */
     private Course course;

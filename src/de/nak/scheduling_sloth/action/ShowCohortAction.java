@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowCohortAction implements Action {
+public class ShowCohortAction extends AbstractAction implements Action {
     /** The current cohort. */
     private Cohort cohort;
     /** The cohort's identifier selected by the user. */

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class ShowCohortListAction implements Action {
+public class ShowCohortListAction extends AbstractAction implements Action {
     /** The list of cohorts. */
     private List<Cohort> cohortList;
 

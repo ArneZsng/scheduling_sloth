@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowLecturerAction implements Action {
+public class ShowLecturerAction extends AbstractAction implements Action {
     /** The current lecturer. */
     private Lecturer lecturer;
     /** The lecturer's identifier selected by the user. */

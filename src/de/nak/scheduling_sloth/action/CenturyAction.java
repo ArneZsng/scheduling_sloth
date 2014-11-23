@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Cohort;
@@ -15,7 +14,7 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class CenturyAction extends ActionSupport implements Preparable {
+public class CenturyAction extends AbstractAction implements Preparable {
     private static final long serialVersionUID = 579538793082702877L;
     /** The current century. */
     private Century century;

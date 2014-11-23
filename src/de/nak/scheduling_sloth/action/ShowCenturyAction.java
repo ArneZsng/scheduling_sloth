@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowCenturyAction implements Action {
+public class ShowCenturyAction extends AbstractAction implements Action {
     /** The current century. */
     private Century century;
     /** The century's identifier selected by the user. */

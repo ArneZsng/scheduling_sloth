@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowLecturerListAction implements Action{
+public class ShowLecturerListAction extends AbstractAction implements Action{
     /** The list of lecturers. */
     private List<Lecturer> lecturerList;
 

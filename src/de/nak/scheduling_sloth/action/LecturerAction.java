@@ -1,22 +1,16 @@
 package de.nak.scheduling_sloth.action;
 
-
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Lecturer;
-import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.LecturerService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Action for a single lecturer.
  *
  * Created by arne on 10/28/14.
  */
-public class LecturerAction extends ActionSupport implements Preparable {
+public class LecturerAction extends AbstractAction implements Preparable {
     /** Serial version UID. */
     private static final long serialVersionUID = 6548293890662119587L;
 

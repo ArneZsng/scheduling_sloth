@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by patrickghahramanian on 28.10.14.
  */
-public class ShowCenturyListAction implements Action {
+public class ShowCenturyListAction extends AbstractAction implements Action {
     /** The list of centuries. */
     private List<Century> centuryList;
 
