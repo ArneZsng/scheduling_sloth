@@ -81,7 +81,6 @@
             <s:submit key="btn.showAvailableRooms"
                       action="ShowRoomListAvailable"
                       cssClass="btn btn-info"
-                      target="_blank"
                       onclick="this.form.target='_blank';return true;" />
         </div>
     </div>
@@ -96,14 +95,26 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <s:if test="collisionFlag">
-                <s:submit key="btn.checkAgain" action="EditCourseRecheck" cssClass="btn btn-primary"/>
-                <s:submit key="btn.ignoreAndsubmit" action="EditCourseLessons" cssClass="btn btn-default"/>
+                <s:submit key="btn.checkAgain"
+                          action="EditCourseRecheck"
+                          cssClass="btn btn-primary"
+                          onclick="this.form.target='_self';return true;" />
+                <s:submit key="btn.ignoreAndsubmit"
+                          action="EditCourseLessons"
+                          cssClass="btn btn-default"
+                          onclick="this.form.target='_self';return true;" />
             </s:if>
             <s:else>
-                <s:submit key="btn.submit" action="EditCourseLessons" cssClass="btn btn-primary"/>
+                <s:submit key="btn.submit"
+                          action="EditCourseLessons"
+                          cssClass="btn btn-primary"
+                          onclick="this.form.target='_self';return true;" />
             </s:else>
 
-            <s:submit key="btn.cancel" action="CancelCourse" cssClass="btn btn-danger"/>
+            <s:submit key="btn.cancel"
+                      action="CancelCourse"
+                      cssClass="btn btn-danger"
+                      onclick="this.form.target='_self';return true;" />
         </div>
     </div>
 
