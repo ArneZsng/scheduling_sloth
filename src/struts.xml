@@ -34,7 +34,7 @@
 			<result type="tiles" name="input">lecturerForm</result>
 		</action>
 
-		<!-- Loads a existing car and shows it in the car form. -->
+		<!-- Loads a existing lecturer and shows it in the lecturer form. -->
 		<action name="EditLecturer" class="de.nak.scheduling_sloth.action.LecturerAction" method="load">
             <result name="error" type="redirect">Error</result>
             <result type="tiles" name="success">lecturerForm</result>
@@ -82,7 +82,7 @@
             <result type="tiles" name="input">roomForm</result>
         </action>
 
-        <!-- Loads a existing car and shows it in the car form. -->
+        <!-- Loads a existing room and shows it in the room form. -->
         <action name="EditRoom" class="de.nak.scheduling_sloth.action.RoomAction" method="load">
             <result name="error" type="redirect">Error</result>
             <result type="tiles" name="success">roomForm</result>
