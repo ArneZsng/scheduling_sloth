@@ -68,10 +68,20 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
         }
 
         if (course != null) {
-            if (course.getCohort().getId() != null && course.getCohort().getId() != -1) {
-                course.setCohort(cohortService.loadCohort(course.getCohort().getId()));
-            } else if (course.getCentury().getId() != null && course.getCentury().getId() != -1) {
+            if (course.getCentury() != null
+                    && course.getCentury().getId() != null
+                    && course.getCentury().getId() != -1) {
+                course.setCohort(null);
                 course.setCentury(centuryService.loadCentury(course.getCentury().getId()));
+            } else {
+                course.setCentury(null);
+            }
+            if (course.getCohort() != null
+                    && course.getCohort().getId() != null
+                    && course.getCohort().getId() != -1) {
+                course.setCohort(cohortService.loadCohort(course.getCohort().getId()));
+            } else {
+                course.setCohort(null);
             }
             setRequiredSeats(course.retrieveAudienceSize());
         }
@@ -95,7 +105,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
             return false;
         }
     }
-
 
     public Timestamp getStartDate() {
         return startDate;
