@@ -20,7 +20,7 @@
         <s:label for="endDate" cssClass="col-sm-2 control-label" key="lbl.endDate" />
         <div class="col-sm-10">
             <div class='input-group date datetimepicker'>
-                <s:textfield name="endDate" value="%{endDate}" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
+                <s:textfield name="endDate" value="%{endDate}" size="40" maxlength="100" cssClass="form-control"/>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -30,7 +30,7 @@
     <div class="form-group">
         <s:label for="requiredSeats" cssClass="col-sm-2 control-label" key="lbl.requiredSeats" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="requiredSeats" size="5" maxlength="5" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield type="number" name="requiredSeats" size="5" maxlength="5" cssClass="form-control"/>
         </div>
     </div>
 

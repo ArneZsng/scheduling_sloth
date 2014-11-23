@@ -10,19 +10,19 @@
     <div class="form-group">
         <s:label for="cohort.name" cssClass="col-sm-2 control-label" key="lbl.name" />
         <div class="col-sm-10">
-            <s:textfield name="cohort.name" size="40" maxlength="100" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="cohort.name" size="40" maxlength="100" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <s:label for="cohort.major" cssClass="col-sm-2 control-label" key="lbl.major" />
         <div class="col-sm-10">
-            <s:textfield name="cohort.major" size="30" maxlength="80" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield name="cohort.major" size="30" maxlength="80" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <s:label for="cohort.year" cssClass="col-sm-2 control-label" key="lbl.year" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="cohort.year" size="4" maxlength="4" requiredLabel="true"  cssClass="form-control"/>
+            <s:textfield type="number" name="cohort.year" size="4" maxlength="4" cssClass="form-control"/>
         </div>
     </div>
 

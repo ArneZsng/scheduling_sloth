@@ -10,13 +10,13 @@
     <div class="form-group">
         <s:label for="lecturer.name" cssClass="col-sm-2 control-label" key="lbl.name" />
         <div class="col-sm-10">
-            <s:textfield name="lecturer.name" size="40" maxlength="100" requiredLabel="true" cssClass="form-control"/>
+            <s:textfield name="lecturer.name" size="40" maxlength="100" cssClass="form-control"/>
         </div>
     </div>
     <div class="form-group">
         <s:label for="lecturer.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-10">
-            <s:textfield type="number" name="lecturer.breakTime" size="4" maxlength="4" requiredLabel="true" value="%{defaultBreakTime}" cssClass="form-control"/>
+            <s:textfield type="number" name="lecturer.breakTime" size="4" maxlength="4" value="%{defaultBreakTime}" cssClass="form-control"/>
         </div>
     </div>
 
