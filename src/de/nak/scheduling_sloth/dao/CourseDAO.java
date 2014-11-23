@@ -44,7 +44,7 @@ public class CourseDAO extends AbstractDAO<Course> {
     public Course loadWithLessonsAndRooms(Long id) throws EntityNotFoundException {
         Session session = getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Course course = load(id);
+        Course course = (Course) session.get(Course.class, id);
         for (Lesson lesson: course.getLessons()) {
             Hibernate.initialize(lesson.getRooms());
         }
