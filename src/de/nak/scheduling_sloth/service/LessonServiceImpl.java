@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.dao.LessonDAO;
 import de.nak.scheduling_sloth.model.Lesson;
+import de.nak.scheduling_sloth.utilities.Utilities;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -36,9 +37,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<Lesson> loadAllLessonsInWeek(Integer week, Integer year) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 1); //Let week begin on Monday
         Timestamp startDate = new Timestamp(calendar.getTimeInMillis());
 

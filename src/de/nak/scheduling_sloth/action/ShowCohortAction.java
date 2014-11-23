@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.CohortService;
+import de.nak.scheduling_sloth.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,9 +49,7 @@ public class ShowCohortAction implements Action {
         cohort = cohortService.loadCohortWithLessons(cohortId);
         if (cohort != null) {
             if (week == 0 || year == 0) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setFirstDayOfWeek(1);
-                calendar.setMinimalDaysInFirstWeek(1);
+                Calendar calendar = Utilities.getSchedulingCalendar();
                 week = calendar.get(Calendar.WEEK_OF_YEAR);
                 year = calendar.get(Calendar.YEAR);
             }
@@ -66,7 +65,7 @@ public class ShowCohortAction implements Action {
             }
 
             // Populate years for select box, starting 2 years ago
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Utilities.getSchedulingCalendar();
             int currentYear = calendar.get(Calendar.YEAR);
             for (int j = -2; j < 10; j++) {
                 years.add(Integer.toString(currentYear + j));
@@ -79,9 +78,7 @@ public class ShowCohortAction implements Action {
     }
 
     private void initPreviousWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         weekOfPreviousWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -89,9 +86,7 @@ public class ShowCohortAction implements Action {
     }
 
     private void initNextWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, 7);
         weekOfNextWeek = calendar.get(Calendar.WEEK_OF_YEAR);

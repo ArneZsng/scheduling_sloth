@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.LessonService;
+import de.nak.scheduling_sloth.utilities.Utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,9 +43,7 @@ public class ShowScheduleAction implements Action {
     @Override
     public String execute() throws Exception {
         if (week == 0 || year == 0) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setFirstDayOfWeek(1);
-            calendar.setMinimalDaysInFirstWeek(1);
+            Calendar calendar = Utilities.getSchedulingCalendar();
             week = calendar.get(Calendar.WEEK_OF_YEAR);
             year = calendar.get(Calendar.YEAR);
         }
@@ -60,7 +59,7 @@ public class ShowScheduleAction implements Action {
         }
 
         // Populate years for select box, starting 2 years ago
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Utilities.getSchedulingCalendar();
         int currentYear = calendar.get(Calendar.YEAR);
         for (int j = -2; j < 10; j++) {
             years.add(Integer.toString(currentYear + j));
@@ -70,9 +69,7 @@ public class ShowScheduleAction implements Action {
     }
 
     private void initPreviousWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         weekOfPreviousWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -80,9 +77,7 @@ public class ShowScheduleAction implements Action {
     }
 
     private void initNextWeek() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, 7);
         weekOfNextWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -98,18 +93,14 @@ public class ShowScheduleAction implements Action {
     }
 
     public String getStartDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 1);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(calendar.getTime());
     }
 
     public String getEndDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(1);
-        calendar.setMinimalDaysInFirstWeek(1);
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(calendar.getTime());

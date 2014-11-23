@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.*;
+import de.nak.scheduling_sloth.utilities.Utilities;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import java.sql.Timestamp;
@@ -222,7 +223,7 @@ public class CourseAction extends ActionSupport implements Preparable {
         centuryList = centuryService.loadAllCenturies();
         roomList = roomService.loadAllRooms();
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Utilities.getSchedulingCalendar();
         setStartDate(new Timestamp(calendar.getTimeInMillis()));
         calendar.add(Calendar.MINUTE, 30);
         setEndDate(new Timestamp(calendar.getTimeInMillis()));
@@ -278,12 +279,12 @@ public class CourseAction extends ActionSupport implements Preparable {
             Lesson lesson = new Lesson();
             lesson.setCourse(course);
 
-            Calendar startCalendar = Calendar.getInstance();
+            Calendar startCalendar = Utilities.getSchedulingCalendar();
             startCalendar.setTimeInMillis(startDate.getTime());
             startCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
             lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
 
-            Calendar endCalendar = Calendar.getInstance();
+            Calendar endCalendar = Utilities.getSchedulingCalendar();
             endCalendar.setTimeInMillis(endDate.getTime());
             endCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
             lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));

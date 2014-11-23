@@ -1,5 +1,7 @@
 package de.nak.scheduling_sloth.model;
 
+import de.nak.scheduling_sloth.utilities.Utilities;
+
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -53,7 +55,7 @@ public abstract class SchedulingObject {
 
     /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */
     public List<Lesson> retrieveLessonsInWeek(int week, int year) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 1); //Let week begin on Monday
         Timestamp startTimestamp = new Timestamp(calendar.getTimeInMillis());
 
