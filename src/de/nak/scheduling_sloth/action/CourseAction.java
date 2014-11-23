@@ -175,11 +175,12 @@ public class CourseAction extends ActionSupport implements Preparable {
      */
     @SkipValidation
     public String load(){
-     course = courseService.loadCourse(courseId);
+     course = courseService.loadWithLessonsAndRooms(courseId);
      if (course != null) {
          numberOfRepetitions = course.getLessons().size() - 1;
          startDate = course.retrieveStartDate();
          endDate = course.retrieveEndDate();
+         selectedRooms = getRoomIdsFromList(course.retrieveRoomsOfFirstLesson());
          return SUCCESS;
      } else {
         return ERROR;

@@ -147,6 +147,10 @@ public class Course {
         return result;
     }
 
+    public List<Room> retrieveRoomsOfFirstLesson() {
+        return lessons.get(0).getRooms();
+    }
+
     public String retrieveAudienceName() {
         if (cohort != null) {
             return cohort.getName();

@@ -75,7 +75,7 @@
     <div class="form-group">
         <s:label for="rooms" cssClass="col-sm-2 control-label" key="lbl.roomsOfFirstLesson" />
         <div class="col-sm-6">
-            <s:select name="rooms" list="roomList" listKey="id" listValue="name" cssClass ="form-control" multiple="true" />
+            <s:select name="rooms" list="roomList" value="selectedRooms" listKey="id" listValue="name" cssClass ="form-control" multiple="true" />
         </div>
         <div class="col-sm-4">
             <s:submit key="btn.showAvailableRooms"
