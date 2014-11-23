@@ -5,6 +5,9 @@
 		"http://struts.apache.org/dtds/struts-2.1.dtd">
 
 <struts>
+    <constant name="struts.xwork.chaining.copyErrors" value="true"/>
+    <constant name="struts.xwork.chaining.copyFieldErrors" value="true"/>
+    <constant name="struts.xwork.chaining.copyMessages" value="true"/>
 	<package name="default" extends="tiles-default">
         <!--
         <global-exception-mappings>
@@ -45,7 +48,6 @@
         </interceptors>
         <default-interceptor-ref name="slothInterceptorStack" />
 
-
         <!-- Action that displays the list of lecturers. -->
 		<action name="ShowLecturerList" class="de.nak.scheduling_sloth.action.ShowLecturerListAction">
             <result type="tiles">lecturerList</result>
@@ -55,7 +57,7 @@
         <!-- Action that displays a single lecturer. -->
         <action name="ShowLecturer" class="de.nak.scheduling_sloth.action.ShowLecturerAction" method="execute">
             <result type="tiles" name="success">lecturerShow</result>
-            <result type="redirectAction" name="error">ShowLecturerList.action</result>
+            <result type="redirect" name="error">ShowLecturerList</result>
         </action>
 
 		<!-- Shows the empty form for a new lecturer. -->
