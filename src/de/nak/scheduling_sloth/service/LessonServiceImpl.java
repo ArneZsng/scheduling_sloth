@@ -37,6 +37,8 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lesson> loadAllLessonsInWeek(Integer week, Integer year) {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(1);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.setWeekDate(year, week, 1); //Let week begin on Monday
         Timestamp startDate = new Timestamp(calendar.getTimeInMillis());
 
