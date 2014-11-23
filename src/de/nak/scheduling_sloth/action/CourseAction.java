@@ -106,9 +106,12 @@ public class CourseAction extends ActionSupport implements Preparable {
             }
             lesson.setRooms(selectedRoomList);
 
-            if (!isValid(course, lesson)) {
+            if (!isValidLesson(course, lesson)) {
                 return ERROR;
             }
+        }
+        if (!isValidCourse(course)) {
+            return ERROR;
         }
         // Save course & lessons
         courseService.saveCourse(course);
@@ -264,7 +267,7 @@ public class CourseAction extends ActionSupport implements Preparable {
             }
             lesson.setRooms(rooms);
 
-            if (!isValid(course, lesson)) {
+            if (!isValidLesson(course, lesson) || !isValidCourse(course)) {
                 return ERROR;
             }
 
@@ -294,6 +297,19 @@ public class CourseAction extends ActionSupport implements Preparable {
             course.getLessons().add(lesson);
         }
 
+        // Populate first lesson with settings from course form
+        if (numberOfLessons >= 1) {
+            Lesson lesson = course.retrieveFirstLesson();
+            lesson.setStartDate(startDate);
+            lesson.setEndDate(endDate);
+
+            List<Room> rooms = new ArrayList<Room>();
+            for (Long roomId: selectedRooms) {
+                rooms.add(roomService.loadRoom(roomId));
+            }
+            lesson.setRooms(rooms);
+        }
+
         // Remove lessons if lower number of repetitions
         Collections.sort(course.getLessons());
         for (int i = numberOfLessons - 1; i > numberOfRepetitions; i--) {
@@ -318,9 +334,9 @@ public class CourseAction extends ActionSupport implements Preparable {
      *
      * @param course Course which will be checked
      * @param lesson Lesson which will be checked
-     * @return isValid Are course and lessons valid as is
+     * @return isValidLesson Are course and lessons valid as is
      */
-    private Boolean isValid(Course course, Lesson lesson) {
+    private Boolean isValidLesson(Course course, Lesson lesson) {
         // Check if start date is before end date
         if (!lesson.startDateBeforeEndDate()) {
             addActionError(getText("msg.startDateBeforeEndDate"));
@@ -348,6 +364,25 @@ public class CourseAction extends ActionSupport implements Preparable {
             }
             if (!lesson.allRoomsBigEnough()) {
                 addActionError(getText("msg.roomsNotBigEnough"));
+            }
+            if (hasActionErrors()) {
+                collisionFlag = true;
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validates for business logic of course
+     *
+     * @param course Course which will be checked
+     * @return isValidCourse Is course valid as is
+     */
+    private Boolean isValidCourse(Course course) {
+        if (!collisionFlag || recheck) {
+            if (!course.noLessonsCollide()) {
+                addActionError(getText("msg.lessonsCollide"));
             }
             if (hasActionErrors()) {
                 collisionFlag = true;

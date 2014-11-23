@@ -17,7 +17,8 @@ public abstract class SchedulingObject {
     public Boolean timeSlotAvailableFor(Lesson givenLesson) {
         List<Lesson> lessons = retrieveLessons();
         for (Lesson lesson : lessons) {
-            if (!givenLesson.equals(lesson) && lessonOverlappingWithLesson(givenLesson, lesson)) {
+            if (!givenLesson.getCourse().equals(lesson.getCourse())
+                    && givenLesson.overlappingWithLesson(lesson, retrieveBreakTime())) {
                 return false;
             }
         }
@@ -27,30 +28,13 @@ public abstract class SchedulingObject {
     public Boolean timeSlotAvailable(Timestamp startTimestamp, Timestamp endTimestamp) {
         List<Lesson> lessons = retrieveLessons();
         for (Lesson lesson : lessons) {
-            // Checks which one i bigger: break time of object or break time of lesson
+            // Checks which one is bigger: break time of object or break time of lesson
             Integer breakTimeInMs = Math.max(retrieveBreakTime(), lesson.retrieveCourseBreakTime()) * 60000;
-            if (timeSlotOverlappingWithLesson(startTimestamp, endTimestamp, lesson, breakTimeInMs)) {
+            if (lesson.timeSlotOverlapping(startTimestamp, endTimestamp, breakTimeInMs)) {
                 return false;
             }
         }
         return true;
-    }
-
-    private Boolean lessonOverlappingWithLesson(Lesson givenLesson, Lesson lesson) {
-        // Checks which one i bigger: break time of object or break time of lesson or break time of givenLesson
-        Integer breakTimeInMs = Math.max(Math.max(retrieveBreakTime(), lesson.retrieveCourseBreakTime()), givenLesson.retrieveCourseBreakTime()) * 60000;
-        return timeSlotOverlappingWithLesson(givenLesson.getStartDate(), givenLesson.getEndDate(), lesson, breakTimeInMs);
-    }
-
-
-    private Boolean timeSlotOverlappingWithLesson(Timestamp startTimestamp, Timestamp endTimestamp, Lesson lesson, Integer breakTimeInMs) {
-        // Substract 1 milliseconds for transforming after() to notBefore() and before to notAfter()
-        breakTimeInMs = breakTimeInMs - 1;
-
-        Timestamp modStartTime = new Timestamp(startTimestamp.getTime() - breakTimeInMs),
-                  modEndTime   = new Timestamp(endTimestamp.getTime() + breakTimeInMs);
-
-        return !(modStartTime.after(lesson.getEndDate()) || modEndTime.before(lesson.getStartDate()));
     }
 
     /** Returns lessons in given calendar week and year for the scheduling object. Week begins on Monday. */

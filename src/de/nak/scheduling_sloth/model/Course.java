@@ -148,7 +148,11 @@ public class Course {
     }
 
     public List<Room> retrieveRoomsOfFirstLesson() {
-        return lessons.get(0).getRooms();
+        return retrieveFirstLesson().getRooms();
+    }
+
+    public Lesson retrieveFirstLesson() {
+        return lessons.get(0);
     }
 
     public String retrieveAudienceName() {
@@ -159,6 +163,33 @@ public class Course {
         } else {
             return "-";
         }
+    }
+
+    public Boolean noLessonsCollide() {
+        List<Lesson> lessonsToCompare = new ArrayList<Lesson>(lessons);
+        for (Lesson lesson: lessons) {
+            lessonsToCompare.remove(lesson);
+            for (Lesson lessonToCompare: lessonsToCompare) {
+                if (lesson.overlappingWithLesson(lessonToCompare, maxBreakTime())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private Integer maxBreakTime() {
+        Integer breakTime = this.breakTime;
+        if (lecturer != null) {
+            breakTime = Math.max(breakTime, lecturer.retrieveBreakTime());
+        }
+        if (cohort != null) {
+            breakTime = Math.max(breakTime, cohort.retrieveBreakTime());
+        }
+        if (century != null) {
+            breakTime = Math.max(breakTime, century.retrieveBreakTime());
+        }
+        return breakTime;
     }
 
     @Override

@@ -112,7 +112,25 @@ public class Lesson implements Comparable<Lesson> {
     }
 
     public Integer retrieveCourseBreakTime() {
-        return course.getBreakTime();
+        return getCourse().getBreakTime();
+    }
+
+    public Boolean overlappingWithLesson(Lesson lesson, Integer breakTime) {
+        // Checks which one is bigger: break time of object or break time of lesson or break time of givenLesson
+        breakTime = Math.max(breakTime, lesson.retrieveCourseBreakTime());
+        Integer breakTimeInMs = Math.max(breakTime, retrieveCourseBreakTime()) * 60000;
+        return timeSlotOverlapping(lesson.getStartDate(), lesson.getEndDate(), breakTimeInMs);
+    }
+
+
+    public Boolean timeSlotOverlapping(Timestamp startTimestamp, Timestamp endTimestamp, Integer breakTimeInMs) {
+        // Subtract 1 millisecond for transforming after() to notBefore() and before to notAfter()
+        breakTimeInMs = breakTimeInMs - 1;
+
+        Timestamp modStartTime = new Timestamp(startTimestamp.getTime() - breakTimeInMs),
+                  modEndTime   = new Timestamp(endTimestamp.getTime() + breakTimeInMs);
+
+        return !(modStartTime.after(getEndDate()) || modEndTime.before(getStartDate()));
     }
 
     @Override
