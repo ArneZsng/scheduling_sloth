@@ -287,7 +287,7 @@ public class CourseAction extends ActionSupport implements Preparable {
 
             course.getLessons().add(lesson);
         }
-        
+
         // Remove lessons if lower number of repetitions
         Collections.sort(course.getLessons());
         for (int i = numberOfLessons-1; i > numberOfRepetitions; i--) {

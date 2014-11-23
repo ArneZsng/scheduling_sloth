@@ -165,8 +165,6 @@ public class Course {
         Course course = (Course) o;
 
         if (breakTime != null ? !breakTime.equals(course.breakTime) : course.breakTime != null) return false;
-        if (century != null ? !century.equals(course.century) : course.century != null) return false;
-        if (cohort != null ? !cohort.equals(course.cohort) : course.cohort != null) return false;
         if (lecturer != null ? !lecturer.equals(course.lecturer) : course.lecturer != null) return false;
         if (name != null ? !name.equals(course.name) : course.name != null) return false;
 
@@ -178,8 +176,6 @@ public class Course {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (breakTime != null ? breakTime.hashCode() : 0);
         result = 31 * result + (lecturer != null ? lecturer.hashCode() : 0);
-        result = 31 * result + (cohort != null ? cohort.hashCode() : 0);
-        result = 31 * result + (century != null ? century.hashCode() : 0);
         return result;
     }
 }
