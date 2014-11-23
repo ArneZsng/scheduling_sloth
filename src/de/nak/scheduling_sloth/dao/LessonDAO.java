@@ -1,7 +1,10 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lesson;
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -21,11 +24,16 @@ public class LessonDAO extends AbstractDAO<Lesson> {
      * @param id The identifier.
      * @return a lesson or null if no lesson was found with the given identifier.
      */
-    public Lesson load(Long id) {
-        Lesson lesson = (Lesson) getSessionFactory().getCurrentSession().get(Lesson.class, id);
-        if (lesson != null) {
-            Hibernate.initialize(lesson.getCourse().getLessons());
+    public Lesson load(Long id) throws EntityNotFoundException {
+        Session session = getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Lesson lesson = (Lesson) session.get(Lesson.class, id);
+        if (lesson == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
         }
+        Hibernate.initialize(lesson.getCourse().getLessons());
+        session.getTransaction().commit();
         return lesson;
     }
 
@@ -36,15 +44,17 @@ public class LessonDAO extends AbstractDAO<Lesson> {
      */
     @SuppressWarnings("unchecked")
     public List<Lesson> loadAllBetween(Timestamp startDate, Timestamp endDate) {
-        List<Lesson> lessonList = getSessionFactory().getCurrentSession().createQuery(
+        Session session = getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Lesson> lessonList = session.createQuery(
                 "from Lesson as lesson where lesson.startDate <= :end and lesson.endDate > :start order by lesson.startDate asc")
                 .setTimestamp("start", startDate)
                 .setTimestamp("end", endDate)
                 .list();
-
         for (Lesson lesson: lessonList) {
             Hibernate.initialize(lesson.getRooms());
         }
+        session.getTransaction().commit();
         return lessonList;
     }
 }

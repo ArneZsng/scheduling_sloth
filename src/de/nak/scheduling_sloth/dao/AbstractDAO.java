@@ -1,5 +1,7 @@
 package de.nak.scheduling_sloth.dao;
 
+import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -50,8 +52,16 @@ public abstract class AbstractDAO<E> {
      * @return a list which is empty if no element was found.
      */
     @SuppressWarnings("unchecked")
-    public final List<E> loadAll() {
-        return sessionFactory.getCurrentSession().createQuery("from " + table).list();
+    public final List<E> loadAll() throws EntityNotFoundException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        List<E> result = session.createQuery("from " + table).list();
+        if (result == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
+        }
+        session.getTransaction().commit();
+        return result;
     }
 
     /**
@@ -60,7 +70,7 @@ public abstract class AbstractDAO<E> {
      * @param id The identifier.
      * @return an Instance of E or null if no element was found with the given identifier.
      */
-    public abstract E load(Long id);
+    public abstract E load(Long id) throws EntityNotFoundException;
 
     public final void setSessionFactory(final SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
