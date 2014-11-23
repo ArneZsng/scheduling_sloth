@@ -43,6 +43,8 @@ public class ShowScheduleAction implements Action {
     public String execute() throws Exception {
         if (week == 0 || year == 0) {
             Calendar calendar = Calendar.getInstance();
+            calendar.setFirstDayOfWeek(1);
+            calendar.setMinimalDaysInFirstWeek(1);
             week = calendar.get(Calendar.WEEK_OF_YEAR);
             year = calendar.get(Calendar.YEAR);
         }
@@ -69,6 +71,8 @@ public class ShowScheduleAction implements Action {
 
     private void initPreviousWeek() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(1);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
         weekOfPreviousWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -77,6 +81,8 @@ public class ShowScheduleAction implements Action {
 
     private void initNextWeek() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(1);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.setWeekDate(year, week, 7);
         calendar.add(Calendar.DAY_OF_YEAR, 7);
         weekOfNextWeek = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -93,6 +99,8 @@ public class ShowScheduleAction implements Action {
 
     public String getStartDate() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(1);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.setWeekDate(year, week, 1);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(calendar.getTime());
@@ -100,6 +108,8 @@ public class ShowScheduleAction implements Action {
 
     public String getEndDate() {
         Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(1);
+        calendar.setMinimalDaysInFirstWeek(1);
         calendar.setWeekDate(year, week, 7);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         return dateFormat.format(calendar.getTime());

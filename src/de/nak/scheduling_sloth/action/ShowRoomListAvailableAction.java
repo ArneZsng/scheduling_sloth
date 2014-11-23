@@ -37,7 +37,6 @@ public class ShowRoomListAvailableAction extends ActionSupport implements Prepar
     public String execute() throws Exception {
         initializeParams();
 
-
         // Check if start date is before end date
         if (!startDateBeforeEndDate()) {
             addActionError(getText("msg.startDateBeforeEndDate"));
