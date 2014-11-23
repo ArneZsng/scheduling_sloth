@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.service.LecturerService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -34,8 +35,14 @@ public class LecturerAction extends AbstractAction implements Preparable {
      * @return the result string.
      */
     public String save() {
-        lecturerService.saveLecturer(lecturer);
-        return SUCCESS;
+        try {
+            lecturerService.saveLecturer(lecturer);
+            return SUCCESS;
+
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**

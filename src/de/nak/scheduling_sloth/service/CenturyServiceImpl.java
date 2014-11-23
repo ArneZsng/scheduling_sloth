@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.service;
 import de.nak.scheduling_sloth.dao.CenturyDAO;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Century;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class CenturyServiceImpl implements CenturyService {
 	private CenturyDAO centuryDAO;
 
 	@Override
-	public void saveCentury(final Century century) {
+	public void saveCentury(final Century century) throws EntityNotSavableException {
 		centuryDAO.save(century);
 	}
 

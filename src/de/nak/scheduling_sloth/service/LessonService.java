@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lesson;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface LessonService {
 	 *
 	 * @param lesson The lesson.
 	 */
-	void saveLesson(Lesson lesson);
+	void saveLesson(Lesson lesson) throws EntityNotSavableException;
 
 	/**
 	 * Loads a single lessons.

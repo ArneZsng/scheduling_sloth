@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface LecturerService {
      *
      * @param lecturer The lecturer.
      */
-    void saveLecturer(Lecturer lecturer);
+    void saveLecturer(Lecturer lecturer) throws EntityNotSavableException;
 
     /**
      * Loads a single lecturer.

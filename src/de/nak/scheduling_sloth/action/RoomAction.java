@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.service.RoomService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
@@ -30,8 +31,13 @@ public class RoomAction extends AbstractAction implements Preparable{
      * @return the result string.
      */
     public String save() {
-        roomService.saveRoom(room);
-        return SUCCESS;
+        try {
+            roomService.saveRoom(room);
+            return SUCCESS;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**

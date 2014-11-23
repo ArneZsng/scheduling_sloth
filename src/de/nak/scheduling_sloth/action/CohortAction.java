@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.ActionSupport;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CohortService;
 
@@ -27,8 +28,13 @@ public class CohortAction extends AbstractAction {
      * @return the result string.
      */
     public String save() {
-        cohortService.saveCohort(cohort);
-        return SUCCESS;
+        try {
+            cohortService.saveCohort(cohort);
+            return SUCCESS;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**

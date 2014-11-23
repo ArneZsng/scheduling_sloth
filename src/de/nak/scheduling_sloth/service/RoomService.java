@@ -2,6 +2,7 @@ package de.nak.scheduling_sloth.service;
 
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Room;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface RoomService {
 	 *
 	 * @param room The room.
 	 */
-	void saveRoom(Room room);
+	void saveRoom(Room room) throws EntityNotSavableException;
 
 	/**
 	 * Loads a single rooms.

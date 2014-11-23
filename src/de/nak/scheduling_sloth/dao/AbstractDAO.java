@@ -2,8 +2,11 @@ package de.nak.scheduling_sloth.dao;
 
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
+import org.h2.constraint.Constraint;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 
@@ -25,8 +28,16 @@ public abstract class AbstractDAO<E> {
      *
      * @param objectToSave The object to persist. The given entity can be transient or detached.
      */
-    public final void save(final E objectToSave) {
-        sessionFactory.getCurrentSession().saveOrUpdate(objectToSave);
+    public final void save(final E objectToSave) throws EntityNotSavableException {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.saveOrUpdate(objectToSave);
+            session.getTransaction().commit();
+        } catch (ConstraintViolationException e) {
+            session.getTransaction().rollback();
+            throw new EntityNotSavableException(EntityNotSavableException.DEFAULT_MESSAGE);
+        }
     }
 
     /**

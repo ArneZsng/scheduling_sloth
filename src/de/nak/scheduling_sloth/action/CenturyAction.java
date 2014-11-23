@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Century;
 import de.nak.scheduling_sloth.model.Cohort;
 import de.nak.scheduling_sloth.service.CenturyService;
@@ -42,10 +43,18 @@ public class CenturyAction extends AbstractAction implements Preparable {
      *
      * @return the result string.
      */
-    public String save() throws EntityNotFoundException {
-        cohortList = cohortService.loadAllCohorts();
-        centuryService.saveCentury(century);
-        return SUCCESS;
+    public String save() {
+        try {
+            cohortList = cohortService.loadAllCohorts();
+            centuryService.saveCentury(century);
+            return SUCCESS;
+        } catch (EntityNotFoundException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotSavableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        }
     }
 
     /**

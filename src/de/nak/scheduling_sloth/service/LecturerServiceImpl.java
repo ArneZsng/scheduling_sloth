@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.service;
 import de.nak.scheduling_sloth.dao.LecturerDAO;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class LecturerServiceImpl implements LecturerService {
     private LecturerDAO lecturerDAO;
 
     @Override
-    public void saveLecturer(Lecturer lecturer) {
+    public void saveLecturer(Lecturer lecturer) throws EntityNotSavableException {
         lecturerDAO.save(lecturer);
     }
 

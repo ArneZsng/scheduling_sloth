@@ -3,6 +3,7 @@ package de.nak.scheduling_sloth.action;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
+import de.nak.scheduling_sloth.exception.EntityNotSavableException;
 import de.nak.scheduling_sloth.model.*;
 import de.nak.scheduling_sloth.service.*;
 import de.nak.scheduling_sloth.utilities.Utilities;
@@ -133,6 +134,9 @@ public class CourseAction extends AbstractAction implements Preparable {
             addActionError(getText(e.getMessage()));
             return ERROR;
         } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotSavableException e) {
             addActionError(getText(e.getMessage()));
             return ERROR;
         }
@@ -349,6 +353,9 @@ public class CourseAction extends AbstractAction implements Preparable {
             addActionError(getText(e.getMessage()));
             return ERROR;
         } catch (EntityNotDeletableException e) {
+            addActionError(getText(e.getMessage()));
+            return ERROR;
+        } catch (EntityNotSavableException e) {
             addActionError(getText(e.getMessage()));
             return ERROR;
         }
