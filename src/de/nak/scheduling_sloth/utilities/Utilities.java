@@ -18,7 +18,7 @@ public class Utilities {
      * @return A calendar object
      */
     public static Calendar getSchedulingCalendar() {
-        Calendar calendar = Utilities.getSchedulingCalendar();
+        Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(FIRSTDAYOFWEEK);
         calendar.setMinimalDaysInFirstWeek(MINIMALDAYSINFIRSTWEEK);
         return calendar;
