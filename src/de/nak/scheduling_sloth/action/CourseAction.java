@@ -176,12 +176,13 @@ public class CourseAction extends ActionSupport implements Preparable {
      * @return the result string.
      */
     @SkipValidation
-    public String load() {
-     course = courseService.loadCourse(courseId);
+    public String load(){
+     course = courseService.loadWithLessonsAndRooms(courseId);
      if (course != null) {
          numberOfRepetitions = course.getLessons().size() - 1;
          startDate = course.retrieveStartDate();
          endDate = course.retrieveEndDate();
+         selectedRooms = getRoomIdsFromList(course.retrieveRoomsOfFirstLesson());
          return SUCCESS;
      } else {
         return ERROR;
@@ -189,10 +190,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareLoad() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-        roomList = roomService.loadAllRooms();
+        loadCoreDate();
     }
 
     /**
@@ -218,15 +216,19 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareAdd() {
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
-        roomList = roomService.loadAllRooms();
+        loadCoreDate();
 
         Calendar calendar = Utilities.getSchedulingCalendar();
         setStartDate(new Timestamp(calendar.getTimeInMillis()));
         calendar.add(Calendar.MINUTE, 30);
         setEndDate(new Timestamp(calendar.getTimeInMillis()));
+    }
+
+    private void loadCoreDate() {
+        lecturerList = lecturerService.loadAllLecturers();
+        cohortList = cohortService.loadAllCohorts();
+        centuryList = centuryService.loadAllCenturies();
+        roomList = roomService.loadAllRooms();
     }
 
     /**
@@ -302,10 +304,7 @@ public class CourseAction extends ActionSupport implements Preparable {
     }
 
     public void prepareEditLessons() {
-        roomList = roomService.loadAllRooms();
-        lecturerList = lecturerService.loadAllLecturers();
-        cohortList = cohortService.loadAllCohorts();
-        centuryList = centuryService.loadAllCenturies();
+        loadCoreDate();
     }
 
     @SkipValidation
