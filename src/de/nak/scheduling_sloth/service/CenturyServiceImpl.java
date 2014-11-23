@@ -13,22 +13,22 @@ public class CenturyServiceImpl implements CenturyService {
 	private CenturyDAO centuryDAO;
 
 	@Override
-	public void saveCentury(Century century) {
+	public void saveCentury(final Century century) {
 		centuryDAO.save(century);
 	}
 
     @Override
-    public Century loadCentury(Long id) {
+    public Century loadCentury(final Long id) {
         return centuryDAO.load(id);
     }
 
     @Override
-    public Century loadCenturyWithLessons(Long id) {
+    public Century loadCenturyWithLessons(final Long id) {
         return centuryDAO.loadWithLessons(id);
     }
 
 	@Override
-	public void deleteCentury(Century century) {
+	public void deleteCentury(final Century century) {
 		centuryDAO.delete(century);
 	}
 
@@ -37,7 +37,7 @@ public class CenturyServiceImpl implements CenturyService {
 		return centuryDAO.loadAll();
 	}
 
-	public void setCenturyDAO(CenturyDAO centuryDAO) {
+	public void setCenturyDAO(final CenturyDAO centuryDAO) {
 		this.centuryDAO = centuryDAO;
 	}
 

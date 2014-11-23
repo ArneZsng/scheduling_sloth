@@ -135,11 +135,11 @@ public class Course {
 
     public Timestamp retrieveEndDate() {
         Timestamp result = null;
-        if(lessons != null && lessons.size() > 0) {
+        if (lessons != null && lessons.size() > 0) {
             for (Lesson lesson:lessons) {
-                if(result == null) {
+                if (result == null) {
                     result = lesson.getEndDate();
-                } else if(result.after(lesson.getStartDate())) {
+                } else if (result.after(lesson.getStartDate())) {
                     result = lesson.getEndDate();
                 }
             }
@@ -159,8 +159,12 @@ public class Course {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Course)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Course)) {
+            return false;
+        }
 
         Course course = (Course) o;
 

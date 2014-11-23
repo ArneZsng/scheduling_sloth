@@ -52,7 +52,8 @@ public class CohortAction extends ActionSupport {
                     addActionError(getText("error.strong") + cohort.getName() + getText("error.cohort.delete.courses"));
                 }
                 if (centuriesAssociated){
-                    addActionError(getText("error.strong") + cohort.getName() + getText("error.cohort.delete.centuries"));
+                    addActionError(getText("error.strong") + cohort.getName() +
+                            getText("error.cohort.delete.centuries"));
                 }
                 response = ERROR;
             }
