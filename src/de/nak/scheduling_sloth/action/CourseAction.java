@@ -221,10 +221,10 @@ public class CourseAction extends AbstractAction implements Preparable {
     public void prepareAdd() {
         loadCoreDate();
 
-        Calendar calendar = Utilities.getSchedulingCalendar();
-        setStartDate(new Timestamp(calendar.getTimeInMillis()));
-        calendar.add(Calendar.MINUTE, 30);
-        setEndDate(new Timestamp(calendar.getTimeInMillis()));
+        java.util.Date date = new java.util.Date();
+        setStartDate(new Timestamp(date.getTime()));
+        // Add 30 minutes to startDate
+        setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
     }
 
     private void loadCoreDate() {

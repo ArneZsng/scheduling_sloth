@@ -41,7 +41,7 @@ public class LessonServiceImpl implements LessonService {
         calendar.setWeekDate(year, week, 1); //Let week begin on Monday
         Timestamp startDate = new Timestamp(calendar.getTimeInMillis());
 
-        calendar.set(Calendar.WEEK_OF_YEAR, week+1);
+        calendar.add(Calendar.DATE, 7);
         Timestamp endDate = new Timestamp(calendar.getTimeInMillis());
 
         return lessonDAO.loadAllBetween(startDate, endDate);

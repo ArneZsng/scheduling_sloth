@@ -25,6 +25,10 @@ public final class Utilities {
      */
     public static Calendar getSchedulingCalendar() {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.getActualMinimum(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, calendar.getActualMinimum(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, calendar.getActualMinimum(Calendar.SECOND));
+        calendar.set(Calendar.MILLISECOND, calendar.getActualMinimum(Calendar.MILLISECOND));
         calendar.setFirstDayOfWeek(FIRSTDAYOFWEEK);
         calendar.setMinimalDaysInFirstWeek(MINIMALDAYSINFIRSTWEEK);
         return calendar;
