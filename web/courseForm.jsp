@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.changeTime" />
+        <s:label for="course.breakTime" cssClass="col-sm-2 control-label" key="lbl.breakTime" />
         <div class="col-sm-3">
             <s:textfield type="number" name="course.breakTime" size="4" maxlength="4" cssClass="form-control"/>
         </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="startDate" cssClass="col-sm-2 control-label" key="lbl.startDate" />
+        <s:label for="startDate" cssClass="col-sm-2 control-label" key="lbl.startDateOfFirstLesson" />
         <div class="col-sm-10">
             <div class='input-group date datetimepicker'>
                 <s:textfield name="startDate" value="%{startDate}" size="40" maxlength="100" cssClass="form-control"/>
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="endDate" cssClass="col-sm-2 control-label" key="lbl.endDate" />
+        <s:label for="endDate" cssClass="col-sm-2 control-label" key="lbl.endDateOfFirstLesson" />
         <div class="col-sm-10">
             <div class='input-group date datetimepicker'>
                 <s:textfield name="endDate" value="%{endDate}" size="40" maxlength="100" cssClass="form-control"/>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="form-group">
-        <s:label for="rooms" cssClass="col-sm-2 control-label" key="lbl.rooms" />
+        <s:label for="rooms" cssClass="col-sm-2 control-label" key="lbl.roomsOfFirstLesson" />
         <div class="col-sm-6">
             <s:select name="rooms" list="roomList" listKey="id" listValue="name" cssClass ="form-control" multiple="true" />
         </div>
