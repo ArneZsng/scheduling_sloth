@@ -93,9 +93,13 @@ public class CourseAction extends AbstractAction implements Preparable {
             // Check lessons and prepare for saving
             for (Lesson lesson : course.getLessons()) {
                 lesson.setCourse(course);
+                Set<Long> selectedRoomListIds = new HashSet<Long>();
+                for (Room room: lesson.getRooms()) {
+                    selectedRoomListIds.add(room.getId());
+                }
                 List<Room> selectedRoomList = new ArrayList<Room>();
-                for (Room room:lesson.getRooms()) {
-                    selectedRoomList.add(roomService.loadRoom(room.getId()));
+                for (Long id: selectedRoomListIds) {
+                    selectedRoomList.add(roomService.loadRoom(id));
                 }
                 lesson.setRooms(selectedRoomList);
 
