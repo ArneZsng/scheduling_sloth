@@ -64,7 +64,7 @@ public class CourseAction extends AbstractAction implements Preparable {
     private boolean collisionFlag = false;
     private boolean recheck = false;
 
-    final String REDIRECT = "redirect";
+    private static final String REDIRECT = "redirect";
 
     /**
      * Saves the course to the database.
@@ -73,34 +73,20 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String save() {
+        if (course == null) {
+            addActionError(getText("msg.exception.entityNotFound"));
+            return ERROR;
+        }
         try {
             ensureAudience();
 
             // Remember all the lessons which are left in form to keep
-            List<Long> lessonIdsToKeep = new ArrayList<Long>();
-            for (Lesson lesson : course.getLessons()) {
-                if (lesson != null) {
-                    lessonIdsToKeep.add(lesson.getId());
-                }
-            }
+            List<Long> lessonIdsToKeep = identifyLessonIdsToKeep();
 
             // Determine which lessons need to be deleted
-            List<Lesson> lessonsToDelete;
+            List<Lesson> lessonsToDelete = identifyLessonsToDelete(lessonIdsToKeep);
 
-            if (course.getId() == null) {
-                lessonsToDelete = new ArrayList<Lesson>();
-            } else {
-                lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
-                for (Long lessonId : lessonIdsToKeep) {
-                    for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
-                        if (lessonId.equals(lessonsToDelete.get(i).getId())) {
-                            lessonsToDelete.remove(i);
-                            break;
-                        }
-                    }
-                }
-            }
-
+            // Check lessons and prepare for saving
             for (Lesson lesson : course.getLessons()) {
                 lesson.setCourse(course);
                 List<Room> selectedRoomList = new ArrayList<Room>();
@@ -173,10 +159,13 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String deleteLesson() {
+        if (courseLessonId == null) {
+            return ERROR;
+        }
         try {
             Lesson lesson = lessonService.loadLesson(courseLessonId);
             Course course = lesson.getCourse();
-            // Delete whole course if this was the last lesson
+            // Delete whole course if this is the last lesson
             if (course.getLessons().size() == 1) {
                 courseService.deleteCourse(course);
                 return REDIRECT;
@@ -204,6 +193,10 @@ public class CourseAction extends AbstractAction implements Preparable {
      */
     @SkipValidation
     public String load(){
+        if (courseId == null) {
+            addActionError(getText("msg.exception.entityNotFound"));
+            return ERROR;
+        }
         try {
             course = courseService.loadWithLessonsAndRooms(courseId);
             numberOfRepetitions = course.getLessons().size() - 1;
@@ -287,45 +280,12 @@ public class CourseAction extends AbstractAction implements Preparable {
 
             // Instantly save if no repetitions
             if (numberOfRepetitions == 0) {
-                Lesson lesson = new Lesson();
-                lesson.setCourse(course);
-                lesson.setStartDate(startDate);
-                lesson.setEndDate(endDate);
-
-                List<Room> rooms = new ArrayList<Room>();
-                for (Long roomId: selectedRooms) {
-                    rooms.add(roomService.loadRoom(roomId));
-                }
-                lesson.setRooms(rooms);
-
-                if (!isValidLesson(course, lesson) || !isValidCourse(course)) {
-                    return ERROR;
-                }
-
-                for (Lesson lessonToDelete : course.getLessons())
-                    lessonService.deleteLesson(lessonToDelete);
-
-                courseService.saveCourse(course);
-                lessonService.saveLesson(lesson);
-                return REDIRECT;
+                return saveCourseImmediately();
             }
 
-            // Add lessons if higher number of repetitions
+            // Otherwise continue: Add lessons to fulfill numberOfRepititions
             for (int i = 0; i <= (numberOfRepetitions - numberOfLessons); i++) {
-                Lesson lesson = new Lesson();
-                lesson.setCourse(course);
-
-                Calendar startCalendar = Utilities.getSchedulingCalendar();
-                startCalendar.setTimeInMillis(startDate.getTime());
-                startCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
-                lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
-
-                Calendar endCalendar = Utilities.getSchedulingCalendar();
-                endCalendar.setTimeInMillis(endDate.getTime());
-                endCalendar.add(Calendar.DATE, 7 * (i + numberOfLessons));
-                lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
-
-                course.getLessons().add(lesson);
+                course.getLessons().add(createPlaceholderLesson(course, i + numberOfLessons));
             }
 
             // Populate first lesson with settings from course form
@@ -366,12 +326,53 @@ public class CourseAction extends AbstractAction implements Preparable {
         loadCoreDate();
     }
 
+    private Lesson createPlaceholderLesson(Course course, int week) {
+        Lesson lesson = new Lesson();
+        lesson.setCourse(course);
+
+        Calendar startCalendar = Utilities.getSchedulingCalendar();
+        startCalendar.setTimeInMillis(startDate.getTime());
+        startCalendar.add(Calendar.DATE, 7 * week);
+        lesson.setStartDate(new Timestamp(startCalendar.getTimeInMillis()));
+
+        Calendar endCalendar = Utilities.getSchedulingCalendar();
+        endCalendar.setTimeInMillis(endDate.getTime());
+        endCalendar.add(Calendar.DATE, 7 * week);
+        lesson.setEndDate(new Timestamp(endCalendar.getTimeInMillis()));
+
+        return lesson;
+    }
+
+    private String saveCourseImmediately() throws EntityNotFoundException, EntityNotDeletableException, EntityNotSavableException {
+        Lesson lesson = new Lesson();
+        lesson.setCourse(course);
+        lesson.setStartDate(startDate);
+        lesson.setEndDate(endDate);
+
+        List<Room> rooms = new ArrayList<Room>();
+        for (Long roomId: selectedRooms) {
+            rooms.add(roomService.loadRoom(roomId));
+        }
+        lesson.setRooms(rooms);
+
+        if (!isValidLesson(course, lesson) || !isValidCourse(course)) {
+            return ERROR;
+        }
+
+        for (Lesson lessonToDelete : course.getLessons())
+            lessonService.deleteLesson(lessonToDelete);
+
+        courseService.saveCourse(course);
+        lessonService.saveLesson(lesson);
+        return REDIRECT;
+    }
+
     @SkipValidation
     public String recheck() {
         recheck = true;
         return SUCCESS;
     }
-
+    
     /**
      * Validates for business logic
      *
@@ -473,6 +474,31 @@ public class CourseAction extends AbstractAction implements Preparable {
                 course.setCohort(null);
             }
         }
+    }
+
+    private List<Long> identifyLessonIdsToKeep() {
+        List<Long> lessonIdsToKeep = new ArrayList<Long>();
+        for (Lesson lesson : course.getLessons()) {
+            lessonIdsToKeep.add(lesson.getId());
+        }
+        return lessonIdsToKeep;
+    }
+
+    private List<Lesson> identifyLessonsToDelete(final List<Long> lessonIdsToKeep) throws EntityNotFoundException {
+        List<Lesson> lessonsToDelete = new ArrayList<Lesson>();
+
+        if (course.getId() != null) {
+            lessonsToDelete = courseService.loadCourse(course.getId()).getLessons();
+            for (Long lessonId : lessonIdsToKeep) {
+                for (int i = 0; i < lessonsToDelete.size() && lessonId != null; i++) {
+                    if (lessonId.equals(lessonsToDelete.get(i).getId())) {
+                        lessonsToDelete.remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+        return lessonsToDelete;
     }
 
     @Override
