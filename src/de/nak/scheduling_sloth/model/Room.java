@@ -57,13 +57,13 @@ public class Room extends SchedulingObject {
     }
 
     public void setBreakTime(Integer breakTime) {
-        if(breakTime == null) {
+        if (breakTime == null) {
             this.breakTime = DEFAULT_BREAKTIME;
         } else {
             this.breakTime = breakTime;
         }
     }
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy="rooms")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "rooms")
     public List<Lesson> getLessons() {
         return lessons;
     }

@@ -18,7 +18,7 @@ public class ListConverter extends StrutsTypeConverter {
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {
         try {
             return null;
-        } catch(Exception e){
+        } catch (Exception e){
             throw new TypeConversionException(e);
         }
     }
