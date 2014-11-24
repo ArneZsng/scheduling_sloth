@@ -1,4 +1,4 @@
-/*
+/**
  * Dieser Interceptor wurde nicht selbst erstellt.
  * Der Code wurde übernommen von:
  * http://glindholm.wordpress.com/2008/07/02/preserving-messages-across-a-redirect-in-struts-2/
