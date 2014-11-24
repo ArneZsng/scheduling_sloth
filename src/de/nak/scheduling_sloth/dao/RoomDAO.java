@@ -67,11 +67,13 @@ public class RoomDAO extends AbstractDAO<Room> {
      */
     @SuppressWarnings("unchecked")
     public List<Room> loadAllWithLessons() {
-
-        List<Room> roomList = (List<Room>) getSessionFactory().getCurrentSession().createQuery("from Room").list();
+        Session session = getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        List<Room> roomList = (List<Room>) session.createQuery("from Room").list();
         for (Room room : roomList) {
             Hibernate.initialize(room.getLessons());
         }
+        session.getTransaction().commit();
         return roomList;
     }
 }

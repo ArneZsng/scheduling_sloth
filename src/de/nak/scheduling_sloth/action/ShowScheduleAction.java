@@ -1,6 +1,7 @@
 package de.nak.scheduling_sloth.action;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.model.Lesson;
 import de.nak.scheduling_sloth.service.LessonService;
 import de.nak.scheduling_sloth.utilities.Utilities;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by arne on 10/28/14.
  */
-public class ShowScheduleAction extends AbstractAction {
+public class ShowScheduleAction extends AbstractAction implements Preparable {
     /** The passed calendar week. */
     private Integer week = 0;
     /** The passed year. */
@@ -41,7 +42,7 @@ public class ShowScheduleAction extends AbstractAction {
      * @return the result string.
      */
     @Override
-    public String execute() {
+    public void prepare() {
         if (week == 0 || year == 0) {
             Calendar calendar = Utilities.getSchedulingCalendar();
             week = calendar.get(Calendar.WEEK_OF_YEAR);
@@ -64,8 +65,6 @@ public class ShowScheduleAction extends AbstractAction {
         for (int j = -2; j < 10; j++) {
             years.add(Integer.toString(currentYear + j));
         }
-
-        return SUCCESS;
     }
 
     private void initPreviousWeek() {

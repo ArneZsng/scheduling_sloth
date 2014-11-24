@@ -299,6 +299,7 @@
         <!-- Shows the homepage. -->
         <action name="Home" class="de.nak.scheduling_sloth.action.ShowScheduleAction">
             <result type="tiles">home</result>
+            <result type="tiles" name="input">home</result>
         </action>
 
         <!-- Shows Error Page. -->

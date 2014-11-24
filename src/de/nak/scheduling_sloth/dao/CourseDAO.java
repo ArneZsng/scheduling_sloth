@@ -45,18 +45,23 @@ public class CourseDAO extends AbstractDAO<Course> {
         Session session = getSessionFactory().getCurrentSession();
         session.beginTransaction();
         Course course = (Course) session.get(Course.class, id);
-        for (Lesson lesson: course.getLessons()) {
-            Hibernate.initialize(lesson.getRooms());
+        if (course == null) {
+            session.getTransaction().rollback();
+            throw new EntityNotFoundException(EntityNotFoundException.DEFAULT_MESSAGE);
+        } else {
+            for (Lesson lesson: course.getLessons()) {
+                Hibernate.initialize(lesson.getRooms());
+            }
+            if (course.getCohort() != null) {
+                Hibernate.initialize(course.getCohort().getCourses());
+                Hibernate.initialize(course.getCohort().getCenturies());
+            }
+            if (course.getCentury() != null) {
+                Hibernate.initialize(course.getCentury().getCourses());
+            }
+            session.getTransaction().commit();
+            return course;
         }
-        if (course.getCohort() != null) {
-            Hibernate.initialize(course.getCohort().getCourses());
-            Hibernate.initialize(course.getCohort().getCenturies());
-        }
-        if (course.getCentury() != null) {
-            Hibernate.initialize(course.getCentury().getCourses());
-        }
-        session.getTransaction().commit();
-        return course;
     }
 }
 
