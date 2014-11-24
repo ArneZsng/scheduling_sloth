@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class TimestampConverter extends StrutsTypeConverter {
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
     @Override
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {
@@ -21,7 +21,7 @@ public class TimestampConverter extends StrutsTypeConverter {
             if (values == null || values.length == 0) {
                 return null;
             }
-            return new java.sql.Timestamp(sdf.parse(values[0]).getTime());
+            return new java.sql.Timestamp(SDF.parse(values[0]).getTime());
         } catch (Exception e) {
             throw new TypeConversionException(e);
         }
@@ -31,7 +31,7 @@ public class TimestampConverter extends StrutsTypeConverter {
     public String convertToString(Map context, Object object)  throws TypeConversionException  {
         try {
             if (object instanceof Timestamp) {
-                return sdf.format(new Date(((Timestamp)object).getTime()));
+                return SDF.format(new Date(((Timestamp) object).getTime()));
             }
             return "";
         } catch(Exception e) {
