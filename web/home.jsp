@@ -10,13 +10,13 @@
     <div class="form-group">
         <s:label for="week" cssClass="col-sm-2 control-label" key="lbl.week" />
         <div class="col-sm-2">
-            <s:select key="week" list="weeks" value="defaultWeek" cssClass="form-control" />
+            <s:select name="week" list="weeks" value="defaultWeek" cssClass="form-control" />
         </div>
     </div>
     <div class="form-group">
         <s:label for="year" cssClass="col-sm-2 control-label" key="lbl.year" />
         <div class="col-sm-2">
-            <s:select key="year" list="years" value="defaultYear" cssClass="form-control" />
+            <s:select name="year" list="years" value="defaultYear" cssClass="form-control" />
         </div>
     </div>
     <div class="form-group">
