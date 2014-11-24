@@ -8,7 +8,11 @@ import de.nak.scheduling_sloth.service.CourseService;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Show action for Course.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-18
  */
 public class ShowCourseAction extends AbstractAction {
     /** The current course. */

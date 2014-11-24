@@ -8,10 +8,12 @@ import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.service.LecturerService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
-/**
- * Action for a single lecturer.
+ /**
+ * Class for all CRUD actions on Lecturer.
  *
- * Created by arne on 10/28/14.
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class LecturerAction extends AbstractAction implements Preparable {
     /** Serial version UID. */
@@ -46,7 +48,7 @@ public class LecturerAction extends AbstractAction implements Preparable {
     }
 
     /**
-     * Deletes the selected lecturer from the database.
+     * Deletes the selected lecturer from the database if no lesson is attached.
      *
      * @return the result string.
      */
@@ -90,9 +92,6 @@ public class LecturerAction extends AbstractAction implements Preparable {
 
     /**
      * Cancels the editing.
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowLecturerList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */
@@ -110,6 +109,10 @@ public class LecturerAction extends AbstractAction implements Preparable {
         return SUCCESS;
     }
 
+
+     /**
+      * Validates if lecturer is present.
+      */
     @Override
     public void validate() {
         // If the lecturer is not set, the lecturer ID has to be set.
@@ -119,9 +122,6 @@ public class LecturerAction extends AbstractAction implements Preparable {
     }
 
 
-    /**
-     * Sets the default breakTime
-     */
     public void prepare() {
         defaultBreakTime = Lecturer.DEFAULT_BREAKTIME;
     }

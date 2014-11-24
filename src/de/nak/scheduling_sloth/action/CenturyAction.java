@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * Class for all CRUD operations on Century.
+ * Class for all CRUD actions on Century.
  *
  * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
  * @version     1.0

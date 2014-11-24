@@ -11,7 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Show action for Century.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-18
  */
 public class ShowCenturyAction extends AbstractAction {
     /** The current century. */
@@ -80,6 +84,9 @@ public class ShowCenturyAction extends AbstractAction {
         }
     }
 
+    /**
+     * Initializes previous week.
+     */
     private void initPreviousWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -88,6 +95,9 @@ public class ShowCenturyAction extends AbstractAction {
         yearOfPreviousWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Initializes next week.
+     */
     private void initNextWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -96,10 +106,20 @@ public class ShowCenturyAction extends AbstractAction {
         yearOfNextWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Returns default week for select.
+     *
+     * @return String week number as String
+     */
     public String getDefaultWeek() {
         return String.format("%02d", week);
     }
 
+    /**
+     * Returns default year for select.
+     *
+     * @return String year as String.
+     */
     public String getDefaultYear() {
         return year.toString();
     }
@@ -111,7 +131,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Century getCentury() {
         return century;
     }
-
     public void setCentury(Century century) {
         this.century = century;
     }
@@ -119,7 +138,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Long getCenturyId() {
         return centuryId;
     }
-
     public void setCenturyId(Long centuryId) {
         this.centuryId = centuryId;
     }
@@ -127,7 +145,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Integer getWeek() {
         return week;
     }
-
     public void setWeek(Integer week) {
         this.week = week;
     }
@@ -135,7 +152,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Integer getYear() {
         return year;
     }
-
     public void setYear(Integer year) {
         this.year = year;
     }
@@ -143,7 +159,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Integer getWeekOfPreviousWeek() {
         return weekOfPreviousWeek;
     }
-
     public Integer getYearOfPreviousWeek() {
         return yearOfPreviousWeek;
     }
@@ -151,7 +166,6 @@ public class ShowCenturyAction extends AbstractAction {
     public Integer getWeekOfNextWeek() {
         return weekOfNextWeek;
     }
-
     public Integer getYearOfNextWeek() {
         return yearOfNextWeek;
     }
@@ -159,7 +173,6 @@ public class ShowCenturyAction extends AbstractAction {
     public List<String> getWeeks() {
         return weeks;
     }
-
     public void setWeeks(List<String> weeks) {
         this.weeks = weeks;
     }
@@ -167,7 +180,6 @@ public class ShowCenturyAction extends AbstractAction {
     public List<String> getYears() {
         return years;
     }
-
     public void setYears(List<String> years) {
         this.years = years;
     }
@@ -175,7 +187,6 @@ public class ShowCenturyAction extends AbstractAction {
     public List<Lesson> getLessonList() {
         return lessonList;
     }
-
     public void setLessonList(List<Lesson> lessonList) {
         this.lessonList = lessonList;
     }

@@ -9,7 +9,11 @@ import de.nak.scheduling_sloth.service.RoomService;
 import org.apache.struts2.interceptor.validation.SkipValidation;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Class for all CRUD actions on Room.
+ *
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class RoomAction extends AbstractAction implements Preparable{
     private static final long serialVersionUID = 6411696302084986323L;
@@ -62,8 +66,6 @@ public class RoomAction extends AbstractAction implements Preparable{
             addActionError(getText(e.getMessage()));
             return ERROR;
         }
-
-
     }
 
     /**
@@ -86,9 +88,6 @@ public class RoomAction extends AbstractAction implements Preparable{
 
     /**
      * Cancels the editing.
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */
@@ -106,7 +105,9 @@ public class RoomAction extends AbstractAction implements Preparable{
         return SUCCESS;
     }
 
-
+    /**
+     * Validates if room is present.
+     */
     @Override
     public void validate() {
         // If the room is not set, the room ID has to be set.
@@ -126,7 +127,6 @@ public class RoomAction extends AbstractAction implements Preparable{
     public Room getRoom() {
         return room;
     }
-
     public void setRoom(Room room) {
         this.room = room;
     }
@@ -134,7 +134,6 @@ public class RoomAction extends AbstractAction implements Preparable{
     public Long getRoomId() {
         return roomId;
     }
-
     public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }

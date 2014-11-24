@@ -8,15 +8,21 @@ import de.nak.scheduling_sloth.service.RoomService;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Show list action for Room.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class ShowRoomListAction extends AbstractAction implements Preparable {
     /** The list of rooms. */
     private List<Room> roomList;
-
     /** The room service. */
     private RoomService roomService;
 
+    /**
+     * Prepares load of room list by loading results.
+     */
     @Override
     public void prepare() {
         try {

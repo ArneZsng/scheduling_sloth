@@ -11,7 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Show action for Cohort.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-18
  */
 public class ShowCohortAction extends AbstractAction {
     /** The current cohort. */
@@ -78,6 +82,9 @@ public class ShowCohortAction extends AbstractAction {
         }
     }
 
+    /**
+     * Initializes previous week.
+     */
     private void initPreviousWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -86,6 +93,9 @@ public class ShowCohortAction extends AbstractAction {
         yearOfPreviousWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Initializes next week.
+     */
     private void initNextWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -94,10 +104,20 @@ public class ShowCohortAction extends AbstractAction {
         yearOfNextWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Returns default week for select.
+     *
+     * @return String week number as String
+     */
     public String getDefaultWeek() {
         return String.format("%02d", week);
     }
 
+    /**
+     * Returns default year for select.
+     *
+     * @return String year number as String
+     */
     public String getDefaultYear() {
         return year.toString();
     }
