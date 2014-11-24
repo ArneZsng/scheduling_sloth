@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represents the lesson business logic with collision checks.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */

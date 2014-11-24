@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Represents the course business logic. A course has one ore more lessons.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
@@ -172,14 +172,29 @@ public class Course {
         return result;
     }
 
+    /**
+     * Get rooms of first lesson.
+     *
+     * @return List of rooms
+     */
     public List<Room> retrieveRoomsOfFirstLesson() {
         return retrieveFirstLesson().getRooms();
     }
 
+    /**
+     * Get first lesson
+     *
+     * @return first lesson
+     */
     public Lesson retrieveFirstLesson() {
         return lessons.get(0);
     }
 
+    /**
+     * Get name of audience (cohort or century)
+     *
+     * @return name of audience
+     */
     public String retrieveAudienceName() {
         if (cohort != null) {
             return cohort.getName();
@@ -190,6 +205,11 @@ public class Course {
         }
     }
 
+    /**
+     * Checks internally if no lessons of the course collide with each other.
+     *
+     * @return boolean if there is a collision or not
+     */
     public Boolean noLessonsCollide() {
         List<Lesson> lessonsToCompare = new ArrayList<Lesson>(lessons);
         for (Lesson lesson: lessons) {

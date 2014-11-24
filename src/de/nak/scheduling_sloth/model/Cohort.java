@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Represents the cohort business logic.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
@@ -75,6 +75,11 @@ public class Cohort extends SchedulingObject {
         this.courses = courses;
     }
 
+    /**
+     * Returns all lessons for the cohort.
+     *
+     * @return List of lessons
+     */
     @Override
     public List<Lesson> retrieveLessons() {
         List<Lesson> lessons = new ArrayList<Lesson>();
@@ -84,6 +89,12 @@ public class Cohort extends SchedulingObject {
         return lessons;
     }
 
+    /**
+     * Returns the break time of the cohort. That is the maximum break time of its
+     * centuries.
+     *
+     * @return Integer break time
+     */
     @Override
     public Integer retrieveBreakTime() {
         Integer maxBreakTime = 0;
@@ -93,6 +104,11 @@ public class Cohort extends SchedulingObject {
         return maxBreakTime;
     }
 
+    /**
+     * Returns the number of students in the cohort. Builds the sum of its centuries.
+     *
+     * @return Integer number of students in cohort
+     */
     public Integer retrieveNumberOfStudents() {
         Integer numberOfStudents = 0;
         for (Century century : centuries) {
