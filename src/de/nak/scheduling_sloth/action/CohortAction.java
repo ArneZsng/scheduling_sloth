@@ -8,7 +8,7 @@ import de.nak.scheduling_sloth.service.CohortService;
 
 
 /**
- * Class for all CRUD operations on Cohort.
+ * Class for all CRUD actions on Cohort.
  *
  * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
  * @version     1.0

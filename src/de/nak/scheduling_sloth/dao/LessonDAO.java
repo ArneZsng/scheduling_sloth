@@ -9,9 +9,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * DAO class for Lesson.
+ *
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
-
 public class LessonDAO extends AbstractDAO<Lesson> {
 
     public LessonDAO() {

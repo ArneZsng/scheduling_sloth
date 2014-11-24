@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Represents the century business logic.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
@@ -82,6 +82,11 @@ public class Century extends SchedulingObject {
         this.courses = courses;
     }
 
+    /**
+     * Returns all lessons for the century.
+     *
+     * @return List of lessons
+     */
     @Override
     public List<Lesson> retrieveLessons() {
         List<Lesson> lessons = new ArrayList<Lesson>();
@@ -91,6 +96,11 @@ public class Century extends SchedulingObject {
         return lessons;
     }
 
+    /**
+     * Returns the break time of the century.
+     *
+     * @return Integer break time
+     */
     @Override
     public Integer retrieveBreakTime() {
         return getBreakTime();

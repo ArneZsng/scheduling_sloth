@@ -40,6 +40,9 @@ import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
  * it will check if there are any messages stored in the session and add them to
  * the next action.
  *
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-23
  */
 public class RedirectMessageInterceptor extends MethodFilterInterceptor
 {

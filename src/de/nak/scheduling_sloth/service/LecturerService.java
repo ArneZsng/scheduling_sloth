@@ -7,7 +7,11 @@ import de.nak.scheduling_sloth.model.Lecturer;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Service interface for Lecturer.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public interface LecturerService {
 

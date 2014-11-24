@@ -1,7 +1,11 @@
 package de.nak.scheduling_sloth.exception;
 
 /**
- * Created by hendster on 23/11/14.
+ * Exception class for not savable.
+ *
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-23
  */
 public class EntityNotSavableException extends Exception{
     private static final long serialVersionUID = 6324729082768626094L;

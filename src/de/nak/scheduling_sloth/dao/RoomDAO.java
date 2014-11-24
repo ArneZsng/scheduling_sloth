@@ -9,9 +9,12 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * DAO class for Room.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
-
 public class RoomDAO extends AbstractDAO<Room> {
 
     public RoomDAO() {

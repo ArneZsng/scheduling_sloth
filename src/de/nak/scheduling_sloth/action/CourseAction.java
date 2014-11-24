@@ -14,7 +14,7 @@ import java.util.*;
 
 
 /**
- * Class for all CRUD operations on Course.
+ * Class for all CRUD actions on Course.
  *
  * @author      Kevin Scholz <kevin.scholz@nordakademie.de>
  * @version     1.0

@@ -7,15 +7,21 @@ import de.nak.scheduling_sloth.service.LecturerService;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Show list action for Lecturer.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class ShowLecturerListAction extends AbstractAction implements Preparable{
     /** The list of lecturers. */
     private List<Lecturer> lecturerList;
-
     /** The lecturer service. */
     private LecturerService lecturerService;
 
+    /**
+     * Prepares load of lecturer list by loading results.
+     */
     @Override
     public void prepare() {
         try {

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Represents the lecturer business logic.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
@@ -62,6 +62,11 @@ public class Lecturer extends SchedulingObject {
         this.courses = courses;
     }
 
+    /**
+     * Returns all lessons for the lecturer.
+     *
+     * @return list of lessons
+     */
     @Override
     public List<Lesson> retrieveLessons() {
         List<Lesson> lessons = new ArrayList<Lesson>();;
@@ -71,6 +76,11 @@ public class Lecturer extends SchedulingObject {
         return lessons;
     }
 
+    /**
+     * Returns the break time of the lecturer.
+     *
+     * @return Integer break time
+     */
     @Override
     public Integer retrieveBreakTime() {
         return getBreakTime();

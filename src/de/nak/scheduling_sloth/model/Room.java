@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Represents the room business logic.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
@@ -71,11 +71,22 @@ public class Room extends SchedulingObject {
         this.lessons = lessons;
     }
 
+
+    /**
+     * Returns all lessons of the room.
+     *
+     * @return list of lessons
+     */
     @Override
     public List<Lesson> retrieveLessons() {
         return getLessons();
     }
 
+    /**
+     * Returns the break time of the room.
+     *
+     * @return Integer break time
+     */
     @Override
     public Integer retrieveBreakTime() {
         return getBreakTime();

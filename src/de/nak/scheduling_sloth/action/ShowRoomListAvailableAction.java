@@ -11,7 +11,11 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * Created by arne on 19.11.14.
+ * Show available rooms action.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-19
  */
 public class ShowRoomListAvailableAction extends AbstractAction implements Preparable {
     /** The list of rooms. */
@@ -33,6 +37,11 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     /** Input parameter of lesson id. */
     private Map availableRooms = new HashMap();
 
+    /**
+     * Displays the available rooms in the available rooms show.
+     *
+     * @return the result string.
+     */
     @Override
     public String execute() {
         initializeParams();
@@ -50,6 +59,10 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
         return SUCCESS;
     }
 
+
+    /**
+     * Initializes parameters that were passed to the action.
+     */
     private void initializeParams() {
         try {
             for (Iterator i = availableRooms.keySet().iterator(); i.hasNext(); ) {
@@ -83,6 +96,11 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
 
     }
 
+    /**
+     * Prepares the parameters.
+     *
+     * @throws Exception
+     */
     @Override
     public void prepare() throws Exception {
         java.util.Date date = new java.util.Date();
@@ -90,11 +108,19 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
         setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
     }
 
+    /**
+     * Skip unnecessary validations.
+     */
     @Override
     public void validate() {
     }
 
-    private boolean startDateBeforeEndDate() {
+    /**
+     * Checks if the start date if before the end date.
+     *
+     * @return startDateBeforeEndDate as Boolean
+     */
+    private Boolean startDateBeforeEndDate() {
         if (startDate != null && endDate != null) {
             return startDate.before(endDate);
         } else {
@@ -105,7 +131,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     public Timestamp getStartDate() {
         return startDate;
     }
-
     public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
@@ -113,7 +138,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     public Timestamp getEndDate() {
         return endDate;
     }
-
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
@@ -121,7 +145,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     public Course getCourse() {
         return course;
     }
-
     public void setCourse(Course course) {
         this.course = course;
     }
@@ -129,7 +152,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     public Integer getRequiredSeats() {
         return requiredSeats;
     }
-
     public void setRequiredSeats(Integer requiredSeats) {
         this.requiredSeats = requiredSeats;
     }
@@ -161,7 +183,6 @@ public class ShowRoomListAvailableAction extends AbstractAction implements Prepa
     public Map getAvailableRooms() {
         return availableRooms;
     }
-
     public void setAvailableRooms(Map availableRooms) {
         this.availableRooms = availableRooms;
     }

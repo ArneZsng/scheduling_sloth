@@ -11,7 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by arne on 10/28/14.
+ * Show action for Room.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-18
  */
 public class ShowRoomAction extends AbstractAction {
     /** The current room. */
@@ -80,6 +84,9 @@ public class ShowRoomAction extends AbstractAction {
 
     }
 
+    /**
+     * Initializes previous week.
+     */
     private void initPreviousWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -88,6 +95,9 @@ public class ShowRoomAction extends AbstractAction {
         yearOfPreviousWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Initializes next week.
+     */
     private void initNextWeek() {
         Calendar calendar = Utilities.getSchedulingCalendar();
         calendar.setWeekDate(year, week, 7);
@@ -96,10 +106,20 @@ public class ShowRoomAction extends AbstractAction {
         yearOfNextWeek = calendar.get(Calendar.YEAR);
     }
 
+    /**
+     * Returns default week for select.
+     *
+     * @return String week number as String
+     */
     public String getDefaultWeek() {
         return String.format("%02d", week);
     }
 
+    /**
+     * Returns default year for select.
+     *
+     * @return String year number as String
+     */
     public String getDefaultYear() {
         return year.toString();
     }

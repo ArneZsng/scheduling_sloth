@@ -11,7 +11,11 @@ import org.hibernate.exception.ConstraintViolationException;
 import java.util.List;
 
 /**
- * Created by kevinscholz on 23/11/14.
+ * Abstract class for all DAOs.
+ *
+ * @author      Kevin Scholz <kevin.scholz@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-23
  */
 public abstract class AbstractDAO<E> {
     /** The Hibernate session factory. */

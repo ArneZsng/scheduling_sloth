@@ -8,9 +8,11 @@ import de.nak.scheduling_sloth.model.Lecturer;
 import java.util.List;
 
 /**
- * The lecturer service implementation class.
+ * Service interface implementation for Lecturer.
  *
- * Created by arne on 10/28/14.
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class LecturerServiceImpl implements LecturerService {
 

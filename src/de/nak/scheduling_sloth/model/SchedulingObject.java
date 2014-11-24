@@ -6,9 +6,9 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * Represents the business logic for all object which can be scheduled.
+ * Represents the business logic for all objects that can be scheduled.
  *
- * @author      <werwardas?> <>
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
  * @version     1.0
  * @since       2014-10-30
  */
