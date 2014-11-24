@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;
 import de.nak.scheduling_sloth.model.Lesson;
@@ -49,34 +48,31 @@ public class ShowRoomAction extends AbstractAction {
     public String execute() {
         try {
             room = roomService.loadRoomWithLessons(roomId);
-            if (room != null) {
-                if (week == 0 || year == 0) {
-                    Calendar calendar = Utilities.getSchedulingCalendar();
-                    week = calendar.get(Calendar.WEEK_OF_YEAR);
-                    year = calendar.get(Calendar.YEAR);
-                }
 
-                lessonList = room.retrieveLessonsInWeek(week, year);
-
-                initPreviousWeek();
-                initNextWeek();
-
-                // Populate calendar weeks for select box
-                for (int i = 1; i < 54; i++) {
-                    weeks.add(String.format("%02d", i));
-                }
-
-                // Populate years for select box, starting 2 years ago
+            if (week == 0 || year == 0) {
                 Calendar calendar = Utilities.getSchedulingCalendar();
-                int currentYear = calendar.get(Calendar.YEAR);
-                for (int j = -2; j < 10; j++) {
-                    years.add(Integer.toString(currentYear + j));
-                }
-
-                return SUCCESS;
-            } else {
-                return ERROR;
+                week = calendar.get(Calendar.WEEK_OF_YEAR);
+                year = calendar.get(Calendar.YEAR);
             }
+
+            lessonList = room.retrieveLessonsInWeek(week, year);
+
+            initPreviousWeek();
+            initNextWeek();
+
+            // Populate calendar weeks for select box
+            for (int i = 1; i < 54; i++) {
+                weeks.add(String.format("%02d", i));
+            }
+
+            // Populate years for select box, starting 2 years ago
+            Calendar calendar = Utilities.getSchedulingCalendar();
+            int currentYear = calendar.get(Calendar.YEAR);
+            for (int j = -2; j < 10; j++) {
+                years.add(Integer.toString(currentYear + j));
+            }
+
+            return SUCCESS;
         } catch (EntityNotFoundException e) {
             addActionError(getText(e.getMessage()));
             return ERROR;

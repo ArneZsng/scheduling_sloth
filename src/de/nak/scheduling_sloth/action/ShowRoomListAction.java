@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Room;

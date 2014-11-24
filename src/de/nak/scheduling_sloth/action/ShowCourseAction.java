@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.Action;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Course;
 import de.nak.scheduling_sloth.model.Lesson;
@@ -18,8 +17,6 @@ public class ShowCourseAction extends AbstractAction {
     private Long courseId;
     /** The name of the audience. */
     private String audienceName;
-    /** The lesson list. */
-    private List<Lesson> lessonList;
     /** The course service. */
     private CourseService courseService;
 
