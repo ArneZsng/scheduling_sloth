@@ -10,6 +10,5 @@ public class EntityNotDeletableException extends Exception {
 
     public EntityNotDeletableException(String message) {
         super(message);
-        System.out.println(message);
     }
 }

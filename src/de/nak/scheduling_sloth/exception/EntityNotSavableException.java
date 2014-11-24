@@ -9,6 +9,5 @@ public class EntityNotSavableException extends Exception{
 
     public EntityNotSavableException(String message) {
         super(message);
-        System.out.println(message);
     }
 }

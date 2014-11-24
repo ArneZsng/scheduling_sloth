@@ -136,7 +136,6 @@ public class RedirectMessageInterceptor extends MethodFilterInterceptor
             Collection<String> actionErrors = validationAware.getActionErrors();
             if (actionErrors != null && actionErrors.size() > 0)
             {
-                System.out.println(actionErrors);
                 session.put(ACTION_ERRORS_KEY, actionErrors);
             }
 
