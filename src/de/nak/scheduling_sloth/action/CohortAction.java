@@ -8,7 +8,11 @@ import de.nak.scheduling_sloth.service.CohortService;
 
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Class for all CRUD operations on Cohort.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class CohortAction extends AbstractAction {
     private static final long serialVersionUID = -4754341871128447493L;
@@ -86,9 +90,6 @@ public class CohortAction extends AbstractAction {
 
     /**
      * Cancels the editing.
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */

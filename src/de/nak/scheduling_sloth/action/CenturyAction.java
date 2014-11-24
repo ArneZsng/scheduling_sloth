@@ -15,7 +15,11 @@ import java.util.List;
 
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Class for all CRUD operations on Century.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class CenturyAction extends AbstractAction implements Preparable {
     private static final long serialVersionUID = 579538793082702877L;
@@ -102,9 +106,6 @@ public class CenturyAction extends AbstractAction implements Preparable {
 
     /**
      * Cancels the editing.
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */
@@ -113,7 +114,7 @@ public class CenturyAction extends AbstractAction implements Preparable {
     }
 
     /**
-     * Start adding a Century
+     * Start adding a century
      *
      * @return the result string.
      */
@@ -131,7 +132,7 @@ public class CenturyAction extends AbstractAction implements Preparable {
     }
 
     /**
-     * Load all Cohorts for selection and sets the default breakTime
+     * Load all cohorts for selection
      */
     public void prepare() throws EntityNotFoundException {
         cohortList = cohortService.loadAllCohorts();
