@@ -71,7 +71,7 @@ public class ShowCenturyAction extends AbstractAction {
             for (int j = -2; j < 10; j++) {
                 years.add(Integer.toString(currentYear + j));
             }
-            
+
             return SUCCESS;
 
         } catch (EntityNotFoundException e) {
@@ -144,32 +144,16 @@ public class ShowCenturyAction extends AbstractAction {
         return weekOfPreviousWeek;
     }
 
-    public void setWeekOfPreviousWeek(Integer weekOfPreviousWeek) {
-        this.weekOfPreviousWeek = weekOfPreviousWeek;
-    }
-
     public Integer getYearOfPreviousWeek() {
         return yearOfPreviousWeek;
-    }
-
-    public void setYearOfPreviousWeek(Integer yearOfPreviousWeek) {
-        this.yearOfPreviousWeek = yearOfPreviousWeek;
     }
 
     public Integer getWeekOfNextWeek() {
         return weekOfNextWeek;
     }
 
-    public void setWeekOfNextWeek(Integer weekOfNextWeek) {
-        this.weekOfNextWeek = weekOfNextWeek;
-    }
-
     public Integer getYearOfNextWeek() {
         return yearOfNextWeek;
-    }
-
-    public void setYearOfNextWeek(Integer yearOfNextWeek) {
-        this.yearOfNextWeek = yearOfNextWeek;
     }
 
     public List<String> getWeeks() {
