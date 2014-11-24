@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents the course business logic. A course has one ore more lessons.
@@ -172,7 +173,7 @@ public class Course {
         return result;
     }
 
-    public List<Room> retrieveRoomsOfFirstLesson() {
+    public Set<Room> retrieveRoomsOfFirstLesson() {
         return retrieveFirstLesson().getRooms();
     }
 

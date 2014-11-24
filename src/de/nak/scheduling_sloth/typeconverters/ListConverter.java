@@ -4,9 +4,7 @@ import com.opensymphony.xwork2.conversion.TypeConversionException;
 import de.nak.scheduling_sloth.model.Room;
 import org.apache.struts2.util.StrutsTypeConverter;
 
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  * Created by kevinscholz on 08/11/14.
@@ -27,9 +25,9 @@ public class ListConverter extends StrutsTypeConverter {
     public String convertToString(Map context, Object object) throws TypeConversionException  {
         try {
             String result = "-";
-            if (object instanceof List && ((List) object).size() > 0 && ((List) object).get(0) instanceof Room) {
+            if (object instanceof HashSet && ((Set) object).size() > 0 && ((Set) object).iterator().next() instanceof Room) {
                 StringJoiner rooms = new StringJoiner(", ");
-                for (Room room: ((List<Room>) object)) {
+                for (Room room: ((Set<Room>) object)) {
                     rooms.add(room.getName());
                 }
                 result = rooms.toString();

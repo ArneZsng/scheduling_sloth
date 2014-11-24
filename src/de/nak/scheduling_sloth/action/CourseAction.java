@@ -33,7 +33,7 @@ public class CourseAction extends AbstractAction implements Preparable {
     /** The list of the passed rooms. */
     private String[] rooms;
     /** The list of the selected rooms. */
-    private List<Long> selectedRooms = new ArrayList<Long>();
+    private Set<Long> selectedRooms = new HashSet<Long>();
     /** The current number of repetitions. */
     private Integer numberOfRepetitions = 0;
     /** The course's identifier selected by the user. */
@@ -103,7 +103,7 @@ public class CourseAction extends AbstractAction implements Preparable {
 
             for (Lesson lesson : course.getLessons()) {
                 lesson.setCourse(course);
-                List<Room> selectedRoomList = new ArrayList<Room>();
+                Set<Room> selectedRoomList = new HashSet<Room>();
                 for (Room room:lesson.getRooms()) {
                     selectedRoomList.add(roomService.loadRoom(room.getId()));
                 }
@@ -292,7 +292,7 @@ public class CourseAction extends AbstractAction implements Preparable {
                 lesson.setStartDate(startDate);
                 lesson.setEndDate(endDate);
 
-                List<Room> rooms = new ArrayList<Room>();
+                Set<Room> rooms = new HashSet<Room>();
                 for (Long roomId: selectedRooms) {
                     rooms.add(roomService.loadRoom(roomId));
                 }
@@ -334,7 +334,7 @@ public class CourseAction extends AbstractAction implements Preparable {
                 lesson.setStartDate(startDate);
                 lesson.setEndDate(endDate);
 
-                List<Room> rooms = new ArrayList<Room>();
+                Set<Room> rooms = new HashSet<Room>();
                 for (Long roomId: selectedRooms) {
                     rooms.add(roomService.loadRoom(roomId));
                 }
@@ -480,8 +480,8 @@ public class CourseAction extends AbstractAction implements Preparable {
         // Skip by @SkipValidate, if no form validations necessary
     }
 
-    public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
-        ArrayList<Long> roomIds = new ArrayList<Long>();
+    public HashSet<Long> getRoomIdsFromList(Set<Room> rooms) {
+        HashSet<Long> roomIds = new HashSet<Long>();
         for(Room room:rooms) {
             roomIds.add(room.getId());
         }
@@ -558,10 +558,10 @@ public class CourseAction extends AbstractAction implements Preparable {
     public boolean getCollisionFlag() { return collisionFlag; }
     public void setCollisionFlag(boolean collisionFlag) { this.collisionFlag = collisionFlag; }
 
-    public List<Long> getSelectedRooms() {
+    public Set<Long> getSelectedRooms() {
         return selectedRooms;
     }
-    public void setSelectedRooms(List<Long> selectedRooms) {
+    public void setSelectedRooms(Set<Long> selectedRooms) {
         this.selectedRooms = selectedRooms;
     }
 

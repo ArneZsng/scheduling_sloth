@@ -6,7 +6,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents the lesson business logic with collision checks.
@@ -24,7 +26,7 @@ public class Lesson implements Comparable<Lesson> {
     /** Enddate of the lesson. */
     private Timestamp endDate;
     /** Rooms of the lesson. */
-    private List<Room> rooms = new ArrayList<Room>();
+    private Set<Room> rooms = new HashSet<Room>();
     /** Course of the lesson. */
     private Course course;
 
@@ -59,10 +61,10 @@ public class Lesson implements Comparable<Lesson> {
     @JoinTable(name="lesson_room", joinColumns={
             @JoinColumn(name="lesson_id")}, inverseJoinColumns={
             @JoinColumn(name="room_id")})
-    public List<Room> getRooms() {
+    public Set<Room> getRooms() {
         return rooms;
     }
-    public void setRooms(List<Room> rooms) {
+    public void setRooms(Set<Room> rooms) {
         this.rooms = rooms;
     }
 
