@@ -10,9 +10,12 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * DAO class for Century.
+ *
+ * @author      Hendrik Makait <hendrik.makait@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
-
 public class CenturyDAO extends AbstractDAO<Century> {
 
     public CenturyDAO() {
@@ -39,10 +42,10 @@ public class CenturyDAO extends AbstractDAO<Century> {
     }
 
     /**
-     * Loads a single lecturer entity from the database with its courses and lessons.
+     * Loads a single century entity from the database with its courses and lessons.
      *
      * @param id The identifier.
-     * @return a lecturer or null if no lecturer was found with the given identifier.
+     * @return a lecturer or null if no century was found with the given identifier.
      */
     public Century loadWithLessons(Long id) throws EntityNotFoundException {
         Session session = getSessionFactory().getCurrentSession();

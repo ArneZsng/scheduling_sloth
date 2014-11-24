@@ -7,9 +7,12 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * DAO class for Course.
+ *
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
-
 public class CourseDAO extends AbstractDAO<Course> {
 
     public CourseDAO() {

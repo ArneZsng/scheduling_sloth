@@ -10,9 +10,11 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
- * Lecturer data access object.
+ * DAO class for Lecturer.
  *
- * Created by arne on 10/28/14.
+ * @author      Arne Zeising <arne.zeising@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class LecturerDAO extends AbstractDAO<Lecturer> {
 
