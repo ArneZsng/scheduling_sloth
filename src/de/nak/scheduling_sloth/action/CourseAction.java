@@ -93,10 +93,14 @@ public class CourseAction extends AbstractAction implements Preparable {
             // Check lessons and prepare for saving
             for (Lesson lesson : course.getLessons()) {
                 lesson.setCourse(course);
+
+                // Check for duplicate room ids
                 Set<Long> selectedRoomListIds = new HashSet<Long>();
                 for (Room room: lesson.getRooms()) {
                     selectedRoomListIds.add(room.getId());
                 }
+
+                // Get rooms from database and set relationship
                 List<Room> selectedRoomList = new ArrayList<Room>();
                 for (Long id: selectedRoomListIds) {
                     selectedRoomList.add(roomService.loadRoom(id));
