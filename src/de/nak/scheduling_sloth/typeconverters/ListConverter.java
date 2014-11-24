@@ -38,7 +38,10 @@ public class ListConverter extends StrutsTypeConverter {
                         rooms.add(((Room) list.get(i)).getName());
                     }
                 }
-                result = rooms.toString();
+
+                if (rooms.length() > 0) {
+                    result = rooms.toString();
+                }
             }
             return result;
         } catch (Exception e) {
