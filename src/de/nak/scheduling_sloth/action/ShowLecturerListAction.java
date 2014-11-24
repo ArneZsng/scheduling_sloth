@@ -4,8 +4,6 @@ import com.opensymphony.xwork2.Preparable;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.model.Lecturer;
 import de.nak.scheduling_sloth.service.LecturerService;
-
-import java.sql.PreparedStatement;
 import java.util.List;
 
 /**

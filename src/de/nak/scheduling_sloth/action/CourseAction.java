@@ -372,7 +372,7 @@ public class CourseAction extends AbstractAction implements Preparable {
         recheck = true;
         return SUCCESS;
     }
-    
+
     /**
      * Validates for business logic
      *
