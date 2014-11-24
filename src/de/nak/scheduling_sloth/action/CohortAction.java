@@ -1,6 +1,5 @@
 package de.nak.scheduling_sloth.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import de.nak.scheduling_sloth.exception.EntityNotDeletableException;
 import de.nak.scheduling_sloth.exception.EntityNotFoundException;
 import de.nak.scheduling_sloth.exception.EntityNotSavableException;
@@ -47,7 +46,6 @@ public class CohortAction extends AbstractAction {
             cohort = cohortService.loadCohort(cohortId);
             Boolean coursesAssociated = !cohort.getCourses().isEmpty();
             Boolean centuriesAssociated = !cohort.getCenturies().isEmpty();
-            System.out.println(cohort.getCenturies());
             if (!coursesAssociated && !centuriesAssociated) {
                 cohortService.deleteCohort(cohort);
                 return SUCCESS;

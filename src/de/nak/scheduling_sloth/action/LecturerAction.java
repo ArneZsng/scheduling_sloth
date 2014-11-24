@@ -149,5 +149,4 @@ public class LecturerAction extends AbstractAction implements Preparable {
     public Integer getDefaultBreakTime() {
         return this.defaultBreakTime;
     }
-
 }
