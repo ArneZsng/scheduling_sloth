@@ -9,11 +9,23 @@ import java.util.Map;
 import java.util.StringJoiner;
 
 /**
- * Created by kevinscholz on 08/11/14.
+ * List converter for rooms, etc.
+ *
+ * @author      Kevin Scholz <kevin.scholz@nordakademie.de>
+ * @version     1.0
+ * @since       2014-11-08
  */
-
 public class ListConverter extends StrutsTypeConverter {
 
+    /**
+     * Converts from string.
+     *
+     * @param context
+     * @param values
+     * @param toClass
+     * @return Object null
+     * @throws TypeConversionException
+     */
     @Override
     public Object convertFromString(Map context, String[] values, Class toClass) throws TypeConversionException {
         try {
@@ -23,6 +35,14 @@ public class ListConverter extends StrutsTypeConverter {
         }
     }
 
+    /**
+     * Converts a list to a string representation.
+     *
+     * @param context
+     * @param object
+     * @return String list representation
+     * @throws TypeConversionException
+     */
     @Override
     public String convertToString(Map context, Object object) throws TypeConversionException  {
         try {
