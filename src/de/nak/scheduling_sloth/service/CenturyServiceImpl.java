@@ -9,7 +9,11 @@ import de.nak.scheduling_sloth.model.Century;
 import java.util.List;
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Service interface implementation for Century.
+ *
+ * @author      Patrik Ghahramanian <patrik.ghahramanian@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class CenturyServiceImpl implements CenturyService {
 	/** The Century DAO. */
