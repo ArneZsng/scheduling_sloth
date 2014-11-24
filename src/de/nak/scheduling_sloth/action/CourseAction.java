@@ -14,7 +14,11 @@ import java.util.*;
 
 
 /**
- * Created by patrickghahramanian on 28.10.14.
+ * Class for all CRUD operations on Course.
+ *
+ * @author      Kevin Scholz <kevin.scholz@nordakademie.de>
+ * @version     1.0
+ * @since       2014-10-28
  */
 public class CourseAction extends AbstractAction implements Preparable {
     private static final long serialVersionUID = -2085704409810512813L;
@@ -128,6 +132,11 @@ public class CourseAction extends AbstractAction implements Preparable {
         }
     }
 
+    /**
+     * Prepare method for save.
+     *
+     * @throws EntityNotFoundException
+     */
     public void prepareSave() throws EntityNotFoundException {
         roomList = roomService.loadAllRooms();
     }
@@ -216,9 +225,6 @@ public class CourseAction extends AbstractAction implements Preparable {
 
     /**
      * Cancels the editing.
-     * This method is implemented in order to avoid problems with parameter submit and validation.
-     * A direct link to the "ShowRoomList" action does work but results in multiple stack traces in the
-     * application's log.
      *
      * @return the result string.
      */
@@ -245,6 +251,10 @@ public class CourseAction extends AbstractAction implements Preparable {
         setEndDate(new Timestamp(startDate.getTime() + (30 * 60000)));
     }
 
+
+    /**
+     * Loads all necessary core data
+     */
     private void loadCoreDate() {
         try {
             lecturerList = lecturerService.loadAllLecturers();
@@ -322,10 +332,20 @@ public class CourseAction extends AbstractAction implements Preparable {
 
     }
 
+    /**
+     * Prepares the edit lesson method.
+     */
     public void prepareEditLessons() {
         loadCoreDate();
     }
 
+    /**
+     * Creates a placeholder lesson for repetition screen.
+     *
+     * @param course
+     * @param week
+     * @return lesson
+     */
     private Lesson createPlaceholderLesson(Course course, int week) {
         Lesson lesson = new Lesson();
         lesson.setCourse(course);
@@ -343,6 +363,14 @@ public class CourseAction extends AbstractAction implements Preparable {
         return lesson;
     }
 
+    /**
+     * Saves course and returns result as String.
+     *
+     * @return String
+     * @throws EntityNotFoundException
+     * @throws EntityNotDeletableException
+     * @throws EntityNotSavableException
+     */
     private String saveCourseImmediately() throws EntityNotFoundException, EntityNotDeletableException, EntityNotSavableException {
         Lesson lesson = new Lesson();
         lesson.setCourse(course);
@@ -367,6 +395,11 @@ public class CourseAction extends AbstractAction implements Preparable {
         return REDIRECT;
     }
 
+    /**
+     * Activates the revalidation check.
+     *
+     * @return a return type.
+     */
     @SkipValidation
     public String recheck() {
         recheck = true;
@@ -476,6 +509,11 @@ public class CourseAction extends AbstractAction implements Preparable {
         }
     }
 
+    /**
+     * Identifies IDs of all lessons that are supposed to be kept.
+     *
+     * @return List of IDs
+     */
     private List<Long> identifyLessonIdsToKeep() {
         List<Long> lessonIdsToKeep = new ArrayList<Long>();
         for (Lesson lesson : course.getLessons()) {
@@ -484,6 +522,13 @@ public class CourseAction extends AbstractAction implements Preparable {
         return lessonIdsToKeep;
     }
 
+    /**
+     * Identifies lessons that can be deleted due to reduced number of repetitions.
+     *
+     * @param lessonIdsToKeep
+     * @return
+     * @throws EntityNotFoundException
+     */
     private List<Lesson> identifyLessonsToDelete(final List<Long> lessonIdsToKeep) throws EntityNotFoundException {
         List<Lesson> lessonsToDelete = new ArrayList<Lesson>();
 
@@ -501,11 +546,19 @@ public class CourseAction extends AbstractAction implements Preparable {
         return lessonsToDelete;
     }
 
+    /**
+     * Prevent unnecessary validations.
+     */
     @Override
     public void validate() {
         // Skip by @SkipValidate, if no form validations necessary
     }
 
+    /**
+     *
+     * @param rooms A list of rooms.
+     * @return ArrayList of room IDs.
+     */
     public ArrayList<Long> getRoomIdsFromList(List<Room> rooms) {
         ArrayList<Long> roomIds = new ArrayList<Long>();
         for(Room room:rooms) {
@@ -520,7 +573,11 @@ public class CourseAction extends AbstractAction implements Preparable {
         return roomIds;
     }
 
-
+    /**
+     * General prepare method.
+     *
+     * @throws Exception
+     */
     @Override
     public void prepare() throws Exception {
         return;
@@ -557,6 +614,12 @@ public class CourseAction extends AbstractAction implements Preparable {
     public Timestamp getStartDate() {
         return startDate;
     }
+
+    /**
+     * Sets startDate that was passed.
+     *
+     * @param startDate
+     */
     public void setStartDate(Timestamp startDate) {
         if ("".equals(startDate)) {
             this.startDate = null;
@@ -567,6 +630,12 @@ public class CourseAction extends AbstractAction implements Preparable {
     public Timestamp getEndDate() {
         return endDate;
     }
+
+    /**
+     * Sets endDate that was passed.
+     *
+     * @param endDate
+     */
     public void setEndDate(Timestamp endDate) {
         if ("".equals(endDate)) {
             this.endDate = null;
