@@ -125,9 +125,9 @@ public class Course {
      * @return Audience size
      */
     public Integer retrieveAudienceSize() {
-        if (cohort != null && cohort.getId() != null) {
+        if (cohort != null && cohort.getId() != null && cohort.getId() != -1) {
             return cohort.retrieveNumberOfStudents();
-        } else if (century != null && century.getId() != null) {
+        } else if (century != null && century.getId() != null && century.getId() != -1) {
             return century.getNumberOfStudents();
         } else {
             return 0;
